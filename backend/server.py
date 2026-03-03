@@ -438,13 +438,19 @@ async def create_review(review: ReviewCreate, request: Request):
     
     await db.reviews.insert_one(review_data.model_dump())
     
-    # Update product rating
-    all_reviews = await db.reviews.find({"product_id": review.product_id}, {"_id": 0}).to_list(1000)
-    avg_rating = sum(r["rating"] for r in all_reviews) / len(all_reviews)
-    await db.products.update_one(
-        {"product_id": review.product_id},
-        {"$set": {"rating": round(avg_rating, 1), "review_count": len(all_reviews)}}
-    )
+    # Update product rating using aggregation pipeline (optimized)
+    pipeline = [
+        {"$match": {"product_id": review.product_id}},
+        {"$group": {"_id": None, "avg_rating": {"$avg": "$rating"}, "count": {"$sum": 1}}}
+    ]
+    result = await db.reviews.aggregate(pipeline).to_list(1)
+    if result:
+        avg_rating = result[0]["avg_rating"]
+        review_count = result[0]["count"]
+        await db.products.update_one(
+            {"product_id": review.product_id},
+            {"$set": {"rating": round(avg_rating, 1), "review_count": review_count}}
+        )
     
     return review_data.model_dump()
 
@@ -756,49 +762,66 @@ async def get_order(order_id: str, request: Request):
 # ==================== SELLER DASHBOARD ====================
 
 @api_router.get("/seller/products")
-async def get_seller_products(request: Request):
-    """Get seller's products"""
+async def get_seller_products(request: Request, limit: int = 100, skip: int = 0):
+    """Get seller's products with pagination"""
     user = await require_seller(request)
-    products = await db.products.find({"seller_id": user.user_id}, {"_id": 0}).to_list(1000)
+    products = await db.products.find(
+        {"seller_id": user.user_id}, 
+        {"_id": 0}
+    ).skip(skip).limit(limit).to_list(limit)
     return products
 
 @api_router.get("/seller/orders")
-async def get_seller_orders(request: Request):
-    """Get orders containing seller's products"""
+async def get_seller_orders(request: Request, limit: int = 50, skip: int = 0):
+    """Get orders containing seller's products with pagination"""
     user = await require_seller(request)
     
-    # Find orders with seller's products
     orders = await db.orders.find(
         {"items.seller_id": user.user_id},
         {"_id": 0}
-    ).sort("created_at", -1).to_list(100)
+    ).sort("created_at", -1).skip(skip).limit(limit).to_list(limit)
     
     return orders
 
 @api_router.get("/seller/stats")
 async def get_seller_stats(request: Request):
-    """Get seller statistics"""
+    """Get seller statistics using aggregation pipelines"""
     user = await require_seller(request)
     
-    products = await db.products.find({"seller_id": user.user_id}, {"_id": 0}).to_list(1000)
-    total_products = len(products)
-    total_stock = sum(p.get("stock", 0) for p in products)
-    avg_rating = sum(p.get("rating", 0) for p in products) / total_products if total_products > 0 else 0
+    # Product stats using aggregation
+    product_pipeline = [
+        {"$match": {"seller_id": user.user_id}},
+        {"$group": {
+            "_id": None,
+            "total_products": {"$sum": 1},
+            "total_stock": {"$sum": "$stock"},
+            "avg_rating": {"$avg": "$rating"}
+        }}
+    ]
+    product_stats = await db.products.aggregate(product_pipeline).to_list(1)
     
-    # Count orders
-    orders = await db.orders.find({"items.seller_id": user.user_id, "status": "paid"}, {"_id": 0}).to_list(1000)
-    total_orders = len(orders)
-    total_revenue = sum(
-        sum(item["price"] * item["quantity"] for item in order["items"] if item.get("seller_id") == user.user_id)
-        for order in orders
-    )
+    # Order stats using aggregation
+    order_pipeline = [
+        {"$match": {"items.seller_id": user.user_id, "status": "paid"}},
+        {"$unwind": "$items"},
+        {"$match": {"items.seller_id": user.user_id}},
+        {"$group": {
+            "_id": None,
+            "total_orders": {"$sum": 1},
+            "total_revenue": {"$sum": {"$multiply": ["$items.price", "$items.quantity"]}}
+        }}
+    ]
+    order_stats = await db.orders.aggregate(order_pipeline).to_list(1)
+    
+    p_stats = product_stats[0] if product_stats else {"total_products": 0, "total_stock": 0, "avg_rating": 0}
+    o_stats = order_stats[0] if order_stats else {"total_orders": 0, "total_revenue": 0}
     
     return {
-        "total_products": total_products,
-        "total_stock": total_stock,
-        "avg_rating": round(avg_rating, 1),
-        "total_orders": total_orders,
-        "total_revenue": round(total_revenue, 2)
+        "total_products": p_stats.get("total_products", 0),
+        "total_stock": p_stats.get("total_stock", 0),
+        "avg_rating": round(p_stats.get("avg_rating", 0) or 0, 1),
+        "total_orders": o_stats.get("total_orders", 0),
+        "total_revenue": round(o_stats.get("total_revenue", 0), 2)
     }
 
 # ==================== SEED DATA ====================
