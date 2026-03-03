@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 const { width } = Dimensions.get('window');
@@ -39,15 +39,25 @@ export function ProductCard({ product, onPress, horizontal = false }: ProductCar
     ? Math.round(((product.original_price - product.price) / product.original_price) * 100)
     : 0;
 
+  const imageUrl = product.images && product.images.length > 0 ? product.images[0] : null;
+
   return (
     <TouchableOpacity
       style={[styles.container, horizontal && styles.horizontalContainer]}
       onPress={onPress}
       activeOpacity={0.8}
     >
-      {/* Image Placeholder */}
+      {/* Product Image */}
       <View style={[styles.imageContainer, horizontal && styles.horizontalImage]}>
-        <Ionicons name="cube-outline" size={40} color={COLORS.gray} />
+        {imageUrl ? (
+          <Image 
+            source={{ uri: imageUrl }} 
+            style={styles.productImage}
+            resizeMode="cover"
+          />
+        ) : (
+          <Ionicons name="cube-outline" size={40} color={COLORS.gray} />
+        )}
         {discount > 0 && (
           <View style={styles.discountBadge}>
             <Text style={styles.discountText}>-{discount}%</Text>
@@ -113,6 +123,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
+    overflow: 'hidden',
+  },
+  productImage: {
+    width: '100%',
+    height: '100%',
   },
   horizontalImage: {
     height: 120,

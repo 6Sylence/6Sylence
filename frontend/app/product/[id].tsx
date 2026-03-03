@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   Alert,
   Platform,
+  Image,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -115,7 +116,15 @@ export default function ProductDetailScreen() {
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         {/* Image */}
         <View style={styles.imageContainer}>
-          <Ionicons name="cube-outline" size={80} color={COLORS.gray} />
+          {product.images && product.images.length > 0 ? (
+            <Image 
+              source={{ uri: product.images[0] }} 
+              style={styles.productImage}
+              resizeMode="cover"
+            />
+          ) : (
+            <Ionicons name="cube-outline" size={80} color={COLORS.gray} />
+          )}
           {discount > 0 && (
             <View style={styles.discountBadge}>
               <Text style={styles.discountText}>-{discount}%</Text>
@@ -311,6 +320,11 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
     position: 'relative',
+    overflow: 'hidden',
+  },
+  productImage: {
+    width: '100%',
+    height: '100%',
   },
   discountBadge: {
     position: 'absolute',
