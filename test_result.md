@@ -315,9 +315,9 @@ frontend:
 
   - task: "Product Detail Screen"
     implemented: true
-    working: true
+    working: false
     file: "/app/frontend/app/product/[id].tsx"
-    stuck_count: 0
+    stuck_count: 1
     priority: "high"
     needs_retesting: false
     status_history:
@@ -327,6 +327,9 @@ frontend:
       - working: true
         agent: "testing"
         comment: "✅ TESTED on mobile: Product detail screen functional. Successfully navigated to product (iPhone 15 Pro Max) showing product images from Unsplash, proper pricing display, rating system. Minor: Product detail loaded but some specific elements like 'Añadir al carrito' button and description section were positioned differently than expected. Core functionality works with product display and navigation."
+      - working: false
+        agent: "testing"
+        comment: "❌ CRITICAL ISSUE FOUND: Product detail navigation works (URL changes to /product/[id]) but product detail page shows only loading spinner. Backend logs show '404 Not Found' for GET /api/products/prod_8bfc9d838496 - the product IDs are not matching between frontend navigation and backend data. Product detail page cannot load product information (price, rating, add to cart button, quantity selector) due to API 404 errors. This blocks core functionality of viewing individual products and adding to cart."
 
   - task: "Seller Dashboard"
     implemented: true
@@ -347,8 +350,10 @@ metadata:
   run_ui: false
 
 test_plan:
-  current_focus: []
-  stuck_tasks: []
+  current_focus:
+    - "Product Detail Screen"
+  stuck_tasks:
+    - "Product Detail Screen"
   test_all: false
   test_priority: "high_first"
 
@@ -361,3 +366,5 @@ agent_communication:
     message: "✅ MOBILE FRONTEND TESTING COMPLETE (390x844): All requested features tested successfully. Home screen shows categories, featured products with real Unsplash images, proper pricing (€1299.99), and ratings. Categories screen displays 14+ categories with icons. Product detail screen loads with images and info. Cart shows empty state for unauthenticated users. Profile shows Google login. Search functionality accepts input. App is fully mobile-responsive and ready for production use."
   - agent: "testing"
     message: "🎉 COMPREHENSIVE MARKETPLACE API TESTING COMPLETE (25/25 tests passed - 100%): Successfully tested ALL endpoints including authenticated flows using direct MongoDB user/session setup. ✅ Public APIs: Categories (14), Products (16), Search, Reviews working perfectly. ✅ Auth Flow: Created test user directly in MongoDB, all auth endpoints working with Bearer token. ✅ Cart Operations: Add, update, clear all functional. ✅ Seller Flow: User upgrade to seller, product CRUD operations, seller dashboard stats. ✅ Reviews: Create and retrieve reviews with automatic product rating updates. All 25 endpoints tested with real data (Samsung Galaxy A54, iPhone 15 Pro Max, €1299.99 transactions). The marketplace backend is production-ready."
+  - agent: "testing"
+    message: "🎯 COMPREHENSIVE MOBILE FLOW TESTING COMPLETE (390x844): Conducted extensive testing of all requested flows. ✅ HOME SCREEN: MarketPro logo, search bar, categories section, featured products, and popular products all displaying correctly with 10+ products with proper pricing. ✅ CATEGORIES: Successfully displays 'Explora por categoría' with 8+ categories (Electrónica, Moda, Hogar, Deportes, etc.) with proper icons and navigation. Category filtering works - Electronics shows iPhone 15 Pro Max (€1299.99 -13%) and Samsung Galaxy S24 Ultra (€1199.99 -14%). ✅ CART: Empty cart state working perfectly with 'Tu carrito está vacío' message and 'Explorar productos' button for unauthenticated users. ✅ PROFILE: Login screen shows 'Inicia sesión para ver tu perfil' and 'Continuar con Google' button. ✅ SEARCH: Successfully searches for 'MacBook' and displays results page. ✅ NAVIGATION: All 4 tabs (Inicio, Categorías, Carrito, Perfil) working with smooth transitions. ❌ PRODUCT DETAIL ISSUE: Product detail page navigation works (URL changes correctly) but content shows loading spinner instead of product details (price, rating, add to cart button, quantity selector). This appears to be an API loading issue on the product detail screen that prevents viewing individual product information."
