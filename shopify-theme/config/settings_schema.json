@@ -1913,6 +1913,35 @@
       },
       {
         "type": "header",
+        "content": "Badges Nuevo / Bestseller"
+      },
+      {
+        "type": "checkbox",
+        "id": "custom_badges_enabled",
+        "label": "Mostrar badges Nuevo y Bestseller",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "badge_new_days",
+        "label": "Días que un producto cuenta como 'Nuevo'",
+        "min": 7,
+        "max": 90,
+        "step": 1,
+        "unit": "d",
+        "default": 30,
+        "visible_if": "{{ settings.custom_badges_enabled == true }}"
+      },
+      {
+        "type": "text",
+        "id": "badge_bestseller_collection_handle",
+        "label": "Colección de bestsellers",
+        "info": "Handle de la colección (manual, máx. 50 productos) cuyos productos llevan el badge Bestseller.",
+        "default": "bestsellers",
+        "visible_if": "{{ settings.custom_badges_enabled == true }}"
+      },
+      {
+        "type": "header",
         "content": "t:settings.media"
       },
       {

@@ -309,6 +309,8 @@
     "free_shipping_unlocked": "🎉 You've unlocked free shipping!",
     "free_shipping_progress_label": "Progress towards free shipping",
     "cart_cross_sell_title": "Complete your look",
+    "product_badge_new": "New",
+    "product_badge_bestseller": "Bestseller",
     "product_count": "Product count",
     "errors": "Errors",
     "wrong_password": "Wrong password",

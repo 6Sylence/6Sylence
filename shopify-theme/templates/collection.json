@@ -146,6 +146,17 @@
               },
               "blocks": {}
             },
+            "rating_stars_col": {
+              "type": "review",
+              "settings": {
+                "stars_style": "shaded",
+                "show_number": false,
+                "type_preset": "h6",
+                "width": "fit-content",
+                "alignment": "left"
+              },
+              "blocks": {}
+            },
             "product_title_4nY4eT": {
               "type": "product-title",
               "name": "t:names.product_title",
@@ -195,6 +206,7 @@
           "block_order": [
             "card-gallery",
             "product_title_4nY4eT",
+            "rating_stars_col",
             "price_EzJzMm"
           ]
         }

@@ -1,0 +1,70 @@
+{%- doc -%}
+  Badges "Nuevo" y "Bestseller" para tarjetas de producto.
+  - "Nuevo": productos creados hace menos de `badge_new_days` días.
+  - "Bestseller": productos que pertenecen a la colección configurada
+    (por defecto la colección manual 'bestsellers').
+  Se posicionan en la esquina opuesta a los badges nativos (Oferta/Agotado)
+  para no solaparse. Reutiliza los estilos .product-badges del tema.
+
+  @param {object} product - El producto de la tarjeta
+{%- enddoc -%}
+
+{%- liquid
+  assign cb_enabled = settings.custom_badges_enabled | default: true, allow_false: true
+-%}
+
+{%- if cb_enabled and product != blank -%}
+  {%- liquid
+    assign cb_label = ''
+
+    assign bestseller_handle = settings.badge_bestseller_collection_handle | default: 'bestsellers'
+    assign bestseller_collection = collections[bestseller_handle]
+    if bestseller_collection != blank and bestseller_collection.products_count > 0 and bestseller_collection.products_count <= 50
+      for bs_product in bestseller_collection.products
+        if bs_product.id == product.id
+          assign cb_label = 'content.product_badge_bestseller'
+          break
+        endif
+      endfor
+    endif
+
+    if cb_label == blank
+      assign cb_new_days = settings.badge_new_days | default: 30
+      assign cb_window = cb_new_days | times: 86400
+      assign cb_now = 'now' | date: '%s' | plus: 0
+      assign cb_created = product.created_at | date: '%s' | plus: 0
+      assign cb_age = cb_now | minus: cb_created
+      if cb_age < cb_window
+        assign cb_label = 'content.product_badge_new'
+      endif
+    endif
+
+    assign cb_position = 'top-left'
+    if settings.badge_position == 'top-left'
+      assign cb_position = 'top-right'
+    endif
+  -%}
+
+  {%- if cb_label != blank -%}
+    <div class="product-badges product-badges--{{ cb_position }} product-badges--custom">
+      <span class="product-badges__badge product-badges__badge--rectangle product-badges__badge--highlight">
+        {{ cb_label | t }}
+      </span>
+    </div>
+  {%- endif -%}
+{%- endif -%}
+
+{% stylesheet %}
+  .product-badges--custom {
+    --badge-rectangle-padding-block: 4px;
+    --badge-rectangle-padding-inline: 10px;
+
+    pointer-events: none;
+  }
+
+  .product-badges__badge--highlight {
+    background: #f7572d;
+    color: #ffffff;
+    letter-spacing: 0.04em;
+  }
+{% endstylesheet %}
