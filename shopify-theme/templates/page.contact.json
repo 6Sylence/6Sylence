@@ -93,7 +93,7 @@
               "type": "contact-form-submit-button",
               "static": true,
               "settings": {
-                "label": "Submit",
+                "label": "Enviar",
                 "style_class": "button",
                 "width": "fit-content",
                 "custom_width": 100,

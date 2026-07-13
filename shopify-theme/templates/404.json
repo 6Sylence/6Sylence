@@ -15,7 +15,7 @@
           "type": "text",
           "name": "t:names.text",
           "settings": {
-            "text": "<h1>Page not found</h1>",
+            "text": "<h1>Página no encontrada</h1>",
             "width": "100%",
             "max_width": "normal",
             "alignment": "center",
@@ -39,7 +39,7 @@
           "type": "text",
           "name": "t:names.text",
           "settings": {
-            "text": "<p>The link may be incorrect, or the page has been removed. </p>",
+            "text": "<p>Puede que el enlace sea incorrecto o que la página se haya eliminado.</p>",
             "width": "100%",
             "max_width": "normal",
             "alignment": "center",
@@ -63,7 +63,7 @@
           "type": "button",
           "name": "t:names.button",
           "settings": {
-            "label": "Continue shopping",
+            "label": "Seguir comprando",
             "link": "shopify://collections/all",
             "open_in_new_tab": false,
             "style_class": "button",
@@ -130,7 +130,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p>Discover something new</p>",
+                "text": "<p>Descubre algo nuevo</p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
