@@ -15,7 +15,8 @@
   <span class="footer-utilities__text">
     &copy; {{ 'now' | date: '%Y' }}
     {{ shop.name | link_to: routes.root_url -}}
-    span>
+    {%- if block_settings.show_powered_by %}, {{ powered_by_link }}{% endif -%}
+  </span>
 </div>
 
 {% stylesheet %}

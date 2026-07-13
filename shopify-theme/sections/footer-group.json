@@ -56,7 +56,7 @@
             "text_LWt8Pz": {
               "type": "text",
               "settings": {
-                "text": "<h2>Join our email list</h2>",
+                "text": "<h2>Únete a la familia SRHOOD</h2>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "left",
@@ -81,7 +81,7 @@
             "text_f9CFLH": {
               "type": "text",
               "settings": {
-                "text": "<p>Get exclusive deals and early access to new products.</p>",
+                "text": "<p>Drops exclusivos, acceso anticipado y un 10% de descuento en tu primera compra con el código SRH10.</p>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "left",
@@ -102,49 +102,102 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
+            },
+            "email_signup_crihX7": {
+              "type": "email-signup",
+              "settings": {
+                "width": "fill",
+                "custom_width": 100,
+                "heading": "",
+                "heading_text_color": "",
+                "heading_preset": "h3",
+                "border_style": "all",
+                "input_style": "custom",
+                "border_width": 1,
+                "border_radius": 100,
+                "input_background_color": "{{ settings.color_palette.background }}",
+                "input_text_color": "{{ settings.color_palette.color1 }}",
+                "input_border_color": "{{ settings.color_palette.color2 }}",
+                "input_type_preset": "paragraph",
+                "style_class": "button-unstyled",
+                "custom_button_background": "{{ settings.color_palette.foreground }}",
+                "custom_button_text": "{{ settings.color_palette.background }}",
+                "custom_button_border": "{{ settings.color_palette.background }}",
+                "link_text_color": "",
+                "display_type": "arrow",
+                "label": "Suscribirme",
+                "integrated_button": true,
+                "button_type_preset": "paragraph",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "payment_icons_footer": {
+              "type": "payment-icons",
+              "settings": {
+                "padding-block-start": 8
+              },
+              "blocks": {}
             }
           },
           "block_order": [
             "text_LWt8Pz",
-            "text_f9CFLH"
+            "text_f9CFLH",
+            "email_signup_crihX7",
+            "payment_icons_footer"
           ]
         },
-        "email_signup_crihX7": {
-          "type": "email-signup",
+        "menu_comprar": {
+          "type": "menu",
           "settings": {
-            "width": "fill",
-            "custom_width": 100,
-            "heading": "Únete a la familia SRHOOD y consigue un 10% de descuento en tu primera compra",
-            "heading_text_color": "",
-            "heading_preset": "h3",
-            "border_style": "all",
-            "input_style": "custom",
-            "border_width": 1,
-            "border_radius": 100,
-            "input_background_color": "{{ settings.color_palette.background }}",
-            "input_text_color": "{{ settings.color_palette.color1 }}",
-            "input_border_color": "{{ settings.color_palette.color2 }}",
-            "input_type_preset": "paragraph",
-            "style_class": "button-unstyled",
-            "custom_button_background": "{{ settings.color_palette.foreground }}",
-            "custom_button_text": "{{ settings.color_palette.background }}",
-            "custom_button_border": "{{ settings.color_palette.background }}",
-            "link_text_color": "",
-            "display_type": "arrow",
-            "label": "Sign up",
-            "integrated_button": true,
-            "button_type_preset": "paragraph",
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "menu": "main-menu",
+            "heading": "Comprar",
+            "menu_spacing": 12,
+            "show_as_accordion": true,
+            "accordion_icon": "caret",
+            "accordion_dividers": false,
+            "heading_preset": "h6",
+            "link_preset": "paragraph"
+          },
+          "blocks": {}
+        },
+        "menu_ayuda": {
+          "type": "menu",
+          "settings": {
+            "menu": "footer-ayuda",
+            "heading": "Ayuda",
+            "menu_spacing": 12,
+            "show_as_accordion": true,
+            "accordion_icon": "caret",
+            "accordion_dividers": false,
+            "heading_preset": "h6",
+            "link_preset": "paragraph"
+          },
+          "blocks": {}
+        },
+        "menu_legal": {
+          "type": "menu",
+          "settings": {
+            "menu": "footer-legal",
+            "heading": "Legal",
+            "menu_spacing": 12,
+            "show_as_accordion": true,
+            "accordion_icon": "caret",
+            "accordion_dividers": false,
+            "heading_preset": "h6",
+            "link_preset": "paragraph"
           },
           "blocks": {}
         }
       },
       "block_order": [
         "group_H6VpwJ",
-        "email_signup_crihX7"
+        "menu_comprar",
+        "menu_ayuda",
+        "menu_legal"
       ],
       "name": "t:names.footer",
       "settings": {
@@ -161,7 +214,7 @@
         "footer_copyright_jweRK8": {
           "type": "footer-copyright",
           "settings": {
-            "show_powered_by": true,
+            "show_powered_by": false,
             "text_color": "",
             "font_size": "0.75rem",
             "case": "none"
