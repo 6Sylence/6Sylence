@@ -1,0 +1,381 @@
+{%- doc -%}
+  Pop-up de captación de email con incentivo de bienvenida.
+  - Se abre tras un retardo configurable o con exit-intent (escritorio),
+    lo que ocurra primero.
+  - Frecuencia controlada con localStorage (no vuelve a molestar durante N
+    días tras cerrarse; nunca más tras suscribirse).
+  - Usa el formulario nativo de clientes de Shopify (tag "newsletter"), por lo
+    que se integra con Shopify Email/Klaviyo/Mailchimp igual que el footer.
+  - Accesible: <dialog> nativo con foco atrapado, cierre con ESC y botón.
+{%- enddoc -%}
+
+{%- liquid
+  assign ns_settings = section.settings
+  assign popup_id = 'newsletter-popup'
+-%}
+
+{%- if ns_settings.enabled -%}
+  {%- form 'customer', id: 'newsletter-popup-form', class: 'newsletter-popup__form-wrapper' -%}
+    {%- liquid
+      assign posted_success = false
+      if form.posted_successfully?
+        assign posted_success = true
+      endif
+    -%}
+    <dialog
+      id="{{ popup_id }}"
+      class="newsletter-popup color-custom-popover"
+      aria-labelledby="{{ popup_id }}-heading"
+      data-delay-seconds="{{ ns_settings.delay_seconds }}"
+      data-frequency-days="{{ ns_settings.frequency_days }}"
+      data-exit-intent="{{ ns_settings.exit_intent }}"
+      data-posted-success="{{ posted_success }}"
+    >
+      <button
+        type="button"
+        class="newsletter-popup__close button-unstyled"
+        data-popup-close
+        aria-label="{{ 'actions.close' | t }}"
+      >
+        {{- 'icon-close.svg' | inline_asset_content -}}
+      </button>
+
+      {%- if posted_success -%}
+        <div class="newsletter-popup__inner">
+          <p class="newsletter-popup__eyebrow">SRHOOD</p>
+          <h2 id="{{ popup_id }}-heading" class="newsletter-popup__heading h3">
+            {{ ns_settings.success_heading | escape }}
+          </h2>
+          <div class="newsletter-popup__text rte">{{ ns_settings.success_text }}</div>
+          {%- if ns_settings.discount_code != blank -%}
+            <p class="newsletter-popup__code" data-popup-code>{{ ns_settings.discount_code | escape }}</p>
+          {%- endif -%}
+          <button type="button" class="button newsletter-popup__cta" data-popup-close>
+            {{ 'actions.continue_shopping' | t }}
+          </button>
+        </div>
+      {%- else -%}
+        <div class="newsletter-popup__inner">
+          <p class="newsletter-popup__eyebrow">SRHOOD</p>
+          <h2 id="{{ popup_id }}-heading" class="newsletter-popup__heading h3">
+            {{ ns_settings.heading | escape }}
+          </h2>
+          <div class="newsletter-popup__text rte">{{ ns_settings.text }}</div>
+
+          {%- if form.errors -%}
+            <p class="newsletter-popup__error" role="alert">
+              {{ form.errors.translated_fields.email | capitalize }}
+              {{ form.errors.messages.email }}
+            </p>
+          {%- endif -%}
+
+          <input type="hidden" name="contact[tags]" value="newsletter,popup">
+          <div class="newsletter-popup__row">
+            <label class="visually-hidden" for="{{ popup_id }}-email">
+              {{ 'blocks.email_signup.label' | t }}
+            </label>
+            <input
+              id="{{ popup_id }}-email"
+              type="email"
+              name="contact[email]"
+              class="newsletter-popup__input"
+              placeholder="{{ 'blocks.email_signup.placeholder' | t }}"
+              autocomplete="email"
+              required
+            >
+            <button type="submit" class="button newsletter-popup__cta">
+              {{ ns_settings.button_label | escape }}
+            </button>
+          </div>
+          <p class="newsletter-popup__disclaimer">{{ ns_settings.disclaimer | escape }}</p>
+        </div>
+      {%- endif -%}
+    </dialog>
+  {%- endform -%}
+
+  <script>
+    (function () {
+      var dialog = document.getElementById('{{ popup_id }}');
+      if (!dialog || typeof dialog.showModal !== 'function') return;
+
+      var STORAGE_KEY = 'srhood-newsletter-popup';
+      var frequencyDays = parseInt(dialog.dataset.frequencyDays, 10) || 15;
+      var delaySeconds = parseInt(dialog.dataset.delaySeconds, 10) || 8;
+      var postedSuccess = dialog.dataset.postedSuccess === 'true';
+      var opened = false;
+
+      function state() {
+        try {
+          return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+        } catch (e) {
+          return {};
+        }
+      }
+      function save(data) {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        } catch (e) {
+          /* modo privado: se mostrará de nuevo, aceptable */
+        }
+      }
+      function dismiss(subscribed) {
+        save({ closedAt: Date.now(), subscribed: subscribed || state().subscribed || false });
+        if (dialog.open) dialog.close();
+      }
+      function shouldShow() {
+        if (window.Shopify && window.Shopify.designMode) return false;
+        var s = state();
+        if (s.subscribed) return false;
+        if (s.closedAt && Date.now() - s.closedAt < frequencyDays * 864e5) return false;
+        return true;
+      }
+      function open() {
+        if (opened || dialog.open) return;
+        opened = true;
+        dialog.showModal();
+      }
+
+      dialog.querySelectorAll('[data-popup-close]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          dismiss(postedSuccess);
+        });
+      });
+      dialog.addEventListener('cancel', function () {
+        dismiss(postedSuccess);
+      });
+      dialog.addEventListener('click', function (event) {
+        if (event.target === dialog) dismiss(postedSuccess);
+      });
+
+      if (postedSuccess) {
+        // Tras suscribirse, mostramos la confirmación con el código una vez.
+        open();
+        save({ closedAt: Date.now(), subscribed: true });
+        return;
+      }
+
+      if (!shouldShow()) return;
+
+      var timer = setTimeout(open, delaySeconds * 1000);
+
+      if (dialog.dataset.exitIntent === 'true') {
+        document.addEventListener('mouseout', function onExit(event) {
+          if (!event.relatedTarget && event.clientY <= 0) {
+            document.removeEventListener('mouseout', onExit);
+            clearTimeout(timer);
+            open();
+          }
+        });
+      }
+    })();
+  </script>
+{%- endif -%}
+
+{% stylesheet %}
+  .newsletter-popup {
+    max-width: min(92vw, 440px);
+    width: 100%;
+    border: 1px solid rgb(255 255 255 / 0.15);
+    border-radius: 14px;
+    padding: 0;
+    background-color: #0a0a0a;
+    color: #ffffff;
+    margin: auto;
+  }
+
+  .newsletter-popup::backdrop {
+    background: rgb(0 0 0 / 0.6);
+    backdrop-filter: blur(2px);
+  }
+
+  .newsletter-popup__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 36px 28px 28px;
+    text-align: center;
+    align-items: center;
+  }
+
+  .newsletter-popup__eyebrow {
+    margin: 0;
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+    color: #f7572d;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .newsletter-popup__heading {
+    margin: 0;
+    color: #ffffff;
+  }
+
+  .newsletter-popup__text {
+    color: rgb(255 255 255 / 0.8);
+    font-size: 0.9375rem;
+  }
+
+  .newsletter-popup__row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .newsletter-popup__input {
+    width: 100%;
+    min-height: 46px;
+    border-radius: 100px;
+    border: 1px solid rgb(255 255 255 / 0.3);
+    background: transparent;
+    color: #ffffff;
+    padding-inline: 18px;
+    font-size: 1rem;
+  }
+
+  .newsletter-popup__input::placeholder {
+    color: rgb(255 255 255 / 0.5);
+  }
+
+  .newsletter-popup__cta {
+    width: 100%;
+    background-color: #f7572d;
+    color: #ffffff;
+    border: none;
+    border-radius: 100px;
+    min-height: 46px;
+    font-weight: 700;
+  }
+
+  .newsletter-popup__disclaimer {
+    margin: 0;
+    font-size: 0.75rem;
+    color: rgb(255 255 255 / 0.5);
+  }
+
+  .newsletter-popup__error {
+    margin: 0;
+    color: #ff6b6b;
+    font-size: 0.875rem;
+  }
+
+  .newsletter-popup__code {
+    margin: 4px 0;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    color: #f7572d;
+    border: 1px dashed #f7572d;
+    border-radius: 8px;
+    padding: 10px 22px;
+  }
+
+  .newsletter-popup__close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: var(--minimum-touch-target, 44px);
+    height: var(--minimum-touch-target, 44px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(255 255 255 / 0.7);
+    cursor: pointer;
+  }
+
+  .newsletter-popup__close svg {
+    width: 18px;
+    height: 18px;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Pop-up de newsletter",
+  "enabled_on": {
+    "groups": ["footer"]
+  },
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enabled",
+      "label": "Activar pop-up",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "Únete a la Street Royalty"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Texto",
+      "default": "<p>Suscríbete y llévate un <strong>10% de descuento</strong> en tu primera compra, además de acceso anticipado a los drops.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto del botón",
+      "default": "Quiero mi 10%"
+    },
+    {
+      "type": "text",
+      "id": "disclaimer",
+      "label": "Texto legal",
+      "default": "Sin spam. Date de baja cuando quieras."
+    },
+    {
+      "type": "text",
+      "id": "success_heading",
+      "label": "Título tras suscribirse",
+      "default": "¡Bienvenido a la familia!"
+    },
+    {
+      "type": "richtext",
+      "id": "success_text",
+      "label": "Texto tras suscribirse",
+      "default": "<p>Usa este código en tu primera compra:</p>"
+    },
+    {
+      "type": "text",
+      "id": "discount_code",
+      "label": "Código de descuento mostrado",
+      "default": "SRH10"
+    },
+    {
+      "type": "range",
+      "id": "delay_seconds",
+      "label": "Retardo de aparición",
+      "min": 2,
+      "max": 60,
+      "step": 1,
+      "unit": "s",
+      "default": 8
+    },
+    {
+      "type": "checkbox",
+      "id": "exit_intent",
+      "label": "Abrir también con exit-intent (escritorio)",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "frequency_days",
+      "label": "Días sin volver a mostrarse tras cerrarlo",
+      "min": 1,
+      "max": 90,
+      "step": 1,
+      "unit": "d",
+      "default": 15
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pop-up de newsletter"
+    }
+  ]
+}
+{% endschema %}

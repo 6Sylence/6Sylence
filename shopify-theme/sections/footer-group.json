@@ -266,10 +266,23 @@
         "padding-block-start": 20,
         "padding-block-end": 48
       }
+    },
+    "newsletter_popup": {
+      "type": "newsletter-popup",
+      "settings": {
+        "enabled": true,
+        "heading": "Únete a la Street Royalty",
+        "button_label": "Quiero mi 10%",
+        "discount_code": "SRH10",
+        "delay_seconds": 8,
+        "exit_intent": true,
+        "frequency_days": 15
+      }
     }
   },
   "order": [
     "footer_m9NzUG",
-    "footer_utilities_jLGE8U"
+    "footer_utilities_jLGE8U",
+    "newsletter_popup"
   ]
 }
