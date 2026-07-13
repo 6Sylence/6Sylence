@@ -1567,6 +1567,19 @@
       },
       {
         "type": "checkbox",
+        "id": "cart_cross_sell_enabled",
+        "label": "Mostrar 'Completa tu look' en el carrito",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "cart_cross_sell_collection_handle",
+        "label": "Colección para 'Completa tu look'",
+        "info": "Handle de la colección de accesorios/complementos.",
+        "default": "completa-el-look"
+      },
+      {
+        "type": "checkbox",
         "id": "show_installments",
         "label": "t:settings.installments",
         "default": true

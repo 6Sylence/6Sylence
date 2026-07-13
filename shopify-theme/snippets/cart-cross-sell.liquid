@@ -1,0 +1,152 @@
+{%- doc -%}
+  Cross-sell "Completa tu look" para el drawer del carrito.
+  Muestra hasta 3 productos de la colección configurada que no estén ya en el
+  carrito. Los productos de una sola variante se añaden directamente; el resto
+  enlaza a su ficha. Se re-renderiza con el drawer (Section Rendering API).
+{%- enddoc -%}
+
+{%- liquid
+  assign xs_enabled = settings.cart_cross_sell_enabled | default: true, allow_false: true
+  assign xs_handle = settings.cart_cross_sell_collection_handle | default: 'completa-el-look'
+  assign xs_collection = collections[xs_handle]
+-%}
+
+{%- if xs_enabled and cart.item_count > 0 and xs_collection.products.size > 0 -%}
+  {%- liquid
+    assign cart_product_ids = cart.items | map: 'product_id' | join: ','
+    assign shown = 0
+  -%}
+  {%- capture xs_items -%}
+    {%- for xs_product in xs_collection.products limit: 12 -%}
+      {%- liquid
+        if shown >= 3
+          break
+        endif
+        assign pid_str = xs_product.id | append: ''
+        if cart_product_ids contains pid_str
+          continue
+        endif
+        unless xs_product.available
+          continue
+        endunless
+        assign xs_variant = xs_product.selected_or_first_available_variant
+        assign shown = shown | plus: 1
+      -%}
+      <li class="cart-cross-sell__item">
+        <a href="{{ xs_product.url }}" class="cart-cross-sell__media" tabindex="-1" aria-hidden="true">
+          {%- if xs_product.featured_image -%}
+            {{
+              xs_product.featured_image
+              | image_url: width: 128
+              | image_tag: loading: 'lazy', widths: '64, 128', sizes: '64px', alt: xs_product.featured_image.alt
+            }}
+          {%- endif -%}
+        </a>
+        <div class="cart-cross-sell__info">
+          <a href="{{ xs_product.url }}" class="cart-cross-sell__title">{{ xs_product.title | escape }}</a>
+          <span class="cart-cross-sell__price cart-secondary-typography">
+            {%- render 'price', product_resource: xs_product, show_sale_price_first: true -%}
+          </span>
+        </div>
+        {%- if xs_product.variants_count == 1 and xs_variant.available -%}
+          <product-form-component
+            data-section-id="cart-drawer-section"
+            data-product-id="{{ xs_product.id }}"
+            on:submit="/handleSubmit"
+            class="cart-cross-sell__form"
+          >
+            <div class="visually-hidden" aria-live="assertive" role="status" aria-atomic="true" ref="liveRegion"></div>
+            {%- form 'product', xs_product, novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+              <input type="hidden" name="id" ref="variantId" value="{{ xs_variant.id }}">
+              <input type="hidden" name="quantity" value="1">
+              <button
+                type="submit"
+                class="button button-secondary cart-cross-sell__add"
+                aria-label="{{ 'actions.add_to_cart' | t }} — {{ xs_product.title | escape }}"
+              >
+                {{ 'actions.add' | t }}
+              </button>
+            {%- endform -%}
+          </product-form-component>
+        {%- else -%}
+          <a href="{{ xs_product.url }}" class="button button-secondary cart-cross-sell__add">
+            {{ 'actions.choose' | t }}
+          </a>
+        {%- endif -%}
+      </li>
+    {%- endfor -%}
+  {%- endcapture -%}
+
+  {%- if shown > 0 -%}
+    <script type="module" src="{{ 'product-form.js' | asset_url }}" fetchpriority="low"></script>
+    <aside class="cart-cross-sell" aria-label="{{ 'content.cart_cross_sell_title' | t }}">
+      <p class="cart-cross-sell__heading h6">{{ 'content.cart_cross_sell_title' | t }}</p>
+      <ul class="cart-cross-sell__list list-unstyled" role="list">
+        {{ xs_items }}
+      </ul>
+    </aside>
+  {%- endif -%}
+{%- endif -%}
+
+{% stylesheet %}
+  .cart-cross-sell {
+    padding-inline: var(--cart-drawer-padding, var(--padding-lg));
+    padding-block: var(--padding-md);
+    border-top: var(--style-border-width) solid rgb(var(--color-foreground-rgb) / var(--opacity-10-25));
+  }
+
+  .cart-cross-sell__heading {
+    margin: 0 0 var(--margin-sm);
+  }
+
+  .cart-cross-sell__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-sm);
+  }
+
+  .cart-cross-sell__item {
+    display: grid;
+    grid-template-columns: 48px 1fr auto;
+    align-items: center;
+    gap: var(--gap-sm);
+  }
+
+  .cart-cross-sell__media img {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: var(--style-border-radius-inputs, 4px);
+    display: block;
+  }
+
+  .cart-cross-sell__info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .cart-cross-sell__title {
+    font-size: 0.8125rem;
+    line-height: 1.3;
+    text-decoration: none;
+    color: var(--color-foreground);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .cart-cross-sell__price {
+    font-size: 0.8125rem;
+  }
+
+  .cart-cross-sell__add {
+    --button-padding-block: 6px;
+    --button-padding-inline: 14px;
+
+    font-size: 0.8125rem;
+    min-height: var(--minimum-touch-target);
+  }
+{% endstylesheet %}
