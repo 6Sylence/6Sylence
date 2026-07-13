@@ -3,6 +3,7 @@
 <script type="application/ld+json">
   {{ closest.product | structured_data }}
 </script>
+{% render 'product-rating-jsonld' %}
 
 {% capture media_gallery %}
   {%- content_for 'block',

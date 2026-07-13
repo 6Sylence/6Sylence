@@ -1,0 +1,156 @@
+{%- doc -%}
+  Descripción de producto en acordeón.
+  Divide la descripción por sus encabezados <h3> (Características, Guía de
+  Lavado, Guía de tallas…) y añade una fila fija de "Envío y devoluciones".
+  Si la descripción no tiene <h3>, se muestra íntegra y solo se añade la fila
+  de envío.
+{%- enddoc -%}
+
+{%- liquid
+  assign block_settings = block.settings
+  assign product_desc = closest.product.description
+-%}
+
+<script src="{{ 'accordion-custom.js' | asset_url }}" type="module" fetchpriority="low"></script>
+
+<div
+  class="product-description-tabs accordion accordion--caret accordion--dividers"
+  {{ block.shopify_attributes }}
+>
+  {%- if product_desc contains '<h3' -%}
+    {%- assign desc_parts = product_desc | split: '<h3' -%}
+    {%- if desc_parts[0] != blank -%}
+      <div class="product-description-tabs__intro rte">
+        {{ desc_parts[0] }}
+      </div>
+    {%- endif -%}
+
+    {%- for part in desc_parts offset: 1 -%}
+      {%- liquid
+        assign head_and_body = part | split: '</h3>'
+        assign row_heading = head_and_body[0] | split: '>' | last | strip
+        assign row_body = ''
+        if head_and_body.size > 1
+          assign row_body = part | remove_first: head_and_body[0] | remove_first: '</h3>'
+        endif
+        assign open_row = false
+        if forloop.first and block_settings.open_first
+          assign open_row = true
+        endif
+      -%}
+      {%- if row_body != blank -%}
+        {%- capture row_children -%}
+          <details class="details" data-testid="accordion-details" {% if open_row %}open{% endif %}>
+            <summary class="details__header">
+              {{ row_heading | escape }}
+              <span class="svg-wrapper icon-caret icon-animated">
+                {{- 'icon-caret.svg' | inline_asset_content -}}
+              </span>
+            </summary>
+            <div class="details-content">
+              <div class="rte">{{ row_body }}</div>
+            </div>
+          </details>
+        {%- endcapture -%}
+        {% render 'accordion-custom-component',
+          children: row_children,
+          open_by_default_on_desktop: open_row,
+          open_by_default_on_mobile: open_row
+        %}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- elsif product_desc != blank -%}
+    <div class="product-description-tabs__intro rte">
+      {{ product_desc }}
+    </div>
+  {%- endif -%}
+
+  {%- if block_settings.extra_row_content != blank -%}
+    {%- capture shipping_row -%}
+      <details class="details" data-testid="accordion-details">
+        <summary class="details__header">
+          {{ block_settings.extra_row_heading | escape }}
+          <span class="svg-wrapper icon-caret icon-animated">
+            {{- 'icon-caret.svg' | inline_asset_content -}}
+          </span>
+        </summary>
+        <div class="details-content">
+          <div class="rte">{{ block_settings.extra_row_content }}</div>
+        </div>
+      </details>
+    {%- endcapture -%}
+    {% render 'accordion-custom-component', children: shipping_row %}
+  {%- endif -%}
+</div>
+
+{% render 'accordion-styles' %}
+
+{% stylesheet %}
+  .product-description-tabs {
+    width: 100%;
+  }
+
+  .product-description-tabs__intro {
+    padding-block-end: var(--padding-lg);
+  }
+
+  .product-description-tabs .details__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gap-sm);
+    cursor: pointer;
+    padding-block: var(--padding-md);
+    font-weight: 600;
+  }
+
+  .product-description-tabs .details-content .rte {
+    padding-block-end: var(--padding-md);
+  }
+
+  .product-description-tabs .rte table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+  }
+
+  .product-description-tabs .rte table th,
+  .product-description-tabs .rte table td {
+    border: 1px solid rgb(var(--color-foreground-rgb) / var(--opacity-10-25));
+    padding: 6px 10px;
+    text-align: center;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Descripción en acordeón",
+  "tag": null,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "open_first",
+      "label": "Abrir la primera sección por defecto",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "extra_row_heading",
+      "label": "Título de la fila de envío",
+      "default": "Envío y devoluciones"
+    },
+    {
+      "type": "richtext",
+      "id": "extra_row_content",
+      "label": "Contenido de la fila de envío",
+      "default": "<p>Hecho bajo demanda para ti: producción 2–4 días laborables + envío 3–5 días con seguimiento. <strong>Envío gratis en pedidos de más de 50 €.</strong> Devoluciones y cambios en 30 días. Consulta la <a href=\"/policies/shipping-policy\">política de envío</a> y la <a href=\"/policies/refund-policy\">política de devoluciones</a>.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Descripción en acordeón",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}

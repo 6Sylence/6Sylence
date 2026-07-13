@@ -1580,6 +1580,13 @@
       },
       {
         "type": "checkbox",
+        "id": "product_rating_jsonld_enabled",
+        "label": "JSON-LD de valoraciones (AggregateRating)",
+        "info": "Actívalo solo si desactivas los rich snippets de Judge.me, para no duplicar datos estructurados.",
+        "default": false
+      },
+      {
+        "type": "checkbox",
         "id": "show_installments",
         "label": "t:settings.installments",
         "default": true
