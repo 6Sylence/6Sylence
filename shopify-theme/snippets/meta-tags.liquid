@@ -20,9 +20,25 @@
 
 {%- liquid
   assign og_title = page_title | default: shop.name
+
+  # Fallback de meta description: SEO manual → contenido de la página → tienda
+  assign meta_description = page_description
+  if meta_description == blank and request.page_type == 'product'
+    assign meta_description = product.description | strip_html | truncate: 160
+  endif
+  if meta_description == blank and request.page_type == 'collection'
+    assign meta_description = collection.description | strip_html | truncate: 160
+  endif
+  if meta_description == blank and request.page_type == 'article'
+    assign meta_description = article.excerpt_or_content | strip_html | truncate: 160
+  endif
+  if meta_description == blank
+    assign meta_description = shop.description
+  endif
+
   assign og_url = canonical_url | default: request.origin
   assign og_type = 'website'
-  assign og_description = page_description | default: shop.description | default: shop.name
+  assign og_description = meta_description | default: shop.name
 
   if request.page_type == 'product'
     assign og_type = 'product'
@@ -115,9 +131,9 @@
   href="{{ canonical_url }}"
 >
 
-{% if page_description %}
+{% if meta_description != blank %}
   <meta
     name="description"
-    content="{{ page_description | escape }}"
+    content="{{ meta_description | escape }}"
   >
 {% endif %}

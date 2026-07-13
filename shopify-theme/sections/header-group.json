@@ -106,9 +106,9 @@
             "navigation_bar": false,
             "background_color_navigation_bar": "{{ settings.color_palette.background }}",
             "text_color_navigation_bar": "",
-            "drawer_accordion": false,
+            "drawer_accordion": true,
             "drawer_accordion_expand_first": false,
-            "drawer_dividers": false
+            "drawer_dividers": true
           },
           "blocks": {}
         }
