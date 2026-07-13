@@ -71,6 +71,8 @@
     "cart_price_font": "secondary",
     "show_cart_note": false,
     "show_add_discount_code": true,
+    "free_shipping_bar_enabled": true,
+    "free_shipping_threshold": 50,
     "drawer_background_color": "{{ settings.color_palette.background }}",
     "drawer_text_color": "{{ settings.color_palette.foreground }}",
     "drawer_border_color": "{{ settings.color_palette.color2 }}",

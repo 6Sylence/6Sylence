@@ -1550,6 +1550,23 @@
       },
       {
         "type": "checkbox",
+        "id": "free_shipping_bar_enabled",
+        "label": "Mostrar barra de progreso de envío gratis",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "free_shipping_threshold",
+        "label": "Umbral de envío gratis",
+        "info": "Debe coincidir con el descuento automático de envío gratis configurado en Descuentos.",
+        "min": 0,
+        "max": 200,
+        "step": 5,
+        "unit": "€",
+        "default": 50
+      },
+      {
+        "type": "checkbox",
         "id": "show_installments",
         "label": "t:settings.installments",
         "default": true

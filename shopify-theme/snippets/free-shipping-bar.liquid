@@ -1,0 +1,99 @@
+{%- doc -%}
+  Barra de progreso hacia el envío gratis.
+  Se re-renderiza con el drawer/carrito vía Section Rendering API, por lo que
+  no necesita JS propio.
+
+  @param {string} [context] - 'drawer' (por defecto) o 'page'
+{%- enddoc -%}
+
+{%- liquid
+  assign fsb_enabled = settings.free_shipping_bar_enabled | default: true, allow_false: true
+  assign fsb_threshold = settings.free_shipping_threshold | default: 50
+  assign fsb_threshold_cents = fsb_threshold | times: 100
+-%}
+
+{%- if fsb_enabled and cart.item_count > 0 and fsb_threshold_cents > 0 -%}
+  {%- liquid
+    assign fsb_progress = cart.total_price | times: 100 | divided_by: fsb_threshold_cents | at_most: 100
+    assign fsb_remaining = fsb_threshold_cents | minus: cart.total_price
+    assign fsb_remaining_money = fsb_remaining | money
+  -%}
+  <div
+    class="free-shipping-bar free-shipping-bar--{{ context | default: 'drawer' }}{% if fsb_remaining <= 0 %} free-shipping-bar--unlocked{% endif %}"
+    role="status"
+    aria-live="polite"
+  >
+    <p class="free-shipping-bar__text">
+      {%- if fsb_remaining > 0 -%}
+        {{ 'content.free_shipping_remaining_html' | t: amount: fsb_remaining_money }}
+      {%- else -%}
+        {{ 'content.free_shipping_unlocked' | t }}
+      {%- endif -%}
+    </p>
+    <div
+      class="free-shipping-bar__track"
+      role="progressbar"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="{{ fsb_progress }}"
+      aria-label="{{ 'content.free_shipping_progress_label' | t }}"
+    >
+      <div class="free-shipping-bar__fill" style="width: {{ fsb_progress }}%;"></div>
+    </div>
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  .free-shipping-bar {
+    --fsb-accent: #f7572d;
+    --fsb-track: rgb(var(--color-foreground-rgb) / var(--opacity-10-25));
+
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+  }
+
+  .free-shipping-bar--drawer {
+    padding-inline: var(--cart-drawer-padding, var(--padding-lg));
+    padding-block: var(--padding-sm) var(--padding-md);
+    border-bottom: var(--style-border-width) solid rgb(var(--color-foreground-rgb) / var(--opacity-10-25));
+  }
+
+  .free-shipping-bar--page {
+    padding-block: var(--padding-sm) var(--padding-md);
+  }
+
+  .free-shipping-bar__text {
+    margin: 0;
+    font-size: 0.875rem;
+  }
+
+  .free-shipping-bar__text strong {
+    color: var(--fsb-accent);
+  }
+
+  .free-shipping-bar--unlocked .free-shipping-bar__text {
+    font-weight: 600;
+  }
+
+  .free-shipping-bar__track {
+    width: 100%;
+    height: 6px;
+    border-radius: 100px;
+    background-color: var(--fsb-track);
+    overflow: hidden;
+  }
+
+  .free-shipping-bar__fill {
+    height: 100%;
+    border-radius: 100px;
+    background-color: var(--fsb-accent);
+    transition: width 0.4s ease;
+    min-width: 6px;
+  }
+
+  .free-shipping-bar--unlocked .free-shipping-bar__fill {
+    background-color: #2e9e5b;
+  }
+{% endstylesheet %}

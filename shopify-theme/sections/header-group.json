@@ -17,7 +17,7 @@
         "announcement_BxgCk9": {
           "type": "_announcement",
           "settings": {
-            "text": "-10% Descuento cupón exclusivo: SRH10",
+            "text": "−10% en tu primera compra con el código SRH10",
             "link": "",
             "font": "var(--font-subheading--family)",
             "font_size": "1rem",
@@ -32,7 +32,7 @@
           "type": "_announcement",
           "name": "t:names.announcement",
           "settings": {
-            "text": "⭐ Compra 2 artículos y obtén 15% de descuento adicional automático",
+            "text": "⭐ Completa tu look: llévate 2 y el 2º artículo tiene −15% automático",
             "link": "",
             "font": "var(--font-subheading--family)",
             "font_size": "1rem",
@@ -47,7 +47,7 @@
           "type": "_announcement",
           "name": "t:names.announcement",
           "settings": {
-            "text": "📦 Aprovecha envío gratis en pedidos superiores a 49€",
+            "text": "📦 Envío gratis en pedidos de más de 50 €",
             "link": "",
             "font": "var(--font-subheading--family)",
             "font_size": "1rem",
