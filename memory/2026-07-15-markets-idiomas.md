@@ -26,10 +26,26 @@ Arquitectura de mercados: **Markets nueva** (mutaciones `marketUpdate` /
 - European Union: streetroyaltyhood.com · es + de/fr/it/en (intacto; España NO duplicada).
 - Internacional / United Kingdom: sin web presence (igual que antes).
 
-## PENDIENTE — solo admin (imposible por API, limitación de Shopify)
-- **Idioma principal de la tienda → Español**: Configuración → Idiomas →
-  Español → "Convertir en idioma predeterminado". Doc oficial: *"You can't change the
-  primary locale using the GraphQL Admin API."* Es el último paso para que las URLs
-  canónicas dejen de ser `/en/` y el español sea el idioma base real.
+## Idioma principal → Español (HECHO por el usuario en admin) + corrección
+- El usuario cambió el idioma principal a **Español** desde el admin (único paso que
+  no permite la API: *"You can't change the primary locale using the GraphQL Admin API."*).
+- **Efecto secundario detectado y corregido**: ese cambio ELIMINÓ el inglés por completo
+  (desapareció de shopLocales; srhood.com quedó solo es, sin /en/; la UE perdió en).
+  Restaurado por API:
+  1. `shopLocaleEnable(locale:"en")` → reactivado.
+  2. `shopLocaleUpdate(locale:"en", {published:true})` → publicado.
+  3. `webPresenceUpdate` srhood.com → alternateLocales ["en"] (vuelve /en/).
+  4. `webPresenceUpdate` streetroyaltyhood.com → alternateLocales ["de","fr","it","en"].
+
+## Estado FINAL verificado (2026-07-15)
+- shopLocales: **es (primary)** + en/de/fr/it publicados.
+- Spain (primario): srhood.com · es raíz + en (/en/).
+- European Union: streetroyaltyhood.com · es raíz + de/fr/it/en.
+- Internacional / United Kingdom: sin web presence.
+
+## Pendiente / próximos runs
+- El catálogo está en español; NO hay traducciones reales al inglés, así que /en/
+  muestra español como fallback. Si se quiere inglés real: generar traducciones vía
+  `translationsRegister` (candidato a próximo run).
 - Verificar en incógnito desde España que srhood.com carga en español en la raíz
   (propagación CDN puede tardar minutos).
