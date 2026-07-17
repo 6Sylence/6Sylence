@@ -81,3 +81,6 @@ android-sdk/ -e
 # Environment files
 *.env
 *.env.*
+
+# PNG generados localmente (los definitivos viven en el CDN de Shopify)
+store-assets/azulejo/
