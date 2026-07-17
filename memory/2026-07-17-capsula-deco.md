@@ -32,9 +32,12 @@ geométrico, escama/concha con radios, zigurat escalonado.
    `PUT /sync/variant/{id}` con `variant_id` de catálogo + files por placement.
    ¡OJO rate limit 429!: máx ~2 req/s no basta — usar pausas de 2,5 s y backoff
    de 65 s; la primera pasada sin backoff falló en 40 variantes.
-5. Mockups vía `POST /mockup-generator/create-task/{product_id}` (usa placement
-   `front` para DTG, no `default`) → URLs añadidas al producto con
-   update-product (Shopify copia la imagen a su CDN).
+5. Mockups: el mockup-generator API falla sin campo `position` (error MG-4).
+   NO hace falta: al sincronizar variantes, Printful genera solo un archivo
+   `type: preview` por variante (files.cdn.printful.com/..._preview.png).
+   Basta coger ese `preview_url` del primer sync variant y pasarlo a
+   update-product / update-collection (Shopify lo copia a su CDN). Nota: el
+   CDN de Printful devuelve 403 a urllib sin User-Agent; curl -A Mozilla ok.
 
 ## Colección / navegación
 
