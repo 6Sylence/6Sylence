@@ -1,0 +1,80 @@
+{
+  "_comment": "Drop Cápsula Nómada 2026-07-17 — mapeo Printful PENDIENTE (endpoints de escritura v1 sync caídos durante el run; ver memory/2026-07-17-store-run.md). Reintentar: PUT /sync/variants/{sync_variant_id} con X-PF-Store-Id 18383330, body {variant_id, files, options}. Los sync_variant_id se obtienen con GET /sync/products/{sync_product_id}.",
+  "store_id": 18383330,
+  "print_files": {
+    "lis": "https://cdn.shopify.com/s/files/1/1003/6874/4832/files/lis_nomada_front.png",
+    "ikat": "https://cdn.shopify.com/s/files/1/1003/6874/4832/files/ikat_imperial_front.png",
+    "camo": "https://cdn.shopify.com/s/files/1/1003/6874/4832/files/camo_corona_front.png",
+    "bogolan": "https://cdn.shopify.com/s/files/1/1003/6874/4832/files/bogolan_real_shoes.png",
+    "pantera": "https://cdn.shopify.com/s/files/1/1003/6874/4832/files/pantera_real_shoes.png",
+    "panal": "https://cdn.shopify.com/s/files/1/1003/6874/4832/files/panal_real_socks.png"
+  },
+  "products": [
+    {
+      "name": "Camiseta Lis Nómada — Burdeos",
+      "shopify_product_id": 15840542294400,
+      "printful_sync_product_id": 446620798,
+      "catalog_product_id": 71,
+      "file_key": "lis",
+      "placements_v1": [{"type": "default"}],
+      "placement_v2": {"placement": "front", "technique": "dtg"},
+      "options": [{"id": "lifelike", "value": false}],
+      "size_to_catalog_variant": {"S": 4106, "M": 4107, "L": 4108, "XL": 4109, "2XL": 4110}
+    },
+    {
+      "name": "Sudadera Ikat Imperial — Navy",
+      "shopify_product_id": 15840542523776,
+      "printful_sync_product_id": 446620886,
+      "catalog_product_id": 145,
+      "file_key": "ikat",
+      "placements_v1": [{"type": "default"}],
+      "placement_v2": {"placement": "front", "technique": "dtg"},
+      "options": [{"id": "lifelike", "value": false}],
+      "size_to_catalog_variant": {"S": 5498, "M": 5499, "L": 5500, "XL": 5501, "2XL": 5502}
+    },
+    {
+      "name": "Hoodie Camo Corona — Verde Militar",
+      "shopify_product_id": 15840542753152,
+      "printful_sync_product_id": 446620981,
+      "catalog_product_id": 380,
+      "file_key": "camo",
+      "placements_v1": [{"type": "default"}],
+      "placement_v2": {"placement": "front", "technique": "dtg"},
+      "options": [{"id": "lifelike", "value": false}],
+      "size_to_catalog_variant": {"S": 13893, "M": 13894, "L": 13895, "XL": 13896, "2XL": 13897}
+    },
+    {
+      "name": "Zapatillas Altas Bogolán Real Hombre — Blanco",
+      "shopify_product_id": 15840542884224,
+      "printful_sync_product_id": 446621065,
+      "catalog_product_id": 513,
+      "file_key": "bogolan",
+      "placements_v1": [{"type": "shoe_quarters_left"}, {"type": "shoe_quarters_right"}, {"type": "shoe_tongue_left"}, {"type": "shoe_tongue_right"}],
+      "placement_v2": {"placement": "shoe_*", "technique": "shoes"},
+      "options": [],
+      "size_to_catalog_variant": {"5": 12903, "5.5": 12904, "6": 12905, "6.5": 12906, "7": 12907, "7.5": 12908, "8": 12909, "8.5": 12910, "9": 12911, "9.5": 12912, "10": 12913, "10.5": 12914, "11": 12915, "11.5": 12916, "12": 12918, "12.5": 12919, "13": 12920}
+    },
+    {
+      "name": "Zapatillas Deportivas Pantera Real Mujer — Arena",
+      "shopify_product_id": 15840543277440,
+      "printful_sync_product_id": 446621172,
+      "catalog_product_id": 658,
+      "file_key": "pantera",
+      "placements_v1": [{"type": "shoe_left"}, {"type": "shoe_right"}],
+      "placement_v2": {"placement": "shoe_left/shoe_right", "technique": "shoes"},
+      "options": [],
+      "size_to_catalog_variant": {"5": 16385, "5.5": 16386, "6": 16387, "6.5": 16388, "7": 16389, "7.5": 16390, "8": 16391, "8.5": 16392, "9": 16393, "9.5": 16394, "10": 16395, "10.5": 16396, "11": 16397, "11.5": 16398, "12": 16399}
+    },
+    {
+      "name": "Calcetines Panal Real — Verde Bosque",
+      "shopify_product_id": 15840543441280,
+      "printful_sync_product_id": 446621208,
+      "catalog_product_id": 186,
+      "file_key": "panal",
+      "placements_v1": [{"type": "default"}],
+      "placement_v2": {"placement": "default", "technique": "sublimation"},
+      "options": [],
+      "size_to_catalog_variant": {"M": 7290, "L": 7291, "XL": 7292}
+    }
+  ]
+}
