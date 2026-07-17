@@ -81,3 +81,7 @@ android-sdk/ -e
 # Environment files
 *.env
 *.env.*
+
+# Session scratch (temp downloads, signed upload payloads)
+scratch/
+store-assets/designs_cianotipo/
