@@ -46,6 +46,20 @@ Cápsula de 6 piezas para no sobrecargar (mismo tamaño que las cápsulas previa
   Completa el Look, Novedades, All-Over Print.
 - Añadidos Hoodie + Zapatillas Altas a "Home page" (portada).
 
+## Estado final de sincronización
+48/48 variantes synced en Printful (verificado): tee 5/5, hoodie 5/5, altas 17/17,
+deportivas 15/15, bandana 3/3, calcetines 3/3.
+- Gotcha 1: el placement `front` NO se acepta en PUT /sync/variant para la bandana
+  (630) — usar `type: default`.
+- Gotcha 2: la importación automática Shopify→Printful tarda 1-5 min y no es
+  simultánea (el hoodie tardó ~10 min más que el resto).
+
+## Aviso anti-repetición (para próximos runs)
+"Zapatillas Altas Plumaje Real Hombre — Negro" (SRH-DC04, cápsula Déco) ya usaba
+ojos de pavo real EN CLAVE GEOMÉTRICA déco (círculos planos + rayos). Verificado
+visualmente: patrón distinto al de esta cápsula (pluma naturalista dibujada).
+Con esta cápsula el motivo pavo real queda AGOTADO — no volver a usarlo.
+
 ## Notas / pendientes
 - Sigue pendiente de sesiones previas: ~20 productos del lote 10-jul (Greca, Terrazo,
   Blueprint, Pinstripe, Damero, Camuflaje, Corona Scatter, Wordmark…) figuran en
