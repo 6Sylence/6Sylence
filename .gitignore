@@ -81,3 +81,5 @@ android-sdk/ -e
 # Environment files
 *.env
 *.env.*
+store-assets/out/
+store-assets/print/
