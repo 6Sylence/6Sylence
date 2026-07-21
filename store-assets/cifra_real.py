@@ -116,6 +116,20 @@ def print_file():
     img.save(f"{OUT}/cifra-real-print.png")
     return img
 
+def print_file_square():
+    """Square DTG print file (for hoodie / square print areas), emblem centered."""
+    S = 3600
+    img = Image.new("RGBA", (S, S), (0,0,0,0))
+    emb = cipher_layer(2200, scale=1.0)
+    x = (S - emb.width)//2
+    y = int(S*0.16)
+    img.alpha_composite(emb, (x, y))
+    d = ImageDraw.Draw(img)
+    text_tracked(d, (S/2, y + int(emb.height*0.86)), "STREET ROYALTY · MADRID · MMXXVI",
+                 F(SANS_B, 62), CREMA, tracking=16)
+    img.save(f"{OUT}/cifra-real-print-square.png")
+    return img
+
 def hero_preview():
     """QA + a clean brand hero on near-black (secondary product image)."""
     W, H = 1600, 1600
@@ -128,5 +142,6 @@ def hero_preview():
     return img
 
 print_file()
+print_file_square()
 hero_preview()
 print("OK — files:", os.listdir(OUT))
