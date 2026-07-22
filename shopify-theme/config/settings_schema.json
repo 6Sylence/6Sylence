@@ -1558,12 +1558,12 @@
         "type": "range",
         "id": "free_shipping_threshold",
         "label": "Umbral de envío gratis",
-        "info": "Debe coincidir con el descuento automático de envío gratis configurado en Descuentos.",
+        "info": "0 = envío gratis siempre (muestra un mensaje estático). Si algún día cobras envío por debajo de un importe, pon aquí ese umbral y aparecerá la barra de progreso.",
         "min": 0,
         "max": 200,
         "step": 5,
         "unit": "€",
-        "default": 50
+        "default": 0
       },
       {
         "type": "checkbox",

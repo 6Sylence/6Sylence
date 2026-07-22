@@ -72,7 +72,7 @@
     "show_cart_note": false,
     "show_add_discount_code": true,
     "free_shipping_bar_enabled": true,
-    "free_shipping_threshold": 50,
+    "free_shipping_threshold": 0,
     "cart_cross_sell_enabled": true,
     "cart_cross_sell_collection_handle": "completa-el-look",
     "quick_add": true,

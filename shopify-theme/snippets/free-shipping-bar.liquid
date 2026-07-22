@@ -8,39 +8,50 @@
 
 {%- liquid
   assign fsb_enabled = settings.free_shipping_bar_enabled | default: true, allow_false: true
-  assign fsb_threshold = settings.free_shipping_threshold | default: 50
+  assign fsb_threshold = settings.free_shipping_threshold | default: 0
   assign fsb_threshold_cents = fsb_threshold | times: 100
 -%}
 
-{%- if fsb_enabled and cart.item_count > 0 and fsb_threshold_cents > 0 -%}
-  {%- liquid
-    assign fsb_progress = cart.total_price | times: 100 | divided_by: fsb_threshold_cents | at_most: 100
-    assign fsb_remaining = fsb_threshold_cents | minus: cart.total_price
-    assign fsb_remaining_money = fsb_remaining | money
-  -%}
-  <div
-    class="free-shipping-bar free-shipping-bar--{{ context | default: 'drawer' }}{% if fsb_remaining <= 0 %} free-shipping-bar--unlocked{% endif %}"
-    role="status"
-    aria-live="polite"
-  >
-    <p class="free-shipping-bar__text">
-      {%- if fsb_remaining > 0 -%}
-        {{ 'content.free_shipping_remaining_html' | t: amount: fsb_remaining_money }}
-      {%- else -%}
-        {{ 'content.free_shipping_unlocked' | t }}
-      {%- endif -%}
-    </p>
+{%- if fsb_enabled and cart.item_count > 0 -%}
+  {%- if fsb_threshold_cents > 0 -%}
+    {%- comment -%} Modo con umbral: barra de progreso hacia el envío gratis {%- endcomment -%}
+    {%- liquid
+      assign fsb_progress = cart.total_price | times: 100 | divided_by: fsb_threshold_cents | at_most: 100
+      assign fsb_remaining = fsb_threshold_cents | minus: cart.total_price
+      assign fsb_remaining_money = fsb_remaining | money
+    -%}
     <div
-      class="free-shipping-bar__track"
-      role="progressbar"
-      aria-valuemin="0"
-      aria-valuemax="100"
-      aria-valuenow="{{ fsb_progress }}"
-      aria-label="{{ 'content.free_shipping_progress_label' | t }}"
+      class="free-shipping-bar free-shipping-bar--{{ context | default: 'drawer' }}{% if fsb_remaining <= 0 %} free-shipping-bar--unlocked{% endif %}"
+      role="status"
+      aria-live="polite"
     >
-      <div class="free-shipping-bar__fill" style="width: {{ fsb_progress }}%;"></div>
+      <p class="free-shipping-bar__text">
+        {%- if fsb_remaining > 0 -%}
+          {{ 'content.free_shipping_remaining_html' | t: amount: fsb_remaining_money }}
+        {%- else -%}
+          {{ 'content.free_shipping_unlocked' | t }}
+        {%- endif -%}
+      </p>
+      <div
+        class="free-shipping-bar__track"
+        role="progressbar"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="{{ fsb_progress }}"
+        aria-label="{{ 'content.free_shipping_progress_label' | t }}"
+      >
+        <div class="free-shipping-bar__fill" style="width: {{ fsb_progress }}%;"></div>
+      </div>
     </div>
-  </div>
+  {%- else -%}
+    {%- comment -%} Sin umbral: envío gratis siempre → mensaje estático {%- endcomment -%}
+    <div
+      class="free-shipping-bar free-shipping-bar--{{ context | default: 'drawer' }} free-shipping-bar--unlocked free-shipping-bar--static"
+      role="status"
+    >
+      <p class="free-shipping-bar__text">{{ 'content.free_shipping_always' | t }}</p>
+    </div>
+  {%- endif -%}
 {%- endif -%}
 
 {% stylesheet %}

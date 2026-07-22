@@ -47,7 +47,7 @@
           "type": "_announcement",
           "name": "t:names.announcement",
           "settings": {
-            "text": "📦 Envío gratis en pedidos de más de 50 €",
+            "text": "📦 Envío gratis en todos los pedidos",
             "link": "",
             "font": "var(--font-subheading--family)",
             "font_size": "1rem",

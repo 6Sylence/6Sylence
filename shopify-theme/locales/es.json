@@ -138,6 +138,7 @@
     "your_cart_is_empty": "Tu carrito está vacío",
     "free_shipping_remaining_html": "Te faltan <strong>{{ amount }}</strong> para el envío gratis",
     "free_shipping_unlocked": "🎉 ¡Envío gratis conseguido!",
+    "free_shipping_always": "🚚 Envío gratis en todos los pedidos",
     "free_shipping_progress_label": "Progreso hacia el envío gratis",
     "cart_cross_sell_title": "Completa tu look",
     "product_image": "Imagen del producto",

@@ -15,7 +15,7 @@
         "text_ygyrQT": {
           "type": "text",
           "settings": {
-            "text": "<p>STREET ROYALTY · −10% EN TU PRIMERA COMPRA CON EL CÓDIGO SRH10 · ENVÍO GRATIS EN PEDIDOS +50 €</p>",
+            "text": "<p>STREET ROYALTY · −10% EN TU PRIMERA COMPRA CON EL CÓDIGO SRH10 · ENVÍO GRATIS EN TODOS LOS PEDIDOS</p>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
@@ -83,7 +83,7 @@
           "type": "text",
           "name": "Subtítulo",
           "settings": {
-            "text": "<p>Streetwear premium Street Royalty. −10&#37; en tu primera compra con el código <strong>SRH10</strong> · Envío gratis desde 50&#8239;€.</p>",
+            "text": "<p>Streetwear premium Street Royalty. −10&#37; en tu primera compra con el código <strong>SRH10</strong> · Envío gratis en todos los pedidos.</p>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
@@ -609,11 +609,23 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
+            },
+            "rating_stars_home_bs": {
+              "type": "review",
+              "settings": {
+                "stars_style": "shaded",
+                "show_number": false,
+                "type_preset": "h6",
+                "width": "fit-content",
+                "alignment": "left"
+              },
+              "blocks": {}
             }
           },
           "block_order": [
             "product_card_gallery_d8W8A3",
             "product_title_U6mzde",
+            "rating_stars_home_bs",
             "price_mq6RJc"
           ]
         }
@@ -808,11 +820,23 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
+            },
+            "rating_stars_home_nv": {
+              "type": "review",
+              "settings": {
+                "stars_style": "shaded",
+                "show_number": false,
+                "type_preset": "h6",
+                "width": "fit-content",
+                "alignment": "left"
+              },
+              "blocks": {}
             }
           },
           "block_order": [
             "product_card_gallery_677WP3",
             "product_title_YXxMTj",
+            "rating_stars_home_nv",
             "price_JQzVV4"
           ]
         }
@@ -1043,7 +1067,7 @@
                 "text_mT6fHD": {
                   "type": "text",
                   "settings": {
-                    "text": "<h3>Envío gratis desde 50 €</h3>",
+                    "text": "<h3>Envío gratis siempre</h3>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -1068,7 +1092,7 @@
                 "text_MB96qT": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>Hecho bajo demanda · entrega 3–5 días</p>",
+                    "text": "<p>Hecho bajo demanda · España 5–10 días</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -1194,7 +1218,7 @@
                 "text_UKUi8d": {
                   "type": "text",
                   "settings": {
-                    "text": "<h3>Devoluciones en 30 días</h3>",
+                    "text": "<h3>Devoluciones 14 días</h3>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -1219,7 +1243,7 @@
                 "text_MHaxEH": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>Cambios y devoluciones sin complicaciones</p>",
+                    "text": "<p>Derecho de desistimiento (UE)</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
