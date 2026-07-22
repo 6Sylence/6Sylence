@@ -57,7 +57,7 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<p>La corona no se pide, se lleva puesta.</p>",
+            "text": "<p>La corona no se pide.<br>Se lleva puesta.</p>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
@@ -79,14 +79,59 @@
           },
           "blocks": {}
         },
+        "text_hero_sub": {
+          "type": "text",
+          "name": "Subtítulo",
+          "settings": {
+            "text": "<p>Streetwear premium Street Royalty. −10&#37; en tu primera compra con el código <strong>SRH10</strong> · Envío gratis desde 50&#8239;€.</p>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "paragraph",
+            "font": "var(--font-body--family)",
+            "font_size": "1.1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "text_color": "#ffffff",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 8,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
         "button_H9gpTf": {
           "type": "button",
           "name": "t:names.button",
           "settings": {
-            "label": "Descubre la Crown Collection",
+            "label": "Comprar novedades",
             "link": "shopify://collections/novedades",
             "open_in_new_tab": false,
             "style_class": "button-primary",
+            "custom_button_background": "#F7572D",
+            "custom_button_text": "#ffffff",
+            "custom_button_border": "#F7572D",
+            "link_text_color": "",
+            "width": "fit-content",
+            "custom_width": 100,
+            "width_mobile": "fit-content",
+            "custom_width_mobile": 100
+          },
+          "blocks": {}
+        },
+        "button_hero_2": {
+          "type": "button",
+          "name": "t:names.button",
+          "settings": {
+            "label": "Ver todo el catálogo",
+            "link": "shopify://collections/all",
+            "open_in_new_tab": false,
+            "style_class": "button-secondary",
             "custom_button_background": "rgba(0,0,0,0)",
             "custom_button_text": "#ffffff",
             "custom_button_border": "#ffffff",
@@ -101,7 +146,9 @@
       },
       "block_order": [
         "text_YLPk4p",
-        "button_H9gpTf"
+        "text_hero_sub",
+        "button_H9gpTf",
+        "button_hero_2"
       ],
       "name": "t:names.hero",
       "settings": {
@@ -142,7 +189,7 @@
         "text_AgyPtE": {
           "type": "text",
           "settings": {
-            "text": "<p>Streetwear auténtico para quienes viven la cultura. SRHOOD representa el espíritu de la calle: atrevido, sin complejos y real.</p>",
+            "text": "<p>Streetwear auténtico para quienes viven la cultura. Atrevido, sin complejos y real — diseñado y producido bajo demanda para durar.</p>",
             "width": "100%",
             "max_width": "narrow",
             "alignment": "center",
@@ -824,7 +871,7 @@
           "type": "text",
           "name": "t:names.text",
           "settings": {
-            "text": "<p>SRHOOD nació en las calles para las calles. Somos una marca de streetwear premium que combina el estilo urbano con la calidad más alta. Cada par de zapatillas que diseñamos lleva la esencia de la cultura street, pensada para quienes no siguen tendencias, las crean. Bienvenido a la realeza de la calle.</p>",
+            "text": "<p>SRHOOD nació en la calle, para la calle. Streetwear premium con diseños propios — camisetas, hoodies, pantalones, calzado y accesorios — y una calidad que se nota al tacto. Producimos bajo demanda y de forma responsable en Europa, para quienes no siguen tendencias: las crean. Bienvenido a la realeza callejera.</p>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
@@ -996,7 +1043,7 @@
                 "text_mT6fHD": {
                   "type": "text",
                   "settings": {
-                    "text": "<h3>Envío Seguro</h3>",
+                    "text": "<h3>Envío gratis desde 50 €</h3>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -1021,7 +1068,7 @@
                 "text_MB96qT": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>Entrega rápida y segura</p>",
+                    "text": "<p>Hecho bajo demanda · entrega 3–5 días</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -1147,7 +1194,7 @@
                 "text_UKUi8d": {
                   "type": "text",
                   "settings": {
-                    "text": "<h3>Devolución Fácil</h3>",
+                    "text": "<h3>Devoluciones en 30 días</h3>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -1172,7 +1219,7 @@
                 "text_MHaxEH": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>30 días para devolver sin preguntas</p>",
+                    "text": "<p>Cambios y devoluciones sin complicaciones</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -1323,7 +1370,7 @@
                 "text_EbRLWB": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>Tus datos siempre protegidos</p>",
+                    "text": "<p>Visa · Mastercard · PayPal · Apple&#8239;Pay · G&#8239;Pay</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -1397,11 +1444,11 @@
   "order": [
     "marquee_jdafnj",
     "hero_jVaWmY",
-    "section_A9ALt7",
-    "collection_list_sr",
+    "section_bCRPnq",
     "product_list_dmbGF7",
+    "collection_list_sr",
     "product_list_fa6P9H",
-    "section_w6Cf9n",
-    "section_bCRPnq"
+    "section_A9ALt7",
+    "section_w6Cf9n"
   ]
 }
