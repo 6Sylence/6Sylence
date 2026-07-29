@@ -6,6 +6,27 @@
 
 ---
 
+## Títulos y handles exactos en Shopify (LOTE 1) — verificados por API 29-jul
+
+Para buscar cada producto en IDEQO usa el **título exacto** de esta tabla (el catálogo de IDEQO muestra los títulos tal cual están en Shopify; si aparecen en otro idioma es el traductor del navegador).
+
+| # | Título exacto en Shopify | Handle (URL: srhood.com/products/…) |
+|---|---|---|
+| 1 | Hoodie Arco College — Negro | street-royalty-hoodie-arco-college-negro |
+| 2 | Gorra Corona SRH — Negro y Navy | street-royalty-gorra-corona-srh-negro-y-navy-1 |
+| 3 | Camiseta Royalty Blackletter — Blanco | street-royalty-camiseta-royalty-blackletter-blanco |
+| 4 | Bucket Hat Corona SRH — Blanco y Caqui | street-royalty-bucket-hat-corona-srh-blanco-y-caqui |
+| 5 | Sudadera Crest SRH — Negro | street-royalty-sudadera-crest-srh-negro |
+| 6 | Gorra Snapback Crown Bordada — Negro | street-royalty-gorra-snapback-crown-negra-bordada |
+| 7 | Camiseta Wordmark — Negro | street-royalty-camiseta-wordmark-negro |
+| 8 | Tote Sello Circular — Blanco | street-royalty-tote-sello-circular-blanco |
+| 9 | Hoodie Crown Contrast — Negro | street-royalty-hoodie-crown-negro-blanco-y-negro |
+| 10 | Jogger Corona SRH — Negro, Navy y Negro Jaspeado | street-royalty-jogger-corona-srh-negro-navy-y-negro-jaspeado |
+
+Notas: el título real del post 6 lleva "Gorra" delante ("Gorra Snapback Crown Bordada — Negro") y el del post 10 es "Negro, Navy y Negro Jaspeado" (no "Negro/Navy"). Los 10 están ACTIVE y publicados en la tienda online.
+
+---
+
 ## LOTE 1 — Esenciales de marca (3–19 ago)
 
 ### 1 · Lun 3 ago, 20:30 — Hoodie Arco College — Negro
