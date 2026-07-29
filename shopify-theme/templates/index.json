@@ -1526,7 +1526,7 @@
           "name": "Slide 2 · Crown Capsule",
           "settings": {
             "media_type_1": "image",
-            "image_1": "shopify://shop_images/pattern-rex.png",
+            "image_1": "shopify://shop_images/pattern-circuito.png",
             "content_direction": "column",
             "vertical_on_mobile": true,
             "horizontal_alignment": "flex-start",
