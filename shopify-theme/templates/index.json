@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "marquee_jdafnj": {
@@ -15,7 +6,7 @@
         "text_ygyrQT": {
           "type": "text",
           "settings": {
-            "text": "<p>STREET ROYALTY · −10% EN TU PRIMERA COMPRA CON EL CÓDIGO SRH10 · ENVÍO GRATIS EN TODOS LOS PEDIDOS</p>",
+            "text": "<p>STREET ROYALTY · ENVÍO GRATIS EN TODOS LOS PEDIDOS · −15% DE BIENVENIDA AUTOMÁTICO EN EL CARRITO</p>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
@@ -48,139 +39,6 @@
         "padding-block-start": 32,
         "padding-block-end": 32,
         "gap_between_elements": 40
-      }
-    },
-    "hero_jVaWmY": {
-      "type": "hero",
-      "blocks": {
-        "text_YLPk4p": {
-          "type": "text",
-          "name": "t:names.heading",
-          "settings": {
-            "text": "<p>La corona no se pide.<br>Se lleva puesta.</p>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h1",
-            "font": "var(--font-body--family)",
-            "font_size": "2.8rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "text_color": "{{ settings.color_palette.foreground }}",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "text_hero_sub": {
-          "type": "text",
-          "name": "Subtítulo",
-          "settings": {
-            "text": "<p>Streetwear premium Street Royalty. −10&#37; en tu primera compra con el código <strong>SRH10</strong> · Envío gratis en todos los pedidos.</p>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "paragraph",
-            "font": "var(--font-body--family)",
-            "font_size": "1.1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "text_color": "#ffffff",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 8,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "button_H9gpTf": {
-          "type": "button",
-          "name": "t:names.button",
-          "settings": {
-            "label": "Comprar novedades",
-            "link": "shopify://collections/novedades",
-            "open_in_new_tab": false,
-            "style_class": "button-primary",
-            "custom_button_background": "#F7572D",
-            "custom_button_text": "#ffffff",
-            "custom_button_border": "#F7572D",
-            "link_text_color": "",
-            "width": "fit-content",
-            "custom_width": 100,
-            "width_mobile": "fit-content",
-            "custom_width_mobile": 100
-          },
-          "blocks": {}
-        },
-        "button_hero_2": {
-          "type": "button",
-          "name": "t:names.button",
-          "settings": {
-            "label": "Ver todo el catálogo",
-            "link": "shopify://collections/all",
-            "open_in_new_tab": false,
-            "style_class": "button-secondary",
-            "custom_button_background": "rgba(0,0,0,0)",
-            "custom_button_text": "#ffffff",
-            "custom_button_border": "#ffffff",
-            "link_text_color": "",
-            "width": "fit-content",
-            "custom_width": 100,
-            "width_mobile": "fit-content",
-            "custom_width_mobile": 100
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "text_YLPk4p",
-        "text_hero_sub",
-        "button_H9gpTf",
-        "button_hero_2"
-      ],
-      "name": "t:names.hero",
-      "settings": {
-        "media_type_1": "image",
-        "image_1": "shopify://shop_images/image_f57eef63-e7f0-45fc-b936-269b09ea0ed6.png",
-        "media_type_2": "image",
-        "stack_media_on_mobile": false,
-        "custom_mobile_media": false,
-        "media_type_1_mobile": "image",
-        "media_type_2_mobile": "image",
-        "link": "",
-        "open_in_new_tab": false,
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "space-between",
-        "vertical_alignment": "flex-end",
-        "align_baseline": true,
-        "horizontal_alignment_flex_direction_column": "center",
-        "vertical_alignment_flex_direction_column": "flex-end",
-        "gap": 24,
-        "section_width": "page-width",
-        "section_height": "medium",
-        "section_height_custom": 50,
-        "background_color": "#000000",
-        "toggle_overlay": true,
-        "overlay_color": "#00000066",
-        "overlay_style": "solid",
-        "gradient_direction": "to bottom",
-        "blurred_reflection": false,
-        "reflection_opacity": 75,
-        "padding-block-start": 100,
-        "padding-block-end": 72
       }
     },
     "section_A9ALt7": {
@@ -1463,11 +1321,760 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
+    },
+    "slideshow_hero_sr": {
+      "type": "slideshow",
+      "name": "Hero — Carrusel SRHOOD",
+      "blocks": {
+        "slide_marca_sr": {
+          "type": "_slide",
+          "name": "Slide 1 · Marca",
+          "settings": {
+            "media_type_1": "image",
+            "image_1": "shopify://shop_images/pattern-greca.png",
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "flex-end",
+            "gap": 14,
+            "background_color": "",
+            "toggle_overlay": true,
+            "overlay_color": "#000000B3",
+            "overlay_style": "gradient",
+            "gradient_direction": "to top",
+            "padding-block-start": 56,
+            "padding-block-end": 64,
+            "padding-inline-start": 48,
+            "padding-inline-end": 48
+          },
+          "blocks": {
+            "s1_kicker": {
+              "type": "text",
+              "name": "Kicker",
+              "settings": {
+                "text": "<p>SRHOOD · STREET ROYALTY</p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "custom",
+                "font": "var(--font-body--family)",
+                "font_size": "0.85rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "text_color": "#F7572D",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "s1_h": {
+              "type": "text",
+              "name": "Titular",
+              "settings": {
+                "text": "<h1>La corona no se pide.<br>Se lleva puesta.</h1>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "custom",
+                "font": "var(--font-body--family)",
+                "font_size": "3.2rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "text_color": "#ffffff",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "s1_sub": {
+              "type": "text",
+              "name": "Subtítulo",
+              "settings": {
+                "text": "<p>Streetwear premium hecho bajo demanda. Envío gratis en todos los pedidos y −15% de bienvenida automático en el carrito.</p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "paragraph",
+                "font": "var(--font-body--family)",
+                "font_size": "1.05rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "text_color": "#ffffffcc",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 4,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "s1_btns": {
+              "type": "group",
+              "name": "Botones",
+              "settings": {
+                "content_direction": "row",
+                "vertical_on_mobile": false,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 12,
+                "width": "fit",
+                "custom_width": 100,
+                "width_mobile": "fit",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "background_media": "none",
+                "background_color": "rgba(0,0,0,0)",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_color": "",
+                "border_radius": 0,
+                "link": "",
+                "open_in_new_tab": false,
+                "placeholder": "",
+                "padding-block-start": 8,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "s1_b1": {
+                  "type": "button",
+                  "name": "t:names.button",
+                  "settings": {
+                    "label": "Comprar novedades",
+                    "link": "shopify://collections/novedades",
+                    "open_in_new_tab": false,
+                    "style_class": "button-primary",
+                    "custom_button_background": "#F7572D",
+                    "custom_button_text": "#ffffff",
+                    "custom_button_border": "#F7572D",
+                    "link_text_color": "",
+                    "width": "fit-content",
+                    "custom_width": 100,
+                    "width_mobile": "fit-content",
+                    "custom_width_mobile": 100
+                  },
+                  "blocks": {}
+                },
+                "s1_b2": {
+                  "type": "button",
+                  "name": "t:names.button",
+                  "settings": {
+                    "label": "Ver catálogo",
+                    "link": "shopify://collections/all",
+                    "open_in_new_tab": false,
+                    "style_class": "button-secondary",
+                    "custom_button_background": "rgba(0,0,0,0)",
+                    "custom_button_text": "#ffffff",
+                    "custom_button_border": "#ffffff",
+                    "link_text_color": "",
+                    "width": "fit-content",
+                    "custom_width": 100,
+                    "width_mobile": "fit-content",
+                    "custom_width_mobile": 100
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "s1_b1",
+                "s1_b2"
+              ]
+            }
+          },
+          "block_order": [
+            "s1_kicker",
+            "s1_h",
+            "s1_sub",
+            "s1_btns"
+          ]
+        },
+        "slide_crown_sr": {
+          "type": "_slide",
+          "name": "Slide 2 · Crown Capsule",
+          "settings": {
+            "media_type_1": "image",
+            "image_1": "shopify://shop_images/pattern-rex.png",
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "center",
+            "vertical_alignment_flex_direction_column": "flex-end",
+            "gap": 14,
+            "background_color": "",
+            "toggle_overlay": true,
+            "overlay_color": "#000000A6",
+            "overlay_style": "gradient",
+            "gradient_direction": "to top",
+            "padding-block-start": 56,
+            "padding-block-end": 64,
+            "padding-inline-start": 48,
+            "padding-inline-end": 48
+          },
+          "blocks": {
+            "s2_kicker": {
+              "type": "text",
+              "name": "Kicker",
+              "settings": {
+                "text": "<p>LA COLECCIÓN INSIGNIA</p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "center",
+                "type_preset": "custom",
+                "font": "var(--font-body--family)",
+                "font_size": "0.85rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "text_color": "#F7572D",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "s2_h": {
+              "type": "text",
+              "name": "Titular",
+              "settings": {
+                "text": "<h2>Crown Capsule</h2>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "center",
+                "type_preset": "custom",
+                "font": "var(--font-body--family)",
+                "font_size": "2.8rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "text_color": "#ffffff",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "s2_sub": {
+              "type": "text",
+              "name": "Subtítulo",
+              "settings": {
+                "text": "<p>Corona al pecho, gramaje alto, cero ruido. Hoodies, camisetas y sudaderas que mandan en silencio.</p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "center",
+                "type_preset": "paragraph",
+                "font": "var(--font-body--family)",
+                "font_size": "1.05rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "text_color": "#ffffffcc",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 4,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "s2_btns": {
+              "type": "group",
+              "name": "Botones",
+              "settings": {
+                "content_direction": "row",
+                "vertical_on_mobile": false,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 12,
+                "width": "fit",
+                "custom_width": 100,
+                "width_mobile": "fit",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "background_media": "none",
+                "background_color": "rgba(0,0,0,0)",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_color": "",
+                "border_radius": 0,
+                "link": "",
+                "open_in_new_tab": false,
+                "placeholder": "",
+                "padding-block-start": 8,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "s2_b1": {
+                  "type": "button",
+                  "name": "t:names.button",
+                  "settings": {
+                    "label": "Descubrir la cápsula",
+                    "link": "shopify://collections/crown-capsule-street-royalty",
+                    "open_in_new_tab": false,
+                    "style_class": "button-primary",
+                    "custom_button_background": "#ffffff",
+                    "custom_button_text": "#111111",
+                    "custom_button_border": "#ffffff",
+                    "link_text_color": "",
+                    "width": "fit-content",
+                    "custom_width": 100,
+                    "width_mobile": "fit-content",
+                    "custom_width_mobile": 100
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "s2_b1"
+              ]
+            }
+          },
+          "block_order": [
+            "s2_kicker",
+            "s2_h",
+            "s2_sub",
+            "s2_btns"
+          ]
+        },
+        "slide_capsulas_sr": {
+          "type": "_slide",
+          "name": "Slide 3 · Cápsulas",
+          "settings": {
+            "media_type_1": "image",
+            "image_1": "shopify://shop_images/pattern-damero.png",
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "flex-end",
+            "gap": 14,
+            "background_color": "",
+            "toggle_overlay": true,
+            "overlay_color": "#000000A6",
+            "overlay_style": "gradient",
+            "gradient_direction": "to top",
+            "padding-block-start": 56,
+            "padding-block-end": 64,
+            "padding-inline-start": 48,
+            "padding-inline-end": 48
+          },
+          "blocks": {
+            "s3_kicker": {
+              "type": "text",
+              "name": "Kicker",
+              "settings": {
+                "text": "<p>ARTE PARA LLEVAR PUESTO</p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "custom",
+                "font": "var(--font-body--family)",
+                "font_size": "0.85rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "text_color": "#F7572D",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "s3_h": {
+              "type": "text",
+              "name": "Titular",
+              "settings": {
+                "text": "<h2>Cápsulas SRHOOD</h2>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "custom",
+                "font": "var(--font-body--family)",
+                "font_size": "2.8rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "text_color": "#ffffff",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "s3_sub": {
+              "type": "text",
+              "name": "Subtítulo",
+              "settings": {
+                "text": "<p>Del marmoleado japonés al hierro forjado: Suminagashi, Cianotipo, Forja, Neón y más de veinte series con diseño propio.</p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "paragraph",
+                "font": "var(--font-body--family)",
+                "font_size": "1.05rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "text_color": "#ffffffcc",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 4,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "s3_btns": {
+              "type": "group",
+              "name": "Botones",
+              "settings": {
+                "content_direction": "row",
+                "vertical_on_mobile": false,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 12,
+                "width": "fit",
+                "custom_width": 100,
+                "width_mobile": "fit",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "background_media": "none",
+                "background_color": "rgba(0,0,0,0)",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_color": "",
+                "border_radius": 0,
+                "link": "",
+                "open_in_new_tab": false,
+                "placeholder": "",
+                "padding-block-start": 8,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "s3_b1": {
+                  "type": "button",
+                  "name": "t:names.button",
+                  "settings": {
+                    "label": "Explorar cápsulas",
+                    "link": "shopify://collections/capsulas-srhood-series-limitadas",
+                    "open_in_new_tab": false,
+                    "style_class": "button-primary",
+                    "custom_button_background": "#F7572D",
+                    "custom_button_text": "#ffffff",
+                    "custom_button_border": "#F7572D",
+                    "link_text_color": "",
+                    "width": "fit-content",
+                    "custom_width": 100,
+                    "width_mobile": "fit-content",
+                    "custom_width_mobile": 100
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "s3_b1"
+              ]
+            }
+          },
+          "block_order": [
+            "s3_kicker",
+            "s3_h",
+            "s3_sub",
+            "s3_btns"
+          ]
+        },
+        "slide_verano_sr": {
+          "type": "_slide",
+          "name": "Slide 4 · Verano",
+          "settings": {
+            "media_type_1": "image",
+            "image_1": "shopify://shop_images/pattern-terrazo.png",
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "flex-end",
+            "gap": 14,
+            "background_color": "",
+            "toggle_overlay": true,
+            "overlay_color": "#FFFFFF59",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "padding-block-start": 56,
+            "padding-block-end": 64,
+            "padding-inline-start": 48,
+            "padding-inline-end": 48
+          },
+          "blocks": {
+            "s4_kicker": {
+              "type": "text",
+              "name": "Kicker",
+              "settings": {
+                "text": "<p>TEMPORADA DE SOL</p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "custom",
+                "font": "var(--font-body--family)",
+                "font_size": "0.85rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "text_color": "#8a1c2b",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "s4_h": {
+              "type": "text",
+              "name": "Titular",
+              "settings": {
+                "text": "<h2>Verano Royalty</h2>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "custom",
+                "font": "var(--font-body--family)",
+                "font_size": "2.8rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "text_color": "#111111",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "s4_sub": {
+              "type": "text",
+              "name": "Subtítulo",
+              "settings": {
+                "text": "<p>Bañadores, bikinis y chanclas con sello SRH: reina también en la orilla.</p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "paragraph",
+                "font": "var(--font-body--family)",
+                "font_size": "1.05rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "text_color": "#111111cc",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 4,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "s4_btns": {
+              "type": "group",
+              "name": "Botones",
+              "settings": {
+                "content_direction": "row",
+                "vertical_on_mobile": false,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 12,
+                "width": "fit",
+                "custom_width": 100,
+                "width_mobile": "fit",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "background_media": "none",
+                "background_color": "rgba(0,0,0,0)",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_color": "",
+                "border_radius": 0,
+                "link": "",
+                "open_in_new_tab": false,
+                "placeholder": "",
+                "padding-block-start": 8,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "s4_b1": {
+                  "type": "button",
+                  "name": "t:names.button",
+                  "settings": {
+                    "label": "Ver colección de baño",
+                    "link": "shopify://collections/verano-royal-bano-playa",
+                    "open_in_new_tab": false,
+                    "style_class": "button-primary",
+                    "custom_button_background": "#111111",
+                    "custom_button_text": "#ffffff",
+                    "custom_button_border": "#111111",
+                    "link_text_color": "",
+                    "width": "fit-content",
+                    "custom_width": 100,
+                    "width_mobile": "fit-content",
+                    "custom_width_mobile": 100
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "s4_b1"
+              ]
+            }
+          },
+          "block_order": [
+            "s4_kicker",
+            "s4_h",
+            "s4_sub",
+            "s4_btns"
+          ]
+        }
+      },
+      "block_order": [
+        "slide_marca_sr",
+        "slide_crown_sr",
+        "slide_capsulas_sr",
+        "slide_verano_sr"
+      ],
+      "settings": {
+        "display_mode": "full_frame",
+        "section_width": "full-width",
+        "full_frame_on_mobile": false,
+        "slideshow_gap": 12,
+        "corner_radius": 0,
+        "slide_height": "medium",
+        "content_position": "on-media",
+        "background_color": "#000000",
+        "icons_style": "chevron_large",
+        "icons_shape": "circle",
+        "slideshow_controls_style": "counter",
+        "autoplay": true,
+        "autoplay_speed": 5,
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
     }
   },
   "order": [
     "marquee_jdafnj",
-    "hero_jVaWmY",
+    "slideshow_hero_sr",
     "section_bCRPnq",
     "product_list_dmbGF7",
     "collection_list_sr",
