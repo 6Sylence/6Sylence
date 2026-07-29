@@ -17,7 +17,7 @@
         "announcement_BxgCk9": {
           "type": "_announcement",
           "settings": {
-            "text": "−10% en tu primera compra con el código SRH10",
+            "text": "👑 −15% de bienvenida automático — se aplica solo en tu carrito",
             "link": "",
             "font": "var(--font-subheading--family)",
             "font_size": "1rem",
@@ -32,7 +32,7 @@
           "type": "_announcement",
           "name": "t:names.announcement",
           "settings": {
-            "text": "⭐ Completa tu look: llévate 2 y el 2º artículo tiene −15% automático",
+            "text": "🎨 Arte para llevar puesto — descubre las cápsulas SRHOOD",
             "link": "",
             "font": "var(--font-subheading--family)",
             "font_size": "1rem",

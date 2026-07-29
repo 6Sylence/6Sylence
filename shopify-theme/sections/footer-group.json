@@ -81,7 +81,7 @@
             "text_f9CFLH": {
               "type": "text",
               "settings": {
-                "text": "<p>Drops exclusivos, acceso anticipado y un 10% de descuento en tu primera compra con el código SRH10.</p>",
+                "text": "<p>Drops exclusivos, acceso anticipado y novedades antes que nadie. Tu −15% de bienvenida se aplica solo en el carrito.</p>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "left",
@@ -272,8 +272,10 @@
       "settings": {
         "enabled": true,
         "heading": "Únete a la Street Royalty",
-        "button_label": "Quiero mi 10%",
-        "discount_code": "SRH10",
+        "text": "<p>Suscríbete para drops exclusivos y acceso anticipado. Tu <strong>−15% de bienvenida</strong> se aplica solo en el carrito.</p>",
+        "button_label": "Unirme al club",
+        "success_text": "<p>Ya estás dentro. Tu −15% de bienvenida se aplica solo en el carrito.</p>",
+        "discount_code": "",
         "delay_seconds": 8,
         "exit_intent": true,
         "frequency_days": 15
