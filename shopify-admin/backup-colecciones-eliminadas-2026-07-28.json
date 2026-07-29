@@ -117,6 +117,25 @@
         { "column": "TAG", "relation": "EQUALS", "condition": "escaque-real" }
       ],
       "nota": "Sus 6 productos (camiseta, sudadera, hoodie, 2 zapatillas, calcetines) estaban en DRAFT desde antes de la poda — drop sin publicar. Si se lanza la cápsula, activar los productos y recrear la colección con la regla tag=escaque-real."
+    },
+    {
+      "id": "gid://shopify/Collection/702046404992",
+      "titulo": "Cápsula Cifra Real — El Sello",
+      "handle": "capsula-cifra-real-el-sello",
+      "productos_totales": 2,
+      "productos_activos": 2,
+      "tipo": "smart",
+      "reglas": [
+        { "column": "TAG", "relation": "EQUALS", "condition": "cifra-real" }
+      ],
+      "nota": "Eliminada el 2026-07-29 por ser demasiado pequeña (2 productos) para tener página propia. Sus 2 productos (Hoodie Premium Cifra Real y Camiseta Cifra Real) siguen ACTIVOS y visibles en la home y en las colecciones por tipo. Si la cápsula crece, recrearla con la regla tag=cifra-real."
     }
+  ],
+  "otros_cambios_2026-07-29": [
+    "SRH10 (código 10%) desactivado — la oferta única de bienvenida es el automático '15% Bienvenida Royalty'.",
+    "Tag 'novedades' retirado de 300 productos anteriores al drop del 18-19 jul; la colección Novedades queda con ~139 productos del último drop.",
+    "Opción 'Size' renombrada a 'Talla' en 14 productos.",
+    "Colección 'Bestsellers' renombrada a 'Esenciales SRHOOD' (handle intacto: bestsellers).",
+    "Retirados 5 productos en borrador (láminas/pósters) de la colección manual de la portada."
   ]
 }

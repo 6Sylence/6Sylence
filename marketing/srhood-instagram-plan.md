@@ -2,7 +2,7 @@
 
 **Cadencia:** 3–4 posts/semana — Lun 20:30 · Mié 14:00 · Vie 20:30 · Dom 14:00 (Europe/Madrid).
 **Flujo en IDEQO:** Create post → elegir producto del catálogo (carga la foto sola) → canal Instagram (feed) → pegar caption → fecha/hora → Schedule. Comprobar que queda en "Programado" y que la foto se ve bien en cuadrado/vertical.
-**Reglas de honestidad:** envío gratis en todos los pedidos (real, sin mínimo) ✓ · SRH10 −10% primera compra (verificado activo 28-jul) ✓ · no prometer plazos ni descuentos no verificados.
+**Reglas de honestidad:** envío gratis en todos los pedidos (real, sin mínimo) ✓ · 15% de bienvenida automático en el carrito (verificado activo 28-jul; SRH10 desactivado ese día) ✓ · no prometer plazos ni descuentos no verificados.
 
 ---
 
@@ -13,7 +13,7 @@
 El básico que no falla. 👑
 Hoodie Arco College negro — tacto pesado, corte unisex.
 Envío gratis en todos los pedidos.
-🔗 srhood.com (link en bio) · −10% con SRH10 en tu primera compra.
+🔗 srhood.com (link en bio) · El −15% de bienvenida se aplica solo en el carrito.
 .
 #hoodie #sudaderaconcapucha #streetwear #ropaurbana #srhood #streetroyalty #college #modaurbana #ootd #urbanstyle
 ```
@@ -23,7 +23,7 @@ Envío gratis en todos los pedidos.
 La corona no se pide. Se lleva puesta. 👑
 Gorra Corona SRH — bordado 3D, ajuste clásico. En negro y navy.
 Envío gratis, siempre.
-🔗 Link en bio · −10% con SRH10.
+🔗 Link en bio · El −15% se aplica solo en el carrito.
 .
 #gorra #cap #streetwear #srhood #streetroyalty #accesorios #modaurbana #snapback #outfitdiario #urbanstyle
 ```
@@ -33,7 +33,7 @@ Envío gratis, siempre.
 Blackletter. Porque lo clásico impone. 🕊️
 Camiseta Royalty en blanco — algodón peinado, tipografía gótica al pecho.
 Envío gratis en todos los pedidos.
-🔗 srhood.com (link en bio) · SRH10 = −10%.
+🔗 srhood.com (link en bio) · −15% automático en el carrito.
 .
 #camiseta #tshirt #blackletter #streetwear #srhood #streetroyalty #ropaurbana #basicos #modaurbana #ootd
 ```
@@ -43,7 +43,7 @@ Envío gratis en todos los pedidos.
 Verano con corona. ☀️
 Bucket Hat Corona SRH — blanco o caqui, bordado tonal.
 Envío gratis. Sin letra pequeña.
-🔗 Link en bio · −10% con SRH10.
+🔗 Link en bio · El −15% se aplica solo en el carrito.
 .
 #buckethat #gorro #streetwear #verano #srhood #streetroyalty #accesorios #summerfit #modaurbana #urbanstyle
 ```
@@ -53,7 +53,7 @@ Envío gratis. Sin letra pequeña.
 Escudo al pecho. Actitud de serie. 🛡️
 Sudadera Crest SRH negra — felpa densa, cuello reforzado.
 Envío gratis en todos los pedidos.
-🔗 srhood.com (link en bio) · SRH10 −10% primera compra.
+🔗 srhood.com (link en bio) · −15% de bienvenida automático.
 .
 #sudadera #crewneck #streetwear #srhood #streetroyalty #ropaurbana #modaurbana #outfit #urbanwear #ootd
 ```
@@ -63,7 +63,7 @@ Envío gratis en todos los pedidos.
 Corona bordada. Visera plana. Cero ruido. 👑
 Snapback Crown en negro — ajuste universal.
 Envío gratis, como siempre.
-🔗 Link en bio · −10% con SRH10.
+🔗 Link en bio · El −15% se aplica solo en el carrito.
 .
 #snapback #gorra #streetwear #srhood #streetroyalty #accesorios #modaurbana #capaddict #urbanstyle #fitcheck
 ```
@@ -73,7 +73,7 @@ Envío gratis, como siempre.
 El logo habla bajito. La calidad grita. 🔊
 Camiseta Wordmark negra — corte recto, serigrafía duradera.
 Envío gratis en todos los pedidos.
-🔗 srhood.com (link en bio) · SRH10 = −10%.
+🔗 srhood.com (link en bio) · −15% automático en el carrito.
 .
 #camiseta #wordmark #streetwear #srhood #streetroyalty #ropaurbana #basicos #minimal #modaurbana #ootd
 ```
@@ -83,7 +83,7 @@ Envío gratis en todos los pedidos.
 Para el día a día del reino. 🏛️
 Tote Sello Circular — lona resistente, sello SRH estampado.
 Envío gratis. Siempre.
-🔗 Link en bio · −10% con SRH10.
+🔗 Link en bio · El −15% se aplica solo en el carrito.
 .
 #totebag #bolsa #streetwear #srhood #streetroyalty #accesorios #ecofriendly #modaurbana #dailycarry #urbanstyle
 ```
@@ -93,7 +93,7 @@ Envío gratis. Siempre.
 Contraste que corona. 👑
 Hoodie Crown Contrast negro — capucha forrada, bolsillo canguro.
 Envío gratis en todos los pedidos.
-🔗 srhood.com (link en bio) · SRH10 −10%.
+🔗 srhood.com (link en bio) · −15% automático en el carrito.
 .
 #hoodie #streetwear #srhood #streetroyalty #ropaurbana #modaurbana #hoodieseason #outfit #urbanwear #ootd
 ```
@@ -103,7 +103,7 @@ Envío gratis en todos los pedidos.
 De la calle al trono. Sin cambiarte. 🖤
 Jogger Corona SRH — negro o navy, puño elástico, bolsillos con cremallera.
 Envío gratis, sin mínimos.
-🔗 Link en bio · −10% con SRH10.
+🔗 Link en bio · El −15% se aplica solo en el carrito.
 .
 #jogger #pantalon #streetwear #srhood #streetroyalty #ropaurbana #comfy #modaurbana #outfitdiario #urbanstyle
 ```
@@ -117,7 +117,7 @@ Envío gratis, sin mínimos.
 Oversized. Lavado. Coronada. 👑
 Camiseta Crown Oversized en negro lavado — caída amplia, tacto vintage.
 Envío gratis en todos los pedidos.
-🔗 srhood.com (link en bio) · SRH10 = −10%.
+🔗 srhood.com (link en bio) · −15% automático en el carrito.
 .
 #oversized #camiseta #streetwear #srhood #crowncapsule #streetroyalty #washedtee #modaurbana #ootd #urbanstyle
 ```
@@ -127,7 +127,7 @@ Envío gratis en todos los pedidos.
 La pieza central del armario. 🖤
 Hoodie Crown Premium negro — gramaje alto, corona al pecho.
 Envío gratis. Sin letra pequeña.
-🔗 Link en bio · −10% con SRH10.
+🔗 Link en bio · El −15% se aplica solo en el carrito.
 .
 #hoodie #premium #streetwear #srhood #crowncapsule #streetroyalty #ropaurbana #hoodielover #modaurbana #ootd
 ```
@@ -137,7 +137,7 @@ Envío gratis. Sin letra pequeña.
 Tinta al agua. Ninguno igual. 🌊
 Cápsula Suminagashi: hoodie Remolino en negro — patrón inspirado en el marmoleado japonés.
 Envío gratis en todos los pedidos.
-🔗 srhood.com (link en bio) · SRH10 −10%.
+🔗 srhood.com (link en bio) · −15% automático en el carrito.
 .
 #suminagashi #hoodie #streetwear #srhood #capsula #streetroyalty #arte #japanesestyle #modaurbana #urbanstyle
 ```
@@ -147,7 +147,7 @@ Envío gratis en todos los pedidos.
 Azul de Prusia. Botánica real. 🌿
 Cápsula Cianotipo: camiseta Helecho en blanco — estampado tipo blueprint.
 Envío gratis, siempre.
-🔗 Link en bio · −10% con SRH10.
+🔗 Link en bio · El −15% se aplica solo en el carrito.
 .
 #cianotipo #cyanotype #camiseta #streetwear #srhood #capsula #streetroyalty #botanical #modaurbana #ootd
 ```
@@ -157,7 +157,7 @@ Envío gratis, siempre.
 Arena. El neutro que lo aguanta todo. 🏜️
 Sudadera Crown en arena — felpa suave, corona bordada.
 Envío gratis en todos los pedidos.
-🔗 srhood.com (link en bio) · SRH10 = −10%.
+🔗 srhood.com (link en bio) · −15% automático en el carrito.
 .
 #sudadera #crewneck #earthtones #streetwear #srhood #crowncapsule #streetroyalty #modaurbana #neutrals #ootd
 ```
@@ -167,7 +167,7 @@ Envío gratis en todos los pedidos.
 Hierro y oro. Puertas que solo abren por dentro. ⚔️
 Cápsula Forja: hoodie Puerta del Reino — negro con detalles dorados.
 Envío gratis. Sin mínimos.
-🔗 Link en bio · −10% con SRH10.
+🔗 Link en bio · El −15% se aplica solo en el carrito.
 .
 #hoodie #forja #streetwear #srhood #capsula #streetroyalty #blackandgold #modaurbana #urbanwear #ootd
 ```
@@ -177,7 +177,7 @@ Envío gratis. Sin mínimos.
 Heavyweight. Color teja. Cero excusas. 🧱
 Camiseta Crown Heavyweight — algodón grueso que cae como debe.
 Envío gratis en todos los pedidos.
-🔗 srhood.com (link en bio) · SRH10 −10%.
+🔗 srhood.com (link en bio) · −15% automático en el carrito.
 .
 #heavyweight #camiseta #streetwear #srhood #crowncapsule #streetroyalty #terracotta #modaurbana #ootd #urbanstyle
 ```
@@ -187,7 +187,7 @@ Envío gratis en todos los pedidos.
 Madera noble para pisar la calle. 🪵
 Cápsula Marquetería: zapatillas altas en negro/nogal — patrón intarsia.
 Envío gratis, como siempre.
-🔗 Link en bio · −10% con SRH10.
+🔗 Link en bio · El −15% se aplica solo en el carrito.
 .
 #sneakers #zapatillas #streetwear #srhood #capsula #marqueteria #streetroyalty #hightops #modaurbana #kicks
 ```
@@ -197,7 +197,7 @@ Envío gratis, como siempre.
 La corona nunca duerme. 🌃
 Cápsula Neón: hoodie 24/7 en negro — gráficos noche eléctrica.
 Envío gratis en todos los pedidos.
-🔗 srhood.com (link en bio) · SRH10 = −10%.
+🔗 srhood.com (link en bio) · −15% automático en el carrito.
 .
 #neon #hoodie #streetwear #srhood #capsula #streetroyalty #nightlife #modaurbana #urbanwear #ootd
 ```
@@ -207,7 +207,7 @@ Envío gratis en todos los pedidos.
 Dos caras. Una corona. 🔄
 Bucket Hat Suminagashi reversible — marfil o negro según el día.
 Envío gratis. Siempre.
-🔗 Link en bio · −10% con SRH10.
+🔗 Link en bio · El −15% se aplica solo en el carrito.
 .
 #buckethat #reversible #suminagashi #streetwear #srhood #capsula #streetroyalty #accesorios #modaurbana #urbanstyle
 ```
