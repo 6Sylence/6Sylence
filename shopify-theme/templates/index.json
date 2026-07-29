@@ -268,17 +268,17 @@
       "name": "Compra por colección",
       "settings": {
         "collection_list": [
-          "banadores-hombre-verano-royalty",
-          "bikinis-verano-royalty",
           "camisetas",
-          "calzado-sneakers",
           "sudaderas-hoodies",
-          "pantalones-joggers",
+          "calzado-sneakers",
           "gorras-gorros",
-          "chaquetas-abrigos",
           "crown-capsule-street-royalty",
-          "oversized-club",
-          "accesorios-streetwear"
+          "pantalones-joggers",
+          "banadores-hombre-verano-royalty",
+          "accesorios-streetwear",
+          "bikinis-verano-royalty",
+          "chaquetas-abrigos",
+          "oversized-club"
         ],
         "layout_type": "grid",
         "carousel_on_mobile": false,
@@ -288,7 +288,7 @@
         "columns_gap": 8,
         "bento_gap": 8,
         "rows_gap": 8,
-        "max_collections": 4,
+        "max_collections": 8,
         "icons_style": "arrow",
         "icons_shape": "none",
         "section_width": "page-width",
@@ -339,7 +339,7 @@
               "type": "_product-list-text",
               "name": "t:names.collection_title",
               "settings": {
-                "text": "<h2>Bestsellers</h2>",
+                "text": "<h2>Esenciales SRHOOD</h2>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -550,7 +550,7 @@
               "type": "_product-list-text",
               "name": "t:names.collection_title",
               "settings": {
-                "text": "<h3>Novedades</h3>",
+                "text": "<h3>Último drop</h3>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -1331,7 +1331,7 @@
           "name": "Slide 1 · Marca",
           "settings": {
             "media_type_1": "image",
-            "image_1": "shopify://shop_images/pattern-greca.png",
+            "image_1": "shopify://shop_images/pattern-wordmark-shoes.png",
             "content_direction": "column",
             "vertical_on_mobile": true,
             "horizontal_alignment": "flex-start",
@@ -2070,6 +2070,179 @@
         "padding-block-start": 0,
         "padding-block-end": 0
       }
+    },
+    "capsulas_grid_sr": {
+      "type": "collection-list",
+      "blocks": {
+        "group_header_sr": {
+          "type": "group",
+          "name": "Header",
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "background_media": "none",
+            "background_color": "rgba(0,0,0,0)",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_color": "",
+            "border_radius": 0,
+            "link": "",
+            "open_in_new_tab": false,
+            "placeholder": "",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "text_sr_cbc": {
+              "type": "text",
+              "name": "Texto",
+              "settings": {
+                "text": "<h2>Explora las cápsulas</h2>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "text_color": "",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 16,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "text_sr_cbc"
+          ]
+        },
+        "static-collection-card": {
+          "type": "_collection-card",
+          "name": "Collection card",
+          "static": true,
+          "settings": {
+            "placement": "on_image",
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "flex-end",
+            "collection_card_gap": 8,
+            "background_color": "",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_color": "",
+            "border_radius": 0
+          },
+          "blocks": {
+            "collection-title": {
+              "type": "collection-title",
+              "name": "Título",
+              "settings": {
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "background": true,
+                "background_color": "#111111",
+                "text_color": "#ffffff",
+                "corner_radius": 0,
+                "padding-block-start": 8,
+                "padding-block-end": 8,
+                "padding-inline-start": 12,
+                "padding-inline-end": 12
+              },
+              "blocks": {}
+            },
+            "collection-card-image": {
+              "type": "_collection-card-image",
+              "name": "Imagen",
+              "static": true,
+              "settings": {
+                "image_ratio": "square",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_color": "",
+                "border_radius": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "collection-title"
+          ]
+        }
+      },
+      "block_order": [
+        "group_header_sr"
+      ],
+      "name": "Cápsulas SRHOOD",
+      "settings": {
+        "collection_list": [
+          "capsula-suminagashi-tinta-al-agua",
+          "capsula-cianotipo-herbario-de-prusia",
+          "capsula-forja-hierro-y-oro",
+          "capsula-marqueteria-intarsia-real",
+          "capsula-neon-la-corona-nunca-duerme",
+          "serie-nocturna-capsula-black-amp-gold",
+          "kintsugi-real-porcelana-oro",
+          "capsula-tartan-herencia-real"
+        ],
+        "layout_type": "grid",
+        "carousel_on_mobile": false,
+        "columns": 4,
+        "mobile_columns": "2",
+        "mobile_card_size": "60cqw",
+        "columns_gap": 8,
+        "bento_gap": 8,
+        "rows_gap": 8,
+        "max_collections": 4,
+        "icons_style": "arrow",
+        "icons_shape": "none",
+        "section_width": "page-width",
+        "gap": 12,
+        "background_color": "",
+        "padding-block-start": 24,
+        "padding-block-end": 48
+      }
     }
   },
   "order": [
@@ -2079,6 +2252,7 @@
     "product_list_dmbGF7",
     "collection_list_sr",
     "product_list_fa6P9H",
+    "capsulas_grid_sr",
     "section_A9ALt7",
     "section_w6Cf9n"
   ]
