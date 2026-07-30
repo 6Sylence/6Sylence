@@ -2,10 +2,30 @@
   "fecha": "2026-07-28",
   "motivo": "Colecciones sin productos activos tras la poda del catálogo (86 productos de bazar pasados a DRAFT el 2026-07-28). Se eliminan para no mostrar páginas vacías. Los productos NO se borraron: siguen en estado draft. Para restaurar una colección, crearla de nuevo con las reglas indicadas.",
   "menu_principal_items_eliminados_previamente": [
-    { "menu": "main-menu (gid://shopify/Menu/327479853440)", "padre": "Accesorios", "titulo": "Fundas & Tech", "url": "/collections/fundas-tech" },
-    { "menu": "main-menu", "padre": "Accesorios", "titulo": "Setup & Escritorio", "url": "/collections/setup-escritorio" },
-    { "menu": "main-menu", "padre": "Accesorios", "titulo": "Decoración Hogar", "url": "/collections/decoracion-del-hogar" },
-    { "menu": "main-menu", "padre": "Accesorios", "titulo": "Pets", "url": "/collections/street-royalty-pets" }
+    {
+      "menu": "main-menu (gid://shopify/Menu/327479853440)",
+      "padre": "Accesorios",
+      "titulo": "Fundas & Tech",
+      "url": "/collections/fundas-tech"
+    },
+    {
+      "menu": "main-menu",
+      "padre": "Accesorios",
+      "titulo": "Setup & Escritorio",
+      "url": "/collections/setup-escritorio"
+    },
+    {
+      "menu": "main-menu",
+      "padre": "Accesorios",
+      "titulo": "Decoración Hogar",
+      "url": "/collections/decoracion-del-hogar"
+    },
+    {
+      "menu": "main-menu",
+      "padre": "Accesorios",
+      "titulo": "Pets",
+      "url": "/collections/street-royalty-pets"
+    }
   ],
   "colecciones_eliminadas": [
     {
@@ -16,16 +36,56 @@
       "productos_activos": 0,
       "tipo": "smart",
       "reglas": [
-        { "column": "TYPE", "relation": "EQUALS", "condition": "Lienzo" },
-        { "column": "TYPE", "relation": "EQUALS", "condition": "Póster" },
-        { "column": "TYPE", "relation": "EQUALS", "condition": "Cojín" },
-        { "column": "TYPE", "relation": "EQUALS", "condition": "Manta" },
-        { "column": "TYPE", "relation": "EQUALS", "condition": "CANVAS" },
-        { "column": "TYPE", "relation": "EQUALS", "condition": "POSTER" },
-        { "column": "TYPE", "relation": "EQUALS", "condition": "Bandera" },
-        { "column": "TYPE", "relation": "EQUALS", "condition": "Hogar" },
-        { "column": "TYPE", "relation": "EQUALS", "condition": "Esterilla" },
-        { "column": "TYPE", "relation": "EQUALS", "condition": "Toalla" }
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Lienzo"
+        },
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Póster"
+        },
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Cojín"
+        },
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Manta"
+        },
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "CANVAS"
+        },
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "POSTER"
+        },
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Bandera"
+        },
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Hogar"
+        },
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Esterilla"
+        },
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Toalla"
+        }
       ]
     },
     {
@@ -36,17 +96,61 @@
       "productos_activos": 0,
       "tipo": "smart",
       "reglas": [
-        { "column": "TAG", "relation": "EQUALS", "condition": "setup-escritorio" },
-        { "column": "TYPE", "relation": "EQUALS", "condition": "Alfombrilla" },
-        { "column": "TYPE", "relation": "EQUALS", "condition": "Taza" },
-        { "column": "TYPE", "relation": "EQUALS", "condition": "Cuaderno" },
-        { "column": "TYPE", "relation": "EQUALS", "condition": "Póster" },
-        { "column": "TYPE", "relation": "EQUALS", "condition": "Imán" },
-        { "column": "TYPE", "relation": "EQUALS", "condition": "Pegatinas" },
-        { "column": "TYPE", "relation": "EQUALS", "condition": "Funda Portátil" },
-        { "column": "TYPE", "relation": "EQUALS", "condition": "Funda AirPods" },
-        { "column": "TYPE", "relation": "EQUALS", "condition": "Posavasos" },
-        { "column": "TYPE", "relation": "EQUALS", "condition": "Vaso" }
+        {
+          "column": "TAG",
+          "relation": "EQUALS",
+          "condition": "setup-escritorio"
+        },
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Alfombrilla"
+        },
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Taza"
+        },
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Cuaderno"
+        },
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Póster"
+        },
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Imán"
+        },
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Pegatinas"
+        },
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Funda Portátil"
+        },
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Funda AirPods"
+        },
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Posavasos"
+        },
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Vaso"
+        }
       ]
     },
     {
@@ -57,17 +161,61 @@
       "productos_activos": 0,
       "tipo": "smart",
       "reglas": [
-        { "column": "TAG", "relation": "EQUALS", "condition": "gift-set" },
-        { "column": "TYPE", "relation": "EQUALS", "condition": "Taza" },
-        { "column": "TYPE", "relation": "EQUALS", "condition": "Manta" },
-        { "column": "TYPE", "relation": "EQUALS", "condition": "Cojín" },
-        { "column": "TYPE", "relation": "EQUALS", "condition": "Botella" },
-        { "column": "TYPE", "relation": "EQUALS", "condition": "Chapa" },
-        { "column": "TYPE", "relation": "EQUALS", "condition": "Imán" },
-        { "column": "TYPE", "relation": "EQUALS", "condition": "Pegatinas" },
-        { "column": "TYPE", "relation": "EQUALS", "condition": "Cuaderno" },
-        { "column": "TYPE", "relation": "EQUALS", "condition": "Posavasos" },
-        { "column": "TYPE", "relation": "EQUALS", "condition": "Vaso" }
+        {
+          "column": "TAG",
+          "relation": "EQUALS",
+          "condition": "gift-set"
+        },
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Taza"
+        },
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Manta"
+        },
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Cojín"
+        },
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Botella"
+        },
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Chapa"
+        },
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Imán"
+        },
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Pegatinas"
+        },
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Cuaderno"
+        },
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Posavasos"
+        },
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Vaso"
+        }
       ]
     },
     {
@@ -78,7 +226,11 @@
       "productos_activos": 0,
       "tipo": "smart",
       "reglas": [
-        { "column": "TYPE", "relation": "EQUALS", "condition": "Mascotas" }
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Mascotas"
+        }
       ]
     },
     {
@@ -89,10 +241,26 @@
       "productos_activos": 0,
       "tipo": "smart",
       "reglas": [
-        { "column": "TYPE", "relation": "EQUALS", "condition": "Funda de Móvil" },
-        { "column": "TYPE", "relation": "EQUALS", "condition": "Funda AirPods" },
-        { "column": "TYPE", "relation": "EQUALS", "condition": "Funda Portátil" },
-        { "column": "TYPE", "relation": "EQUALS", "condition": "Alfombrilla" }
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Funda de Móvil"
+        },
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Funda AirPods"
+        },
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Funda Portátil"
+        },
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Alfombrilla"
+        }
       ]
     },
     {
@@ -103,7 +271,11 @@
       "productos_activos": 0,
       "tipo": "smart",
       "reglas": [
-        { "column": "TAG", "relation": "EQUALS", "condition": "royal-ink" }
+        {
+          "column": "TAG",
+          "relation": "EQUALS",
+          "condition": "royal-ink"
+        }
       ]
     },
     {
@@ -114,7 +286,11 @@
       "productos_activos": 0,
       "tipo": "smart",
       "reglas": [
-        { "column": "TAG", "relation": "EQUALS", "condition": "escaque-real" }
+        {
+          "column": "TAG",
+          "relation": "EQUALS",
+          "condition": "escaque-real"
+        }
       ],
       "nota": "Sus 6 productos (camiseta, sudadera, hoodie, 2 zapatillas, calcetines) estaban en DRAFT desde antes de la poda — drop sin publicar. Si se lanza la cápsula, activar los productos y recrear la colección con la regla tag=escaque-real."
     },
@@ -126,7 +302,11 @@
       "productos_activos": 2,
       "tipo": "smart",
       "reglas": [
-        { "column": "TAG", "relation": "EQUALS", "condition": "cifra-real" }
+        {
+          "column": "TAG",
+          "relation": "EQUALS",
+          "condition": "cifra-real"
+        }
       ],
       "nota": "Eliminada el 2026-07-29 por ser demasiado pequeña (2 productos) para tener página propia. Sus 2 productos (Hoodie Premium Cifra Real y Camiseta Cifra Real) siguen ACTIVOS y visibles en la home y en las colecciones por tipo. Si la cápsula crece, recrearla con la regla tag=cifra-real."
     }
@@ -137,5 +317,16 @@
     "Opción 'Size' renombrada a 'Talla' en 14 productos.",
     "Colección 'Bestsellers' renombrada a 'Esenciales SRHOOD' (handle intacto: bestsellers).",
     "Retirados 5 productos en borrador (láminas/pósters) de la colección manual de la portada."
-  ]
+  ],
+  "otros_cambios_2026-07-30": {
+    "canal_facebook_instagram": {
+      "publication_id": "gid://shopify/Publication/341511569792",
+      "estado_previo": "450 de 612 productos activos publicados; 162 productos de marca sin sincronizar (añadidos después de la conexión inicial del canal)",
+      "accion": "publicationUpdate con publishablesToAdd en 4 lotes (50+50+50+12) = 162 productos añadidos",
+      "estado_final": "612 de 612 productos activos publicados en el canal; 0 borradores en el canal",
+      "autoPublish": false,
+      "nota_autoPublish": "Se deja desactivado a propósito: con autoPublish activo, reactivar los 86 borradores de bazar los sincronizaría automáticamente al catálogo de Meta.",
+      "reversion": "publicationUpdate con publishablesToRemove sobre los mismos 162 IDs"
+    }
+  }
 }
