@@ -20,7 +20,7 @@ import urllib.request, urllib.error, mimetypes, uuid
 BASE = os.environ.get("POSTIZ_BASE_URL", "https://api.postiz.com/public/v1").rstrip("/")
 CLAVE = os.environ.get("POSTIZ_API_KEY", "")
 AQUI = os.path.dirname(os.path.abspath(__file__))
-IMGS = os.path.join(AQUI, "out")
+IMGS = os.path.join(AQUI, "out", "jpg")
 
 
 def pedir(metodo, ruta, cuerpo=None, archivo=None, reintentos=4):
@@ -121,13 +121,18 @@ def main():
                              "collaborators": []},
             }],
         })
-        hechas.append((k, p["titulo"], r))
+        hechas.append((k, p["titulo"], p["alt"]))
         print("       ✓ publicada")
+        print(f"       texto alternativo (pégalo en la app):\n       {p['alt']}")
         if k - a.desde + 1 < len(posts):
             time.sleep(a.pausa)
 
     if a.confirmar:
         print(f"\n{len(hechas)} publicadas.")
+        print("\nTextos alternativos — Postiz no los transmite; ponlos en Instagram:")
+        print("  post ··· → Editar → Editar texto alternativo")
+        for k, t, alt in hechas:
+            print(f"\n  [{k:02d}] {t}\n       {alt}")
         if fallidas:
             print("Fallidas:", fallidas)
     else:
