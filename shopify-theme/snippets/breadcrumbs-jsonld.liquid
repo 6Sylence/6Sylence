@@ -1,0 +1,66 @@
+{%- doc -%}
+  BreadcrumbList JSON-LD para SEO (Inicio → Colección → Producto).
+  Se emite en páginas de producto y colección. No pinta nada visible.
+{%- enddoc -%}
+
+{%- if request.page_type == 'product' and product != blank -%}
+  {%- liquid
+    assign bc_collection = product.collections.first
+  -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Inicio",
+          "item": {{ request.origin | append: '/' | json }}
+        }
+        {%- if bc_collection != blank -%},
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": {{ bc_collection.title | json }},
+          "item": {{ request.origin | append: bc_collection.url | json }}
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": {{ product.title | json }},
+          "item": {{ request.origin | append: product.url | json }}
+        }
+        {%- else -%},
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": {{ product.title | json }},
+          "item": {{ request.origin | append: product.url | json }}
+        }
+        {%- endif -%}
+      ]
+    }
+  </script>
+{%- elsif request.page_type == 'collection' and collection != blank -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Inicio",
+          "item": {{ request.origin | append: '/' | json }}
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": {{ collection.title | json }},
+          "item": {{ request.origin | append: collection.url | json }}
+        }
+      ]
+    }
+  </script>
+{%- endif -%}

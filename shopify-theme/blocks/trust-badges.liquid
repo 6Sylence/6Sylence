@@ -1,0 +1,111 @@
+{%- doc -%}
+  Bloque de confianza para la ficha de producto (bajo el CTA).
+  Cuatro señales honestas: producción bajo demanda, envío, devoluciones y pago
+  seguro. Textos editables desde el editor de temas.
+{%- enddoc -%}
+
+{%- assign block_settings = block.settings -%}
+
+<ul class="trust-badges list-unstyled" role="list" {{ block.shopify_attributes }}>
+  {%- if block_settings.line_1 != blank -%}
+    <li class="trust-badges__item">
+      <span class="trust-badges__icon svg-wrapper" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 7v10l9 5 9-5V7l-9-5z"/><path d="M3 7l9 5 9-5"/><path d="M12 12v10"/></svg>
+      </span>
+      <span class="trust-badges__text">{{ block_settings.line_1 }}</span>
+    </li>
+  {%- endif -%}
+  {%- if block_settings.line_2 != blank -%}
+    <li class="trust-badges__item">
+      <span class="trust-badges__icon svg-wrapper" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h14v11H1z"/><path d="M15 10h4l3 3v4h-7"/><circle cx="6" cy="19" r="1.6"/><circle cx="18" cy="19" r="1.6"/></svg>
+      </span>
+      <span class="trust-badges__text">{{ block_settings.line_2 }}</span>
+    </li>
+  {%- endif -%}
+  {%- if block_settings.line_3 != blank -%}
+    <li class="trust-badges__item">
+      <span class="trust-badges__icon svg-wrapper" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v5h5"/></svg>
+      </span>
+      <span class="trust-badges__text">{{ block_settings.line_3 }}</span>
+    </li>
+  {%- endif -%}
+  {%- if block_settings.line_4 != blank -%}
+    <li class="trust-badges__item">
+      <span class="trust-badges__icon svg-wrapper" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+      </span>
+      <span class="trust-badges__text">{{ block_settings.line_4 }}</span>
+    </li>
+  {%- endif -%}
+</ul>
+
+{% stylesheet %}
+  .trust-badges {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-xs);
+    width: 100%;
+    padding-block: var(--padding-sm);
+  }
+
+  .trust-badges__item {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-sm);
+    font-size: 0.8125rem;
+    color: rgb(var(--color-foreground-rgb) / var(--opacity-70, 0.75));
+  }
+
+  .trust-badges__icon {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+  }
+
+  .trust-badges__icon svg {
+    width: 100%;
+    height: 100%;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Señales de confianza",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "line_1",
+      "label": "Línea 1",
+      "default": "Hecho bajo demanda para ti — producción 2–5 días"
+    },
+    {
+      "type": "text",
+      "id": "line_2",
+      "label": "Línea 2",
+      "default": "Envío gratis en todos los pedidos · España 5–10 días"
+    },
+    {
+      "type": "text",
+      "id": "line_3",
+      "label": "Línea 3",
+      "default": "Devoluciones: 14 días de desistimiento (UE)"
+    },
+    {
+      "type": "text",
+      "id": "line_4",
+      "label": "Línea 4",
+      "default": "Pago 100% seguro — Visa, Mastercard, PayPal, Apple Pay y G Pay"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Señales de confianza",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}

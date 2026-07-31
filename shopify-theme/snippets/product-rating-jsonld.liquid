@@ -1,0 +1,33 @@
+{%- doc -%}
+  JSON-LD complementario con AggregateRating a partir de los metafields
+  estándar de reseñas (reviews.rating / reviews.rating_count), que apps como
+  Judge.me o Loox mantienen sincronizados.
+
+  IMPORTANTE: Judge.me ya emite sus propios rich snippets cuando su opción
+  "Rich Snippets" está activa en la app. Activa el ajuste del tema
+  "product_rating_jsonld_enabled" SOLO si desactivas los de la app, para no
+  duplicar datos estructurados.
+{%- enddoc -%}
+
+{%- liquid
+  assign jsonld_enabled = settings.product_rating_jsonld_enabled | default: false, allow_false: true
+  assign rating_value = product.metafields.reviews.rating.value.rating
+  assign rating_count = product.metafields.reviews.rating_count.value | default: product.metafields.reviews.rating_count
+-%}
+
+{%- if jsonld_enabled and rating_value != blank and rating_count > 0 -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": {{ product.title | json }},
+      "url": {{ request.origin | append: product.url | json }},
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": {{ rating_value | json }},
+        "bestRating": {{ product.metafields.reviews.rating.value.scale_max | default: 5 | json }},
+        "ratingCount": {{ rating_count | json }}
+      }
+    }
+  </script>
+{%- endif -%}
