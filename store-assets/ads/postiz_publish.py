@@ -39,7 +39,9 @@ AQUI = os.path.dirname(os.path.abspath(__file__))
 LOTES = os.path.join(AQUI, "lotes")
 PUBLICADOS = os.path.join(LOTES, "publicados.json")
 
-TOPE_24H = {"instagram": 50, "facebook": 50}
+# Instagram rechaza la publicación 51 de las últimas 24 h por cuenta: es un límite
+# de Meta, no una política nuestra. Facebook Pages no tiene ese tope duro.
+TOPE_24H = {"instagram": 50, "facebook": 100}
 
 
 def pedir(metodo, ruta, cuerpo=None, archivo=None, reintentos=4):
