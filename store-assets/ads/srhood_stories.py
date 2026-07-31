@@ -23,7 +23,29 @@ FUENTES = {
                         "unisex-premium-pullover-hoodie-black-front-6a5befe6b75f9.jpg?v=1784410271",
     "cifra_hoodie": "https://cdn.shopify.com/s/files/1/1003/6874/4832/files/"
                     "cifra-real-hoodie-black-front.jpg?v=1784600531",
+    "forja_shoe": "https://cdn.shopify.com/s/files/1/1003/6874/4832/files/"
+                  "mens-high-top-canvas-shoes-black-left-front-6a5bd7af4e719.jpg?v=1784404140",
+    "kintsugi_shoe": "https://cdn.shopify.com/s/files/1/1003/6874/4832/files/"
+                     "mens-high-top-canvas-shoes-black-left-6a5b72560960d.jpg?v=1784378076",
+    "vidriera_shoe": "https://cdn.shopify.com/s/files/1/1003/6874/4832/files/"
+                     "mens-high-top-canvas-shoes-white-left-front-6a5b10e5a5efd.jpg?v=1784353140",
+    "laurel_hoodie": "https://cdn.shopify.com/s/files/1/1003/6874/4832/files/"
+                     "unisex-premium-pullover-hoodie-black-front-6a5b9ef2db9ad.jpg?v=1784389433",
+    "brocado_bucket": "https://cdn.shopify.com/s/files/1/1003/6874/4832/files/"
+                      "all-over-print-reversible-bucket-hat-white-front-outside-6a5be1b5b31e0.jpg?v=1784406640",
+    "meandro_bandana": "https://cdn.shopify.com/s/files/1/1003/6874/4832/files/"
+                       "all-over-print-bandana-white-m-front-6a5bfdb5ed1ee.jpg?v=1784413780",
+    "kintsugi_hoodie": "https://cdn.shopify.com/s/files/1/1003/6874/4832/files/"
+                       "unisex-premium-pullover-hoodie-black-front-6a5b7252be077.jpg?v=1784378061",
+    "marq_shoe": "https://cdn.shopify.com/s/files/1/1003/6874/4832/files/"
+                 "mens-high-top-canvas-shoes-black-left-front-6a5ec02fd4bf6.jpg?v=1784594770",
 }
+
+
+def set_canvas(w, h):
+    """Cambia el lienzo del sistema. Las funciones leen W/H del módulo."""
+    global W, H
+    W, H = w, h
 
 
 def asegurar_fuentes():
