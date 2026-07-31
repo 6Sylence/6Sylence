@@ -133,7 +133,7 @@ def plancha(p):
     a, b, rot = roseta(p["n"])
     vitrina(img, a, b, rot)
 
-    sp = cutout(p["file"], lmin=p["qa"]["lmin"])
+    sp = cutout(p["file"], lmin=p["qa"]["lmin"], smax=p["qa"].get("smax", 0.08))
     place(img, sp, 540, CY + 20, target_w=encajar(sp, p["prenda"]),
           halo=(46, 0.46, acento), shadow=(36, 0.46, 26))
 

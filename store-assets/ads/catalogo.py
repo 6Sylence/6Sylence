@@ -126,7 +126,7 @@ def qa(path, lmin=100, smax=0.08):
     l2, n = ndimage.label(solido)
     if n == 0:
         return dict(area=0.0, frag=99, cohes=0.0, relleno=0.0, lum=0.0, fuga=1.0,
-                    lmin=lmin, ok=False)
+                    lmin=lmin, smax=smax, ok=False)
     tam = ndimage.sum(solido, l2, range(1, n + 1))
     may = l2 == (int(tam.argmax()) + 1)
     ys, xs = np.where(may)
@@ -146,16 +146,24 @@ def qa(path, lmin=100, smax=0.08):
 
     return dict(area=round(area, 4), frag=frag, cohes=round(cohes, 3),
                 relleno=round(relleno, 3), lum=round(lum, 1), fuga=round(fuga, 4),
-                lmin=lmin,
+                lmin=lmin, smax=smax,
                 ok=bool(0.06 < area < 0.72 and frag <= 3 and cohes > 0.55
                         and relleno > 0.45 and fuga < 0.08))
 
 
-def qa_escalado(path, umbrales=(100, 130, 160, 200)):
-    """Primer umbral que sobrevive; si ninguno, devuelve el último intento fallido."""
+# Escalera de umbrales, de permisivo a conservador. El último escalón —solo blanco
+# casi puro— es el que rescata las piezas claras: un gorro blanco sobre fondo blanco
+# se disuelve con cualquier umbral bajo, pero contra 246/0.03 sobrevive entero.
+# Va el último y no el primero a propósito: en una prenda oscura ese umbral se traga
+# también la sombra del mockup, porque el gris de la sombra ya no cuenta como fondo.
+ESCALERA = ((100, 0.08), (130, 0.08), (160, 0.08), (200, 0.08), (246, 0.03))
+
+
+def qa_escalado(path, escalones=ESCALERA):
+    """Primer escalón que sobrevive; si ninguno, devuelve el último intento fallido."""
     r = None
-    for lm in umbrales:
-        r = qa(path, lmin=lm)
+    for lm, sm in escalones:
+        r = qa(path, lmin=lm, smax=sm)
         if r["ok"]:
             return r
     return r
