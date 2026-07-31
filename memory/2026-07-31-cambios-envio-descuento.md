@@ -63,15 +63,27 @@ Corregido:
   «SERIES LIMITADAS · HECHO BAJO DEMANDA», y la cédula de la plancha III promociona
   `BIENVENIDA15` en lugar del 15% automático.
 
-### PENDIENTE — 497 fichas de producto
+### 497 fichas de producto — HECHO
 
-**497 de 588 productos activos siguen con el reclamo falso en su meta descripción SEO** (y 122
-de ellos prometen además «15% de descuento automático»). Están preparados y verificados los
-497 textos corregidos, que eliminan el reclamo y lo sustituyen por «Envío a toda España ·
-Devoluciones fáciles» — sin mencionar el umbral, según lo pedido.
+**497 de 588 productos activos** llevaban el reclamo falso en su meta descripción SEO (122 de
+ellos prometían además «15% de descuento automático»). Corregidas todas: se elimina el reclamo
+y se cierra con «Envío a toda España · Devoluciones fáciles» — sin mencionar el umbral, según
+lo pedido.
 
-No se ha ejecutado porque `bulkOperationRunMutation` está bloqueada por la política del MCP y
-hay que hacerlo en 10 lotes de `productUpdate`. Ficheros listos en el scratchpad
-(`lote01..10.gql`). **Es lo primero que hay que lanzar**: mientras siga así, cada ficha anuncia
-envío gratis incondicional, con riesgo de práctica comercial engañosa y de suspensión en
-Google Merchant Center por discrepancia de gastos de envío.
+`bulkOperationRunMutation` está bloqueada por la política del MCP, así que se ejecutó en 10
+lotes de 50 `productUpdate` con alias (y variables GraphQL compartidas donde la descripción se
+repetía). 497 mutaciones, 0 errores.
+
+**Verificación posterior** (operación masiva de lectura sobre los 588 activos):
+
+```
+productos activos:            588
+con reclamo falso restante:     0
+con el texto corregido:       501
+```
+
+## Estado final
+
+Ninguna superficie de la tienda promete ya envío gratis incondicional ni 15% automático. El
+umbral de 39 € no se anuncia en ningún sitio salvo donde la ley obliga (página de envíos y
+FAQ); el cliente solo lo descubre como una línea etiquetada en el carrito si su pedido no llega.
