@@ -24,7 +24,7 @@ def cabecera(img, d):
     rule(d, 396, 118, ORO, 105)
 
 
-def pie(img, d, sub="ENVÍO GRATIS EN TODOS LOS PEDIDOS"):
+def pie(img, d, sub="SERIES LIMITADAS · HECHO BAJO DEMANDA"):
     rule(d, 1576, 420, ORO, 62)
     track(d, (540, 1612), "SRHOOD.COM", F(BIGSH_B, 52), CREMA + (255,), 13, "cm")
     track(d, (540, 1648), sub, F(GEIST, 17), ORO_HI + (215,), 4.0, "cm")
@@ -135,12 +135,12 @@ def plancha_3():
     for cx_, cy_ in [(x0, y0), (x1, y0), (x0, y1), (x1, y1)]:
         d.ellipse([cx_ - 2, cy_ - 2, cx_ + 2, cy_ + 2], fill=ORO_HI + (200,))
     d.line([540, y0 + 16, 540, y1 - 16], fill=ORO + (52,), width=1)
-    track(d, (358, 1472), "ENVÍO GRATIS", F(BIGSH_B, 40), CREMA + (255,), 5, "cm")
-    track(d, (358, 1508), "EN TODOS LOS PEDIDOS", F(GEIST, 15), CREMA_MUTE + (255,), 3.4, "cm")
-    track(d, (722, 1472), "15% BIENVENIDA", F(BIGSH_B, 40), CREMA + (255,), 5, "cm")
-    track(d, (722, 1508), "DESCUENTO AUTOMÁTICO", F(GEIST, 15), CREMA_MUTE + (255,), 3.4, "cm")
+    track(d, (358, 1472), "BIENVENIDA15", F(BIGSH_B, 40), CREMA + (255,), 5, "cm")
+    track(d, (358, 1508), "15% EN TU PRIMERA COMPRA", F(GEIST, 15), CREMA_MUTE + (255,), 3.4, "cm")
+    track(d, (722, 1472), "SERIES LIMITADAS", F(BIGSH_B, 40), CREMA + (255,), 5, "cm")
+    track(d, (722, 1508), "HECHO BAJO DEMANDA", F(GEIST, 15), CREMA_MUTE + (255,), 3.4, "cm")
 
-    pie(img, d, sub="SERIES LIMITADAS · HECHO BAJO DEMANDA")
+    pie(img, d)
     aparato(img, d, "REF. SR—SLL / PL. III", [CY - 330, CY, CY + 330])
     return grain(img, seed=29)
 
