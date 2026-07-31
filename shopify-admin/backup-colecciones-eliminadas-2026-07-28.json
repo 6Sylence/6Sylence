@@ -328,5 +328,62 @@
       "nota_autoPublish": "Se deja desactivado a propósito: con autoPublish activo, reactivar los 86 borradores de bazar los sincronizaría automáticamente al catálogo de Meta.",
       "reversion": "publicationUpdate con publishablesToRemove sobre los mismos 162 IDs"
     }
+  },
+  "otros_cambios_2026-07-31": {
+    "curacion_pantalones_joggers": {
+      "motivo": "Colección de pantalones muy repetitiva: 15 diseños de jogger con el mismo mockup de pierna lateral y logo pequeño, sin el modelo tatuado que sí usan los sweatpants fleece.",
+      "resultado": "De 40 a 16 pantalones activos.",
+      "pasados_a_draft": {
+        "joggers_repetitivos": {
+          "SRH Varsity": [
+            "15828696990080",
+            "15828697907584"
+          ],
+          "Dorsal 07": [
+            "15828699054464",
+            "15828700365184"
+          ],
+          "Sello Club": [
+            "15828705214848",
+            "15828706492800"
+          ],
+          "Stay Royal": [
+            "15828708131200",
+            "15828709900672"
+          ],
+          "Wide Lockup": [
+            "15828711539072",
+            "15828712489344"
+          ],
+          "Corona Arco": [
+            "15828714029440",
+            "15828715209088"
+          ],
+          "Corona Lineart": [
+            "15828615856512",
+            "15828616839552",
+            "15828716192128"
+          ],
+          "Vertical SRHOOD": [
+            "15828617789824",
+            "15828717207936",
+            "15828718453120",
+            "15828719141248"
+          ]
+        },
+        "duplicados_wordmark_vertical": [
+          "15826782486912",
+          "15826783076736",
+          "15827685769600"
+        ],
+        "basicos_sin_diseno": [
+          "15824383705472",
+          "15824849731968"
+        ]
+      },
+      "mantenidos_activos": "Jogger Corona SRH, Arco College, Royalty Blackletter, Sello Circular, Wordmark SRHOOD y Crest SRH (11 productos, diseños con familia en otras categorías) + Sweatpants Fleece Wordmark Vertical negro/blanco (mockup con modelo tatuado), Heavyweight Crown Stack x2 y Joggers Garment-Dyed Pepper.",
+      "imagen_destacada": "En los 11 joggers mantenidos se movió la vista 'left-front' (modelo de frente) a la posición 1 con productReorderMedia; antes era el recorte de pierna 'left-leg'.",
+      "reversion": "bulk-update-product-status ACTIVE sobre los mismos IDs; productReorderMedia devolviendo la imagen '-left-leg-' a la posición 0."
+    }
   }
 }
