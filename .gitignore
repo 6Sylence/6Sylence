@@ -82,3 +82,6 @@ android-sdk/ -e
 *.env
 *.env.*
 store-assets/ads/out/jpg/
+store-assets/ads/src2/
+store-assets/ads/out/lote02/
+store-assets/ads/lotes/estado-*.json
