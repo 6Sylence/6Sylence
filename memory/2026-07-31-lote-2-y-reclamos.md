@@ -15,7 +15,7 @@ que el error sobrevivió donde más se lee: la propia página de producto. El cl
 una promesa, llega al checkout y no está — que es la peor forma de perder un carrito,
 además del problema de publicidad engañosa.
 
-**Estado: 53 corregidos, 123 pendientes.** El corrector es
+**Estado: 61 corregidos, 115 pendientes.** El corrector es
 `store-assets/ads/corregir_reclamos.py`, verificado sobre los 176 (cero reclamos
 supervivientes en el simulacro). No se aplicó entero porque el único camino de
 escritura disponible es la MCP de Shopify, y mandar 176 descripciones por ahí consume
@@ -30,10 +30,30 @@ Antes de escribir se comprobó que el `body_html` de `/products.json` es **byte 
 idéntico** al `descriptionHtml` de Admin, sobre varios productos de distinta longitud;
 si no lo fuera, el corrector borraría texto bueno.
 
-Queda una tercera promesa sin tocar, en 8 fichas: «devoluciones en 30 días», sin
-matizar. La política real solo cubre defecto, daño o error —no cambio de opinión, por
-ser producción bajo demanda—, así que **hay que decidir** si se matiza o se quita.
-No lo he cambiado por mi cuenta: es política, no una errata.
+La tercera promesa, «devoluciones en 30 días», estaba en 8 fichas y **ya está
+corregida** (0 supervivientes). El plazo real es de **14 días naturales** —derecho de
+desistimiento de la UE, con el porte de vuelta a cargo del cliente—, tal como dice la
+Política de Reembolso. Se quitó la frase en vez de cambiar 30 por 14: la ficha de
+producto no es el sitio para repetir condiciones, y añadir plazos sueltos es
+exactamente lo que produjo este lío. Si algún día interesa como argumento de venta,
+que se ponga a propósito y con el matiz de quién paga la devolución.
+
+**Pendiente de decisión (no tocado):** la Política de Envío y los Términos del
+Servicio dicen «Envío Gratuito en Todos los Pedidos — sin mínimo de compra». Eso
+contradice el umbral de 39 € que está configurado y activo:
+
+| Zona | Desde 39 € | Por debajo de 39 € |
+|---|---|---|
+| España | gratis | 4,95 € |
+| UE | gratis | 6,95 € |
+| Internacional | gratis | 9,95 € |
+
+Esto es más grave que las descripciones: la página de condiciones es la que vincula.
+Texto propuesto, a la espera del visto bueno:
+
+> **Gastos de envío**
+> El envío es gratuito en pedidos a partir de 39 €. En pedidos inferiores se aplica un
+> cargo de envío que se muestra en el carrito antes de finalizar la compra.
 
 ## Lote 2
 
