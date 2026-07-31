@@ -384,6 +384,24 @@
       "mantenidos_activos": "Jogger Corona SRH, Arco College, Royalty Blackletter, Sello Circular, Wordmark SRHOOD y Crest SRH (11 productos, diseños con familia en otras categorías) + Sweatpants Fleece Wordmark Vertical negro/blanco (mockup con modelo tatuado), Heavyweight Crown Stack x2 y Joggers Garment-Dyed Pepper.",
       "imagen_destacada": "En los 11 joggers mantenidos se movió la vista 'left-front' (modelo de frente) a la posición 1 con productReorderMedia; antes era el recorte de pierna 'left-leg'.",
       "reversion": "bulk-update-product-status ACTIVE sobre los mismos IDs; productReorderMedia devolviendo la imagen '-left-leg-' a la posición 0."
+    },
+    "imagen_principal_con_modelo": {
+      "metodo": "Auditoría visual de las 997 imágenes de las 363 prendas activas: miniaturas montadas en 40 mosaicos numerados de 5x5 y revisadas a ojo. Se descartó una primera clasificación automática por tono de piel: daba falsos positivos en prendas beige/estampados dorados y, al corregirla, falsos negativos (marcaba como 'sin modelo' camisetas cuya foto principal sí tenía modelo).",
+      "resultado": "101 de 363 prendas tienen foto con modelo y ya está en posición 1; 262 no tienen ninguna imagen con persona en su galería.",
+      "cambios_aplicados": [
+        {
+          "id": "15843222028672",
+          "titulo": "Sudadera Friso de Ánfora — Arena",
+          "media": "69701855117696"
+        },
+        {
+          "id": "15843222061440",
+          "titulo": "Hoodie Premium Laberinto Real — Negro",
+          "media": "69701855248768"
+        }
+      ],
+      "pendiente_manual": "Los 262 sin modelo solo se pueden arreglar regenerando mockups en Printful; lista en marketing/srhood-productos-sin-modelo.md",
+      "reversion": "productReorderMedia devolviendo la media original a posición 0 en esos 2 productos."
     }
   }
 }
