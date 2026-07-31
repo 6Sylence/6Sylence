@@ -30,7 +30,7 @@ política nuestra: la número 51 la rechaza Meta. El script lleva la cuenta en v
 móvil sobre el propio fichero de estado y para al llegar al tope, diciendo cuántas
 quedan y cuándo se puede seguir, en vez de estrellarse contra el límite.
 """
-import argparse, json, os, time, datetime as dt
+import argparse, glob, json, os, time, datetime as dt
 import urllib.request, urllib.error, mimetypes, uuid
 
 BASE = os.environ.get("POSTIZ_BASE_URL", "https://api.postiz.com/public/v1").rstrip("/")
@@ -39,9 +39,20 @@ AQUI = os.path.dirname(os.path.abspath(__file__))
 LOTES = os.path.join(AQUI, "lotes")
 PUBLICADOS = os.path.join(LOTES, "publicados.json")
 
-# Instagram rechaza la publicación 51 de las últimas 24 h por cuenta: es un límite
-# de Meta, no una política nuestra. Facebook Pages no tiene ese tope duro.
-TOPE_24H = {"instagram": 50, "facebook": 100}
+# Instagram rechaza la publicación 51 de las últimas 24 h por cuenta. Eso es un
+# límite de Meta y **no se puede levantar con --tope**: pasarlo solo produce errores.
+TOPE_DURO = {"instagram": 50}
+
+# Facebook Pages no tiene ese tope duro. Los 100 son una barandilla nuestra contra
+# el aspecto de spam, y esa sí se levanta con --tope cuando se quiere vaciar el
+# catálogo de una vez.
+TOPE_BLANDO = {"facebook": 100}
+
+
+def tope(red, pedido=None):
+    duro = TOPE_DURO.get(red)
+    blando = pedido if pedido is not None else TOPE_BLANDO.get(red, 50)
+    return min(duro, blando) if duro else blando
 
 
 def pedir(metodo, ruta, cuerpo=None, archivo=None, reintentos=4):
@@ -97,15 +108,20 @@ def escribir(path, datos):
     json.dump(datos, open(path, "w"), ensure_ascii=False, indent=1)
 
 
-def recientes(estado, canal, horas=24):
-    """Cuántas han salido por ese canal en la ventana móvil."""
+def recientes(canal, horas=24):
+    """Cuántas han salido por ese canal en la ventana móvil, **en todos los lotes**.
+
+    Contar solo el estado del lote en curso es lo mismo que no contar: el lote 3
+    arrancaba creyendo que Instagram estaba a cero cuando el lote 2 ya le había
+    metido sus cincuenta esa misma mañana. El tope de Meta es por cuenta y por
+    veinticuatro horas, no por fichero.
+    """
     corte = dt.datetime.now(dt.timezone.utc) - dt.timedelta(hours=horas)
     n = 0
-    for v in estado.values():
-        if v["canal"] != canal:
-            continue
-        if dt.datetime.fromisoformat(v["ts"]) > corte:
-            n += 1
+    for f in glob.glob(os.path.join(LOTES, "estado-*.json")):
+        for v in leer(f, {}).values():
+            if v.get("canal") == canal and dt.datetime.fromisoformat(v["ts"]) > corte:
+                n += 1
     return n
 
 
@@ -150,7 +166,9 @@ def main():
     ap.add_argument("--hashtags-en-comentario", action="store_true")
     ap.add_argument("--desde", type=int, default=1)
     ap.add_argument("--hasta", type=int, default=10 ** 6)
-    ap.add_argument("--tope", type=int, help="máximo por canal y 24 h (por defecto 50)")
+    ap.add_argument("--tope", type=int,
+                    help="levanta la barandilla propia por canal y 24 h; el tope duro "
+                         "de Instagram (50) no se puede superar")
     a = ap.parse_args()
 
     if not CLAVE:
@@ -196,8 +214,8 @@ def main():
             if clave in estado:
                 saltadas += 1
                 continue
-            tope = a.tope or TOPE_24H.get(c["identifier"], 50)
-            if recientes(estado, c["id"]) >= tope:
+            limite = tope(c["identifier"], a.tope)
+            if recientes(c["id"]) >= limite:
                 topadas[c["identifier"]] = topadas.get(c["identifier"], 0) + 1
                 continue
             print(f'  [{p["n"]:03d}] {p["display"][:22]:22s} → {c["identifier"]}')
@@ -220,7 +238,7 @@ def main():
     print(f"\n{hechas} publicadas · {saltadas} ya estaban · {len(fallos)} fallos")
     if topadas:
         for red, n in topadas.items():
-            print(f"  · {red}: {n} en espera por el tope de 50/24 h. "
+            print(f"  · {red}: {n} en espera por el tope de {tope(red, a.tope)}/24 h. "
                   f"Relanza el mismo comando mañana y sigue solo,")
             print(f"    porque el estado ya sabe cuáles salieron.")
     if fallos:
