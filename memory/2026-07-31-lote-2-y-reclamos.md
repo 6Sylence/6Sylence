@@ -15,7 +15,7 @@ que el error sobrevivió donde más se lee: la propia página de producto. El cl
 una promesa, llega al checkout y no está — que es la peor forma de perder un carrito,
 además del problema de publicidad engañosa.
 
-**Estado: 25 corregidos, 151 pendientes.** El corrector es
+**Estado: 53 corregidos, 123 pendientes.** El corrector es
 `store-assets/ads/corregir_reclamos.py`, verificado sobre los 176 (cero reclamos
 supervivientes en el simulacro). No se aplicó entero porque el único camino de
 escritura disponible es la MCP de Shopify, y mandar 176 descripciones por ahí consume
