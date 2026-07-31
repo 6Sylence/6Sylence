@@ -80,7 +80,8 @@ def main():
 
     if a.list:
         for i in pedir("GET", "/integrations"):
-            print(f"  {i.get('id')}  {i.get('providerIdentifier','?'):12s}  "
+            # el campo de la plataforma se llama `identifier`, no `providerIdentifier`
+            print(f"  {i.get('id')}  {i.get('identifier','?'):12s}  "
                   f"{i.get('name','')}  {'[deshabilitado]' if i.get('disabled') else ''}")
         return
 

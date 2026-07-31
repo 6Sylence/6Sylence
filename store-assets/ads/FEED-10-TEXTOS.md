@@ -4,8 +4,12 @@ Voz de marca: frases cortas, afirmativas. Nada de superlativos vacíos ni emojis
 La primera línea es lo único que se ve antes del «…más» — ahí va el gancho, siempre.
 
 **Reglas que cumplen todos:** ningún reclamo de envío (el umbral de 39 € no se anuncia),
-precios reales, `BIENVENIDA15` solo como 15% de primera compra. Los hashtags van en el
-**primer comentario**, no en el pie: mantiene el texto limpio y funciona igual.
+precios reales, `BIENVENIDA15` solo como 15% de primera compra.
+
+**Hashtags:** este lote se publicó con los hashtags **en el pie**. La alternativa —primer
+comentario— mantiene el texto más limpio y da el mismo alcance; el publicador la soporta con
+`--hashtags-en-comentario`. Lo que no conviene es mezclar los dos formatos en la misma cuenta,
+así que el lote 2 debería seguir el mismo criterio que este.
 
 ---
 
