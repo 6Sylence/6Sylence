@@ -16,7 +16,7 @@ mide y solo se escribe lo que hay que decidir:
 Lo que no cambia nunca: la corona, el oro, la retícula y la tipografía. Es lo que
 hace que la cuadrícula del perfil se lea como una sola casa.
 """
-import json, os, argparse
+import json, os, re, argparse
 from PIL import ImageDraw
 import srhood_stories as S
 from srhood_stories import *   # noqa
@@ -57,16 +57,22 @@ SIGLA = {"meandro-real": "MDR", "intarsia": "MRQ", "brocado-real": "BRC",
          "paisley-real": "PSL", "laurel-real": "LRL", "relieve-real": "RLV",
          "cifra-real": "CFR"}
 
-ROMANOS = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"]
+VALORES = [(1000, "M"), (900, "CM"), (500, "D"), (400, "CD"), (100, "C"), (90, "XC"),
+           (50, "L"), (40, "XL"), (10, "X"), (9, "IX"), (5, "V"), (4, "IV"), (1, "I")]
 
 
 def romano(n):
-    """Números de lámina en romano. Más allá de X no compensa: se abrevia."""
-    if n <= 10:
-        return ROMANOS[n]
-    d, u = divmod(n, 10)
-    dec = ["", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC", "C"][d]
-    return dec + ROMANOS[u]
+    """Número de lámina en romano, para la referencia del margen.
+
+    Escrito con la tabla completa y no a mano por decenas: la primera versión se
+    quedaba en 109 y este generador ya saca lotes de 189.
+    """
+    out = ""
+    for valor, letra in VALORES:
+        while n >= valor:
+            out += letra
+            n -= valor
+    return out
 
 
 def caja(nombre_prenda):
@@ -146,8 +152,86 @@ def plancha(p):
     return grain(img, seed=(p["n"] * 17) % 997)
 
 
-def preparar(lote, catalogo):
-    """Rellena cada entrada con lo que necesita la plancha y el publicador."""
+# forma corta de la prenda para desambiguar titulares sin que crezcan a tres líneas
+PRENDA_CORTA = {
+    "Sudadera con capucha y cremallera": "ZIP", "Sudadera con capucha": "HOODIE",
+    "Sudadera corta con capucha": "CROPPED", "Sudadera de cuello redondo": "CREW",
+    "Sudadera de media cremallera": "HALF ZIP", "Gorro bucket": "BUCKET",
+    "Zapatillas altas de lona": "ALTAS", "Zapatillas slip-on de lona": "SLIP-ON",
+    "Zapatillas deportivas": "DEPORTIVAS", "Zapatillas de lona": "LONA",
+    "Camiseta de manga corta": "TEE", "Camiseta de manga larga": "MANGA LARGA",
+    "Camiseta de tirantes": "TIRANTES", "Pantalón jogger": "JOGGER",
+    "Pantalón corto": "SHORTS", "Bolsa de tela": "TOTE", "Gorro de punto": "BEANIE",
+}
+
+
+def _corta(nombre):
+    return PRENDA_CORTA.get(nombre, nombre.upper())
+
+
+def resolver_duplicados(lote, cat, largo_max=24):
+    """Desambigua titulares repetidos con el mínimo texto que los separa.
+
+    Los básicos son variantes de color del mismo diseño: veintinueve planchas del
+    lote 3 salían diciendo WORDMARK o CREST SRH. Escribirlos a mano no escala, y
+    numerarlos («WORDMARK II») no dice nada a quien lo lee.
+
+    Se prueban candidatos de menos a más y **se para en el primero que ya es único**,
+    en vez de ir apilando sufijos: encadenar color y prenda producía titulares como
+    STAY ROYAL NEGRO SUDADERA CON CAPUCHA, que `fit_display` encoge hasta dejarlos
+    ilegibles. Del color se toma solo la primera parte —«Negro y Navy» es Negro— y de
+    la prenda su forma corta.
+    """
+    def color(p):
+        t = cat[p["handle"]]["title"]
+        if " — " not in t:
+            return ""
+        c = t.split(" — ")[-1]
+        c = re.split(r"\s+[yY]\s+|/|,", c)[0]      # «Negro y Navy», «Negro, Navy» → «Negro»
+        return " ".join(c.split()[:2]).upper()
+
+    def candidatos(p):
+        base = p["display"] or _corta(p["prenda"])
+        c, g = color(p), _corta(p["prenda"])
+        salidas = [base]
+        for extra in (c, g, f"{c} {g}".strip()):
+            if extra and extra not in base:
+                salidas.append(f"{base} {extra}")
+        salidas.append(f"{base} {c} {g}".strip())
+        return salidas
+
+    usados = set()
+    # primero los que ya son únicos y cortos: no se tocan y reservan su nombre
+    cuenta = {}
+    for p in lote:
+        cuenta[p["display"]] = cuenta.get(p["display"], 0) + 1
+    for p in lote:
+        if p["display"] and cuenta[p["display"]] == 1:
+            usados.add(p["display"])
+    for p in lote:
+        if p["display"] in usados and cuenta[p["display"]] == 1:
+            continue
+        elegido = None
+        for cand in candidatos(p):
+            cand = re.sub(r"\s+", " ", cand).strip()
+            if cand and cand not in usados:
+                elegido = cand
+                if len(cand) <= largo_max:
+                    break                       # corto y único: no busques más
+        while not elegido or elegido in usados:
+            elegido = (elegido or _corta(p["prenda"])) + " ·"
+        p["display"] = elegido
+        usados.add(elegido)
+    return lote
+
+
+def preparar(lote, catalogo, etiqueta="l02"):
+    """Rellena cada entrada con lo que necesita la plancha y el publicador.
+
+    `etiqueta` va en el nombre del fichero: dos lotes distintos no pueden generar
+    `srhood-l02-001.jpg` los dos, o el publicador del segundo subiría las imágenes
+    del primero sin avisar de nada.
+    """
     cat = {q["handle"]: q for q in catalogo}
     for i, p in enumerate(lote):
         prod = cat[p["handle"]]
@@ -162,11 +246,11 @@ def preparar(lote, catalogo):
         p["sub"] = f'{p["prenda"].upper()} · {genero}'
         p["precio_txt"] = f'{float(p["precio"]):.2f}'.replace(".", ",")
         p["ref"] = f'REF. SR—{SIGLA.get(cap, "RYC")} / F. {romano(p["n"])}'
-        p["pie"] = T.pie(prod, cap, i)
+        p["pie"] = T.pie(prod, cap, i, p["tipo"])
         p["hashtags"] = T.hashtags(p["tipo"], cap, i, p["titulo"])
         p["alt"] = T.alt(prod, p["tipo"], cap, p["display"])
-        p["imagen"] = f'srhood-l02-{p["n"]:03d}.jpg'
-    return lote
+        p["imagen"] = f'srhood-{etiqueta}-{p["n"]:03d}.jpg'
+    return resolver_duplicados(lote, cat)
 
 
 if __name__ == "__main__":
@@ -181,7 +265,8 @@ if __name__ == "__main__":
     asegurar_fuentes()
     import catalogo as C
     cat = json.load(open(a.catalogo)) if a.catalogo else C.catalogo()
-    lote = preparar(json.load(open(a.lote)), cat)
+    etiqueta = re.sub(r"[^a-z0-9]+", "", os.path.basename(a.lote).replace(".json", ""))
+    lote = preparar(json.load(open(a.lote)), cat, etiqueta)
     json.dump(lote, open(a.lote, "w"), ensure_ascii=False, indent=1)
 
     os.makedirs(a.salida, exist_ok=True)

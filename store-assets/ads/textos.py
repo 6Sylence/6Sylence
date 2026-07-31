@@ -201,8 +201,110 @@ BASE = dict(linea="ROYALTY CLASSICS · LA CORONA",
             ganchos=["La corona no se pide. Se lleva.",
                      "Lo básico bien hecho también es una declaración.",
                      "Una pieza lisa aguanta más temporadas que diez estampadas.",
-                     "El fondo de armario de la casa."],
+                     "El fondo de armario de la casa.",
+                     "Sin estampado que lo salve: aquí manda el corte.",
+                     "Lo que te pones cuando no quieres pensar qué ponerte.",
+                     "La pieza que no caduca en marzo."],
             tags=["basicos", "royaltyclassics"])
+
+# Ganchos por tipo, para las piezas sin cápsula. Los básicos son 189 de golpe y no
+# tienen historia de cápsula que contar; con solo los siete de BASE, la primera
+# línea —lo único que se ve antes del «…más»— se repetiría cada siete publicaciones
+# y el perfil entero olería a plantilla.
+GANCHOS_TIPO = {
+    "Hoodie": ["Una sudadera buena se nota en el segundo invierno, no en el primero.",
+               "Capucha que se sostiene sola. Ese es el detalle.",
+               "El gramaje se paga una vez y se agradece cada día.",
+               "La prenda que más se lleva y la que peor se suele elegir."],
+    "Cropped Hoodie": ["Corta arriba, ancha de hombro: el corte hace el fit.",
+                       "Cropped sin quedarte corta de tejido.",
+                       "El mismo gramaje que la larga, con otra silueta.",
+                       "Sube el bajo y cambia el conjunto entero."],
+    "Sudadera": ["Cuello redondo, sin capucha, sin ruido.",
+                 "La sudadera de toda la vida, hecha como se hacía.",
+                 "Felpa por dentro y caída recta por fuera.",
+                 "Menos prenda, más tejido."],
+    "Sudadera Cremallera": ["Abierta es una capa; cerrada es un abrigo.",
+                            "La cremallera te da dos prendas por el precio de una.",
+                            "Entretiempo resuelto.",
+                            "Se abre, se cierra, y el fit cambia."],
+    "Camiseta": ["Una camiseta lisa es la prueba del algodón.",
+                 "Si el cuello aguanta, la camiseta es buena.",
+                 "Corte recto, hombro en su sitio, sin sorpresas.",
+                 "La pieza que más lavas: elige bien."],
+    "Camiseta Manga Larga": ["Manga larga: media estación entera resuelta.",
+                             "Debajo o sola. Las dos funcionan.",
+                             "Puños que no se abren a la tercera semana.",
+                             "La capa que no abulta."],
+    "Camiseta de Tirantes": ["Sisa amplia y caída limpia. Verano.",
+                             "Para entrenar o para el bar. Lo mismo da.",
+                             "Menos tela, mismo corte.",
+                             "Julio en Madrid pide esto."],
+    "Polo": ["El polo vuelve, y vuelve sin logo enorme.",
+             "Cuello con estructura: ahí está la diferencia.",
+             "Formal por arriba, calle por abajo.",
+             "Punto fino, corte recto."],
+    "Gorra": ["Una gorra bien bordada dura más que la moda que la trajo.",
+              "Visera plana o curva: la discusión eterna.",
+              "El bordado en relieve no se despega al tercer lavado.",
+              "Lo primero que se ve de ti a diez metros."],
+    "Gorro": ["Punto grueso: el invierno se nota en el gramaje.",
+              "La vuelta ajustable es lo que separa un gorro bueno de uno que baila.",
+              "Se dobla, se guarda en el bolsillo, no se deforma.",
+              "Frío de verdad, gorro de verdad."],
+    "Bucket Hat": ["Ala media: sombra sin parecer un pescador.",
+                   "El bucket volvió y no se ha ido.",
+                   "Estructura en el ala para que no se venza.",
+                   "Sol de agosto, cabeza cubierta."],
+    "Bandana": ["Al cuello, en la muñeca o asomando del bolsillo.",
+                "Lo más barato de la casa y lo que más cambia un look.",
+                "Un cuadrado de tela con más usos de los que crees.",
+                "El remate que nadie espera."],
+    "Jogger": ["Puño en el tobillo: lo que separa un jogger de un chándal.",
+               "Felpa francesa por dentro, calle por fuera.",
+               "Bolsillos que aguantan un móvil sin deformarse.",
+               "Cómodo no tiene por qué significar dejado."],
+    "Pantalón": ["Corte recto, tejido con cuerpo.",
+                 "El pantalón que aguanta el día entero.",
+                 "Ni pitillo ni saco: en su sitio.",
+                 "Lo de abajo también cuenta."],
+    "Shorts": ["Largo por encima de la rodilla, ni un dedo más.",
+               "Verano sin renunciar al corte.",
+               "Cintura elástica que no marca.",
+               "Cuarenta grados y aun así con criterio."],
+    "Chaqueta": ["Bomber: la chaqueta que nunca se equivoca.",
+                 "Puños acanalados y cierre limpio.",
+                 "Capa exterior sin volumen.",
+                 "La que te pones encima de todo lo demás."],
+    "Cortavientos": ["El viento se para con tejido, no con capas.",
+                     "Se pliega, cabe en la mochila, y salva la tarde.",
+                     "Ligero por fuera, seco por dentro.",
+                     "Para cuando el día cambia de idea."],
+    "Zapatillas": ["Suela vulcanizada: la construcción que aguanta.",
+                   "Lona y goma. Lleva un siglo funcionando.",
+                   "Se ensucian, se lavan, siguen.",
+                   "El calzado que combina con todo lo que ya tienes."],
+    "ZAPATILLAS": ["Suela vulcanizada: la construcción que aguanta.",
+                   "Caña alta, ojales metálicos, cordones que no se deshilachan.",
+                   "Lona y goma. Lleva un siglo funcionando.",
+                   "Se ensucian, se lavan, siguen."],
+    "Riñonera": ["Lo esencial, cruzado al pecho.",
+                 "Cabe lo que necesitas y nada de lo que no.",
+                 "Correa ajustable, cremallera que cierra de verdad.",
+                 "Las manos libres cambian cómo andas."],
+    "Mochila": ["Lo que te llevas encima todos los días merece estar bien hecho.",
+                "Bolsillo acolchado dentro, tejido resistente fuera.",
+                "Capacidad de día entero.",
+                "La mochila se elige una vez cada muchos años."],
+    "Bolsa": ["Tote de tejido resistente, no de papel.",
+              "Asas reforzadas: ahí es donde revientan todas.",
+              "Cabe la compra, el portátil o las dos cosas.",
+              "La bolsa que dejas de perder."],
+    "Calcetines": ["El detalle que solo se ve cuando te sientas.",
+                   "Caña media, elástico que no aprieta.",
+                   "Lo último que se elige y lo primero que se nota.",
+                   "Pie negro, tejido transpirable."],
+}
 
 # ── hashtags por tipo de pieza ────────────────────────────────────────────────
 BASE_TAGS = ["srhood", "streetroyalty", "streetwearespaña", "modaurbanaespaña"]
@@ -280,12 +382,20 @@ RUIDO = re.compile(r"(tabla de tallas|talla[s]?\s*:|talla\s|ancho pecho|equivale
 # («Puerta del Reino», «Astrolabio del Norte»). Solo se escribe a mano cuando el
 # derivado se repetiría en la cuadrícula —cinco planchas diciendo ESSENTIAL— o
 # cuando el nombre no deja nada al quitarle la prenda y el color.
-PREFIJOS = ["Hoodie Premium", "Hoodie Cremallera", "Relax Hoodie", "Cropped Hoodie",
-            "Hoodie", "Zapatillas Altas", "Zapatillas Slip-On", "Zapatillas Deportivas",
-            "Zapatillas Lona", "Zapatillas", "Sudadera Cremallera", "Sudadera",
-            "Camiseta Manga Larga", "Camiseta de Tirantes", "Camiseta", "Bandana",
-            "Bucket Hat", "Riñonera", "Mochila", "Quarter Zip", "Polo", "Jogger",
-            "Gorra", "Gorro"]
+PREFIJOS = ["Hoodie Premium", "Hoodie Cremallera", "Relax Hoodie", "Zip Hoodie",
+            "Cropped Hoodie", "Hoodie", "Zapatillas Altas", "Zapatillas Slip-On",
+            "Zapatillas Deportivas", "Zapatillas Lona", "Zapatillas",
+            "Sudadera Cremallera", "Sudadera", "Camiseta Manga Larga",
+            "Camiseta de Tirantes", "Camiseta", "Bandana", "Bucket Hat", "Riñonera",
+            "Mochila", "Quarter Zip", "Polo", "Jogger", "Gorra", "Gorro",
+            # nombres de los básicos, que repiten la prenda dentro del propio título
+            "Sweatpants Heavyweight", "Sweatpants", "Cortavientos", "Chaqueta Bomber",
+            "Bomber", "Mesh Shorts", "Shorts", "Pantalón", "Bolsa de Tela", "Bolsa",
+            "Tote", "Pullover", "Calcetines"]
+
+# marca al principio del título: no aporta nada en una plancha que ya lleva la
+# corona y «STREET ROYALTY HOOD» en la cabecera
+MARCA = re.compile(r"^(street royalty(\s*\|)?|srhood)\s*", re.I)
 
 TITULOS = {
     # las cinco Essential solo se distinguían por el color
@@ -341,9 +451,9 @@ TITULOS = {
 def titular(handle, titulo):
     if handle in TITULOS:
         return TITULOS[handle]
-    base = titulo.split(" — ")[0]
+    base = MARCA.sub("", titulo.split(" — ")[0]).strip()
     for p in sorted(PREFIJOS, key=len, reverse=True):
-        if base.startswith(p):
+        if base.lower().startswith(p.lower()):
             base = base[len(p):].strip()
             break
     base = re.sub(r"\b(Hombre|Mujer|AS Colour|Cotton Heritage|Stella Nora|Reversible)\b",
@@ -396,10 +506,19 @@ def frases(body_html, n=2):
     return buenas[:n]
 
 
-def pie(prod, cap, idx):
-    """gancho · qué es · ficha · cierre. En ese orden, siempre."""
+def pie(prod, cap, idx, tipo=None):
+    """gancho · qué es · ficha · cierre. En ese orden, siempre.
+
+    Con cápsula, el gancho lo pone la cápsula: es la historia que se está contando.
+    Sin cápsula, lo pone el tipo de prenda —hablar de la capucha en una gorra no dice
+    nada—, y solo si el tipo no está en la tabla se cae a los genéricos de BASE.
+    """
+    if cap in CAPSULAS:
+        pool = CAPSULAS[cap]["ganchos"]
+    else:
+        pool = GANCHOS_TIPO.get(tipo) or BASE["ganchos"]
     c = CAPSULAS.get(cap, BASE)
-    gancho = c["ganchos"][idx % len(c["ganchos"])]
+    gancho = pool[idx % len(pool)]
     cuerpo = frases(prod.get("body_html"), 2)
     partes = [gancho]
     for t in cuerpo:

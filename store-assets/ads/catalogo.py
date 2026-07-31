@@ -94,23 +94,41 @@ def mascara(arr, lmin=100, smax=0.08):
     return ndimage.binary_erosion(~fondo, iterations=1, border_value=0)
 
 
+def _mayor(m):
+    lab, n = ndimage.label(m)
+    if n == 0:
+        return m
+    tam = ndimage.sum(m, lab, range(1, n + 1))
+    return lab == (int(tam.argmax()) + 1)
+
+
 def qa(path, lmin=100, smax=0.08):
     """Simula el recorte y mide si la pieza sobrevive. Ver docstring del módulo.
 
-    `relleno` es lo que de verdad separa un recorte bueno de uno roto: cuánto de su
-    caja envolvente ocupa la pieza principal. Una zapatilla entera llena el 65-85%;
-    cuando la inundación entra por un estampado blanco y negro y deja confeti, cae
-    al 35% aunque `cohes` y `frag` sigan pareciendo razonables. Ese fue exactamente
-    el caso de las Moiré, que pasaban el filtro y salían destrozadas en la plancha.
+    Dos medidas hacen el trabajo, y cada una atrapa un fallo distinto:
+
+    `relleno` — cuánto de su caja envolvente ocupa la pieza principal. Una zapatilla
+    entera llena el 65-85%; cuando la inundación entra por un estampado blanco y
+    negro y deja confeti, cae al 35%. Así cayeron las Moiré, que pasaban `area`,
+    `frag` y `cohes` y salían destrozadas en la plancha.
+
+    `fuga` — cuánto se ha comido la inundación, comparando contra una segmentación
+    ultraconservadora (solo blanco casi puro, que no puede morder la prenda). Es la
+    que atrapa el fallo silencioso: en una sudadera gris jaspeada la inundación entra
+    por la capucha y sale por el borde, así que no deja huecos cerrados ni baja el
+    relleno —el mordisco viene del perímetro— y la plancha sale con medio hombro
+    ausente. Sanas: 0,00-0,06. Rotas: 0,10 para arriba. El corte va en 0,08, que deja
+    fuera alguna sana rara —una gorra deshilachada da 0,107— pero ninguna rota dentro:
+    con 172 candidatas, perder tres buenas es mejor negocio que publicar una rota.
     """
     arr = np.asarray(Image.open(path).convert("RGB")).astype(np.float32)
     solido = mascara(arr, lmin, smax)
     l2, n = ndimage.label(solido)
     if n == 0:
-        return dict(area=0.0, frag=99, cohes=0.0, relleno=0.0, lum=0.0, lmin=lmin, ok=False)
+        return dict(area=0.0, frag=99, cohes=0.0, relleno=0.0, lum=0.0, fuga=1.0,
+                    lmin=lmin, ok=False)
     tam = ndimage.sum(solido, l2, range(1, n + 1))
-    mayor_id = int(tam.argmax()) + 1
-    may = l2 == mayor_id
+    may = l2 == (int(tam.argmax()) + 1)
     ys, xs = np.where(may)
     bbox = (ys.max() - ys.min() + 1) * (xs.max() - xs.min() + 1)
     total = max(float(solido.sum()), 1.0)
@@ -119,10 +137,18 @@ def qa(path, lmin=100, smax=0.08):
     cohes = float(tam.max()) / total
     relleno = float(may.sum()) / max(bbox, 1)
     lum = float(arr.max(axis=2)[may].mean())
+
+    ref = _mayor(mascara(arr, 246, 0.03))
+    # si el mockup no tiene fondo blanco (foto de estudio con pared gris, por
+    # ejemplo), la referencia no vale y la comparación se omite en vez de mentir
+    fuga = 0.0 if ref.sum() > 0.9 * ref.size or ref.sum() < 0.02 * ref.size \
+        else max(0.0, 1 - float(may.sum()) / float(ref.sum()))
+
     return dict(area=round(area, 4), frag=frag, cohes=round(cohes, 3),
-                relleno=round(relleno, 3), lum=round(lum, 1), lmin=lmin,
+                relleno=round(relleno, 3), lum=round(lum, 1), fuga=round(fuga, 4),
+                lmin=lmin,
                 ok=bool(0.06 < area < 0.72 and frag <= 3 and cohes > 0.55
-                        and relleno > 0.45))
+                        and relleno > 0.45 and fuga < 0.08))
 
 
 def qa_escalado(path, umbrales=(100, 130, 160, 200)):
