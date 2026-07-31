@@ -31,10 +31,21 @@ import catalogo as C
 # Las tres piezas: un tono oscuro, uno claro y uno cálido. Con las tres claras el
 # grupo se empasta contra el campo, y con las tres oscuras hace falta tanto halo
 # que se come el grabado.
+#
+# `lmin`/`smax` sobreescriben el umbral que eligió el QA automático. Hace falta en la
+# gorra caqui: su mockup lleva una sombra proyectada que **no es neutra** —recoge el
+# caqui y sube a saturación 0,13—, así que ningún umbral de luminancia la trata como
+# fondo y quedaba pegada bajo la visera como una franja gris. A lmin=100 desaparece.
+#
+# El QA no lo elige solo porque su métrica de fuga compara contra una segmentación
+# conservadora que **incluye la sombra**, y por eso lee «quitar la sombra» como
+# «perder producto» (0,16, por encima del corte). En un lote de cien eso es la
+# decisión prudente; en un anuncio de tres piezas escogidas a mano, se mira y se fija.
 PIEZAS = [
     dict(handle="street-royalty-bucket-hat-corona-srh-negro-y-navy", escala=0.84, dx=-288, dy=40),
     dict(handle="street-royalty-gorro-corona-srh-blanco-y-gris-jaspeado", escala=0.90, dx=0, dy=6),
-    dict(handle="street-royalty-gorra-sello-club-caqui", escala=0.84, dx=288, dy=46),
+    dict(handle="street-royalty-gorra-sello-club-caqui", escala=0.84, dx=288, dy=46,
+         lmin=100),
 ]
 
 TITULAR = "LO PRIMERO QUE SE VE"
@@ -79,7 +90,9 @@ def anuncio(fmt, qa, acento=(120, 92, 40)):
     base = int(R * 1.02)
     for p in orden:
         q = qa[p["handle"]]["qa"]
-        sp = cutout(qa[p["handle"]]["file"], lmin=q["lmin"], smax=q.get("smax", 0.08))
+        sp = cutout(qa[p["handle"]]["file"],
+                    lmin=p.get("lmin", q["lmin"]),
+                    smax=p.get("smax", q.get("smax", 0.08)))
         ancho = int(base * p["escala"] * (W / 1080))
         place(img, sp, cx + int(p["dx"] * W / 1080), CY + p["dy"],
               target_w=ancho, halo=(42, 0.40, acento), shadow=(34, 0.44, 24))

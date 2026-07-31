@@ -74,6 +74,26 @@ corona bordada en el vuelto, y una gorra caqui con el sello circular Hood Royalt
 Club. Streetwear español, producción bajo demanda.
 ```
 
+## La franja gris bajo la visera
+
+El primer montaje llevaba una franja gris pegada bajo la visera de la gorra caqui.
+Era la **sombra proyectada del mockup**, y no se iba con ningún umbral de
+luminancia por un motivo poco evidente: esa sombra **no es neutra**. Recoge el
+caqui de la propia gorra y sube a saturación 0,13, así que el recorte —que da por
+fondo lo que es claro *y* desaturado— nunca la clasificaba como fondo. A `lmin=100`
+desaparece, y el recorte pasa de 799 a 757 px de alto.
+
+El control de calidad automático no elige ese umbral solo, y conviene saber por qué:
+mide la fuga comparando contra una segmentación conservadora que **incluye la
+sombra**, así que lee «quitar la sombra» como «perder producto» (0,16, por encima
+del corte de 0,08) y se queda con el umbral que la conserva. En un lote de cien
+piezas esa prudencia es la correcta. En un anuncio de tres piezas escogidas a mano,
+se mira y se fija: el umbral va en la tabla `PIEZAS` de `build_anuncio.py`.
+
+**Queda como limitación conocida del recorte automático**: los mockups con sombra
+tintada la conservan. Se nota poco en prendas oscuras, porque la sombra se funde con
+el campo, y se nota en las claras y cálidas.
+
 ## Lo que este anuncio NO dice, y por qué
 
 - **Nada de envío.** El umbral de 39 € no se anuncia (decisión del 31/07), y
