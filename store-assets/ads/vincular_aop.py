@@ -108,8 +108,12 @@ def clasificar(nombre):
     return prenda, capsula
 
 
-def pendientes():
-    """Productos de estampado integral con alguna variante sin sincronizar."""
+def pendientes(todos=False):
+    """Productos de estampado integral con alguna variante sin sincronizar.
+
+    Con `todos`, devuelve también los ya completos: es lo que hace falta cuando lo
+    que cambia no es el vínculo sino **el diseño**, que es una operación distinta
+    sobre variantes que ya están bien."""
     fuera, offset = [], 0
     while True:
         r = api("GET", f"/sync/products?limit=100&offset={offset}")["result"]
@@ -117,15 +121,15 @@ def pendientes():
             break
         for p in r:
             cl = clasificar(p["name"])
-            if cl and p.get("synced", 0) < p.get("variants", 0):
+            if cl and (todos or p.get("synced", 0) < p.get("variants", 0)):
                 fuera.append((p["id"], p["name"], cl))
         offset += 100
     return fuera
 
 
-def vincular(sp_id, prenda, capsula, seco=False):
+def vincular(sp_id, prenda, capsula, seco=False, rev="", forzar=False):
     pid, colocaciones, sufijo, pvp = PRENDAS[prenda]
-    url = f"{CDN}{capsula}-{sufijo}.jpg"
+    url = f"{CDN}{capsula}-{sufijo}{rev}.jpg"
     detalle = api("GET", f"/sync/products/{sp_id}")["result"]
     # `front` se guarda como `default`; `preview` lo añade Printful y no cuenta
     esperados = {("default" if c == "front" else c) for c in colocaciones}
@@ -136,7 +140,7 @@ def vincular(sp_id, prenda, capsula, seco=False):
         # llevar solo el frontal. Pasó de verdad —una prueba a medias quedó así y el
         # filtro de «ya sincronizada» la saltó—, y el resultado habría sido un hoodie
         # estampado por delante y liso por detrás.
-        if v.get("synced") and v.get("variant_id") and puestos >= esperados:
+        if not forzar and v.get("synced") and v.get("variant_id") and puestos >= esperados:
             continue
         sku = v.get("sku") or ""
         if not re.fullmatch(r"PF\d+", sku):
@@ -167,6 +171,10 @@ if __name__ == "__main__":
     ap.add_argument("--plan", action="store_true")
     ap.add_argument("--aplicar", action="store_true")
     ap.add_argument("--verificar", action="store_true")
+    ap.add_argument("--capsula", help="limita a una cápsula (brocado, malaquita…)")
+    ap.add_argument("--rev", default="", help="sufijo del fichero, p. ej. -v2")
+    ap.add_argument("--forzar", action="store_true",
+                    help="reenvía el diseño aunque la variante ya esté completa")
     a = ap.parse_args()
     if not CLAVE:
         sys.exit("✗ Falta PRINTFUL_API_KEY en el entorno.")
@@ -187,10 +195,13 @@ if __name__ == "__main__":
         print(f"{prods} productos de estampado integral · {sinc}/{tot} variantes sincronizadas")
         sys.exit(0 if sinc == tot else 1)
 
-    lista = pendientes()
-    print(f"{len(lista)} productos con variantes pendientes")
+    lista = pendientes(todos=a.forzar)
+    if a.capsula:
+        lista = [x for x in lista if x[2][1] == a.capsula]
+    print(f"{len(lista)} productos a tratar")
     total = 0
     for sp_id, nombre, (prenda, capsula) in lista:
         print(f"  {nombre[:46]}")
-        total += vincular(sp_id, prenda, capsula, seco=not a.aplicar)
+        total += vincular(sp_id, prenda, capsula, seco=not a.aplicar,
+                          rev=a.rev, forzar=a.forzar)
     print(f"\n{'Se vincularían' if not a.aplicar else 'Vinculadas'}: {total} variantes")
