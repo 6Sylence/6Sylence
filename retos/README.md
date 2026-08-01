@@ -20,6 +20,7 @@ retos/
   app/            Aplicación Expo (React Native, expo-router)
   studio/         Generador de premios por código (Pillow)
   assets/         Premios generados — fuera del control de versiones
+  docs/           Política de privacidad, Data Safety y checklist de Play
 ```
 
 ## Decisiones de producto codificadas
@@ -37,6 +38,7 @@ Estas reglas están implementadas, no son documentación aspiracional:
 | Recompensa semanal **digital** (coste marginal cero). | `content/weeks.py` — `RewardOption` |
 | Recompensa física solo en **hitos** (semanas 4, 8, 12) y **por código canjeable fuera de la app**. | `engine.py` — `milestone_for_week` |
 | Sin rachas, sin contadores de días perdidos, sin notificaciones al niño. | Ausencia deliberada en todo el modelo |
+| La cuenta se puede **borrar entera desde la app**, con todo lo que cuelga de ella. | `routers/auth.py` — `DELETE /auth/me` |
 
 ## Arrancar
 
@@ -94,13 +96,25 @@ comprueban que el contenido del backend y los guiones no se desincronicen.
 cd retos/app && npx tsc --noEmit   # la app se comprueba con el typechecker
 ```
 
+## Publicar
+
+Antes de subir nada a Google Play, leer [`docs/publicacion-play.md`](docs/publicacion-play.md).
+El requisito que marca el calendario: una cuenta de desarrollador personal necesita un
+**test cerrado con 12 testers durante 14 días seguidos** antes de poder publicar en
+producción.
+
+- [`docs/politica-privacidad.md`](docs/politica-privacidad.md) — borrador derivado del
+  código, pendiente de revisión legal.
+- [`docs/data-safety.md`](docs/data-safety.md) — el formulario de Play respondido campo a
+  campo, con la línea de código que justifica cada respuesta.
+
 ## Estado
 
 MVP esqueleto: navegación, modelos, motor de retos y endpoints funcionando de punta a
 punta, con el contenido de las 12 semanas generado (40 archivos entre personajes,
 cuentos, láminas y diplomas).
 
-Verificado: 126 tests en verde (51 del backend, 75 del estudio), typecheck de la app
+Verificado: 130 tests en verde (55 del backend, 75 del estudio), typecheck de la app
 limpio y la API arranca y responde (`/api/health`, `/docs`) aunque Mongo no esté
 disponible. No se ha ejecutado la app en un dispositivo ni en emulador, ni se ha impreso
 ninguna lámina en papel.
@@ -110,7 +124,9 @@ Pendiente y deliberadamente fuera de este esqueleto:
 - **Tipografía definitiva**: DejaVu sirve para generar y revisar, no para publicar. Hay
   que poner una redondeada con licencia en `studio/fonts/`.
 - **Facturación**: integración con Google Play Billing / RevenueCat. El backend ya
-  modela la titularidad (`entitlement`) y expone un webhook, pero no valida recibos.
+  modela la titularidad (`entitlement`) y expone un webhook, pero **no valida recibos**.
+- **Web de solicitud de borrado de cuenta**: Play la exige además de la vía que ya existe
+  dentro de la app.
 - **Entrega de los premios a la app**: hoy los archivos se generan en local; falta
   subirlos y servirlos.
 - Canje de la recompensa física contra la tienda.

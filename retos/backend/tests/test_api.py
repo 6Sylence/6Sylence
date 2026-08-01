@@ -43,6 +43,58 @@ def test_sin_token_no_hay_datos(client):
     assert client.get("/api/children").status_code == 401
 
 
+# ==================== Borrado de cuenta (exigido por Google Play) ====================
+
+
+def test_borrar_la_cuenta_invalida_la_sesion(client, auth, child_id):
+    assert client.delete("/api/auth/me", headers=auth).status_code == 204
+    assert client.get("/api/auth/me", headers=auth).status_code == 401
+
+
+def test_borrar_la_cuenta_se_lleva_perfiles_progreso_e_hitos(client, auth, child_id):
+    week = client.get(f"/api/children/{child_id}/weeks/current", headers=auth).json()
+    for item in week["activities"][:2]:
+        client.post(
+            f"/api/children/{child_id}/weeks/1/activities/{item['activity']['activity_id']}/complete",
+            json={"validated_by_parent": True},
+            headers=auth,
+        )
+
+    client.delete("/api/auth/me", headers=auth)
+
+    # Una cuenta nueva con el mismo correo no puede heredar nada de la anterior.
+    nueva = client.post(
+        "/api/auth/register",
+        json={"email": "madre@ejemplo.com", "password": "unaclavelarga"},
+    )
+    assert nueva.status_code == 201
+    headers = {"Authorization": f"Bearer {nueva.json()['access_token']}"}
+    assert client.get("/api/children", headers=headers).json() == []
+    assert client.get(f"/api/children/{child_id}/plan", headers=headers).status_code == 404
+
+
+def test_borrar_una_cuenta_no_toca_la_de_al_lado(client, auth, child_id):
+    otra = client.post(
+        "/api/auth/register",
+        json={"email": "vecino@ejemplo.com", "password": "unaclavelarga"},
+    ).json()
+    headers = {"Authorization": f"Bearer {otra['access_token']}"}
+    client.post(
+        "/api/children",
+        json={"name": "Bruno", "age_band": "5-6", "avatar_key": "buho"},
+        headers=headers,
+    )
+
+    client.delete("/api/auth/me", headers=auth)
+
+    assert client.get("/api/auth/me", headers=headers).status_code == 200
+    assert len(client.get("/api/children", headers=headers).json()) == 1
+
+
+def test_sin_sesion_no_se_puede_borrar_una_cuenta(client):
+    assert client.delete("/api/auth/me").status_code == 401
+
+
 # ==================== Perfil del niño ====================
 
 

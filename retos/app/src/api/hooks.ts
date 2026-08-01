@@ -31,6 +31,14 @@ export function useParent() {
   });
 }
 
+/** Borrado de la cuenta entera. Google Play lo exige dentro de la app. */
+export function useDeleteAccount() {
+  const { token } = useSession();
+  return useMutation({
+    mutationFn: () => request<void>('/auth/me', { method: 'DELETE', token }),
+  });
+}
+
 export function useChildren() {
   const { token } = useSession();
   return useQuery({

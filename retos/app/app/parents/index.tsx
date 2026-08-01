@@ -9,9 +9,10 @@
 
 import { router } from 'expo-router';
 import React, { useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Linking, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { useChildren, useMilestones, useParent, usePlan } from '../../src/api/hooks';
+import { PRIVACY_POLICY_URL } from '../../src/config';
 import { ParentalGate } from '../../src/components/ParentalGate';
 import {
   Body,
@@ -152,16 +153,27 @@ export default function ParentsScreen() {
           que validas los retos no salen de este teléfono: la app nunca las envía ni las
           almacena.
         </Body>
+        <Button
+          label="Leer la política de privacidad"
+          variant="ghost"
+          onPress={() => Linking.openURL(PRIVACY_POLICY_URL)}
+        />
       </Card>
 
       <Button label="Volver" variant="ghost" onPress={() => router.replace('/kid/week')} />
       <Button
         label="Cerrar sesión"
-        variant="danger"
+        variant="ghost"
         onPress={async () => {
           await signOut();
           router.replace('/login');
         }}
+      />
+      {/* Google Play exige poder borrar la cuenta desde dentro de la app. */}
+      <Button
+        label="Borrar mi cuenta"
+        variant="danger"
+        onPress={() => router.push('/parents/borrar-cuenta')}
       />
     </Screen>
   );
