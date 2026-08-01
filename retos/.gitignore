@@ -1,0 +1,16 @@
+# Backend
+backend/.venv/
+backend/.env
+backend/**/__pycache__/
+backend/.pytest_cache/
+
+# Premios generados. Son archivos derivados: se regeneran con
+# `python studio/generate.py`. Lo que se versiona es el generador.
+assets/
+
+# App
+app/node_modules/
+app/.expo/
+app/dist/
+app/.env
+app/expo-env.d.ts
