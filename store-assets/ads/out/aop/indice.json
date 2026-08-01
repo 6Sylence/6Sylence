@@ -1,0 +1,334 @@
+[
+ {
+  "capsula": "malaquita",
+  "producto": 320,
+  "nombre": "Sudadera AOP",
+  "colocaciones": [
+   "front",
+   "back",
+   "sleeve_right",
+   "sleeve_left"
+  ],
+  "px": [
+   1983,
+   2598
+  ],
+  "fichero": "malaquita-320-1983x2598.jpg",
+  "mb": 1.17
+ },
+ {
+  "capsula": "brocado",
+  "producto": 320,
+  "nombre": "Sudadera AOP",
+  "colocaciones": [
+   "front",
+   "back",
+   "sleeve_right",
+   "sleeve_left"
+  ],
+  "px": [
+   1983,
+   2598
+  ],
+  "fichero": "brocado-320-1983x2598.jpg",
+  "mb": 1.52
+ },
+ {
+  "capsula": "meandro",
+  "producto": 320,
+  "nombre": "Sudadera AOP",
+  "colocaciones": [
+   "front",
+   "back",
+   "sleeve_right",
+   "sleeve_left"
+  ],
+  "px": [
+   1983,
+   2598
+  ],
+  "fichero": "meandro-320-1983x2598.jpg",
+  "mb": 1.37
+ },
+ {
+  "capsula": "camo",
+  "producto": 320,
+  "nombre": "Sudadera AOP",
+  "colocaciones": [
+   "front",
+   "back",
+   "sleeve_right",
+   "sleeve_left"
+  ],
+  "px": [
+   1983,
+   2598
+  ],
+  "fichero": "camo-320-1983x2598.jpg",
+  "mb": 0.9
+ },
+ {
+  "capsula": "malaquita",
+  "producto": 388,
+  "nombre": "Hoodie AOP",
+  "colocaciones": [
+   "front",
+   "back",
+   "sleeve_right",
+   "sleeve_left",
+   "pocket",
+   "hood"
+  ],
+  "px": [
+   2362,
+   2362
+  ],
+  "fichero": "malaquita-388-2362x2362.jpg",
+  "mb": 1.28
+ },
+ {
+  "capsula": "brocado",
+  "producto": 388,
+  "nombre": "Hoodie AOP",
+  "colocaciones": [
+   "front",
+   "back",
+   "sleeve_right",
+   "sleeve_left",
+   "pocket",
+   "hood"
+  ],
+  "px": [
+   2362,
+   2362
+  ],
+  "fichero": "brocado-388-2362x2362.jpg",
+  "mb": 1.69
+ },
+ {
+  "capsula": "meandro",
+  "producto": 388,
+  "nombre": "Hoodie AOP",
+  "colocaciones": [
+   "front",
+   "back",
+   "sleeve_right",
+   "sleeve_left",
+   "pocket",
+   "hood"
+  ],
+  "px": [
+   2362,
+   2362
+  ],
+  "fichero": "meandro-388-2362x2362.jpg",
+  "mb": 1.49
+ },
+ {
+  "capsula": "camo",
+  "producto": 388,
+  "nombre": "Hoodie AOP",
+  "colocaciones": [
+   "front",
+   "back",
+   "sleeve_right",
+   "sleeve_left",
+   "pocket",
+   "hood"
+  ],
+  "px": [
+   2362,
+   2362
+  ],
+  "fichero": "camo-388-2362x2362.jpg",
+  "mb": 0.97
+ },
+ {
+  "capsula": "malaquita",
+  "producto": 618,
+  "nombre": "Track pants AOP",
+  "colocaciones": [
+   "front",
+   "back"
+  ],
+  "px": [
+   3307,
+   3189
+  ],
+  "fichero": "malaquita-618-3307x3189.jpg",
+  "mb": 2.41
+ },
+ {
+  "capsula": "brocado",
+  "producto": 618,
+  "nombre": "Track pants AOP",
+  "colocaciones": [
+   "front",
+   "back"
+  ],
+  "px": [
+   3307,
+   3189
+  ],
+  "fichero": "brocado-618-3307x3189.jpg",
+  "mb": 3.19
+ },
+ {
+  "capsula": "meandro",
+  "producto": 618,
+  "nombre": "Track pants AOP",
+  "colocaciones": [
+   "front",
+   "back"
+  ],
+  "px": [
+   3307,
+   3189
+  ],
+  "fichero": "meandro-618-3307x3189.jpg",
+  "mb": 2.8
+ },
+ {
+  "capsula": "camo",
+  "producto": 618,
+  "nombre": "Track pants AOP",
+  "colocaciones": [
+   "front",
+   "back"
+  ],
+  "px": [
+   3307,
+   3189
+  ],
+  "fichero": "camo-618-3307x3189.jpg",
+  "mb": 1.83
+ },
+ {
+  "capsula": "malaquita",
+  "producto": 744,
+  "nombre": "Bandolera AOP",
+  "colocaciones": [
+   "back",
+   "front",
+   "details",
+   "inside_pocket",
+   "pocket"
+  ],
+  "px": [
+   886,
+   591
+  ],
+  "fichero": "malaquita-744-886x591.jpg",
+  "mb": 0.12
+ },
+ {
+  "capsula": "brocado",
+  "producto": 744,
+  "nombre": "Bandolera AOP",
+  "colocaciones": [
+   "back",
+   "front",
+   "details",
+   "inside_pocket",
+   "pocket"
+  ],
+  "px": [
+   886,
+   591
+  ],
+  "fichero": "brocado-744-886x591.jpg",
+  "mb": 0.17
+ },
+ {
+  "capsula": "meandro",
+  "producto": 744,
+  "nombre": "Bandolera AOP",
+  "colocaciones": [
+   "back",
+   "front",
+   "details",
+   "inside_pocket",
+   "pocket"
+  ],
+  "px": [
+   886,
+   591
+  ],
+  "fichero": "meandro-744-886x591.jpg",
+  "mb": 0.14
+ },
+ {
+  "capsula": "camo",
+  "producto": 744,
+  "nombre": "Bandolera AOP",
+  "colocaciones": [
+   "back",
+   "front",
+   "details",
+   "inside_pocket",
+   "pocket"
+  ],
+  "px": [
+   886,
+   591
+  ],
+  "fichero": "camo-744-886x591.jpg",
+  "mb": 0.09
+ },
+ {
+  "capsula": "malaquita",
+  "producto": 200,
+  "nombre": "Crop top AOP",
+  "colocaciones": [
+   "default"
+  ],
+  "px": [
+   2421,
+   1240
+  ],
+  "fichero": "malaquita-200-2421x1240.jpg",
+  "mb": 0.69
+ },
+ {
+  "capsula": "brocado",
+  "producto": 200,
+  "nombre": "Crop top AOP",
+  "colocaciones": [
+   "default"
+  ],
+  "px": [
+   2421,
+   1240
+  ],
+  "fichero": "brocado-200-2421x1240.jpg",
+  "mb": 0.91
+ },
+ {
+  "capsula": "meandro",
+  "producto": 200,
+  "nombre": "Crop top AOP",
+  "colocaciones": [
+   "default"
+  ],
+  "px": [
+   2421,
+   1240
+  ],
+  "fichero": "meandro-200-2421x1240.jpg",
+  "mb": 0.8
+ },
+ {
+  "capsula": "camo",
+  "producto": 200,
+  "nombre": "Crop top AOP",
+  "colocaciones": [
+   "default"
+  ],
+  "px": [
+   2421,
+   1240
+  ],
+  "fichero": "camo-200-2421x1240.jpg",
+  "mb": 0.52
+ }
+]

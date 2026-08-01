@@ -1,0 +1,37 @@
+{
+ "Sudadera integral": {
+  "pid": 320,
+  "sub": 30.95,
+  "envio": 5.99,
+  "coste": 36.94,
+  "talla": "M"
+ },
+ "Hoodie integral": {
+  "pid": 388,
+  "sub": 38.95,
+  "envio": 5.99,
+  "coste": 44.94,
+  "talla": "M"
+ },
+ "Pantalón integral": {
+  "pid": 618,
+  "sub": 25.75,
+  "envio": 7.99,
+  "coste": 33.74,
+  "talla": "M"
+ },
+ "Bandolera integral": {
+  "pid": 744,
+  "sub": 20.29,
+  "envio": 4.29,
+  "coste": 24.58,
+  "talla": "One size"
+ },
+ "Crop top integral": {
+  "pid": 200,
+  "sub": 16.28,
+  "envio": 4.29,
+  "coste": 20.57,
+  "talla": "M"
+ }
+}
