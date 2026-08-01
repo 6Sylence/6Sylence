@@ -156,8 +156,13 @@ def malaquita(n, semilla=11):
     v = 0.5 + 0.5 * np.sin(fase)
     v = np.clip((v - 0.5) * 1.9 + 0.5, 0, 1)                  # bandas más marcadas
     v = v * (0.88 + 0.12 * (0.5 + 0.5 * ruido(n, (24, 48), semilla + 2)))  # estría fina
-    arr = rampa(v, [(0.0, (4, 18, 15)), (0.30, (9, 38, 30)), (0.55, (16, 68, 52)),
-                    (0.78, (38, 118, 88)), (0.93, (104, 176, 142)), (1.0, (186, 222, 204))])
+    # Paleta apagada un punto respecto a la primera versión: en la cuadrícula de
+    # colección, junto al oro del brocado y al camuflaje, el verde brillante se leía
+    # casi neón y rompía la familia. La piedra real tampoco brilla así: lo que la
+    # hace cara es la profundidad, no la saturación. Se bajan sobre todo los dos
+    # topes altos, que son los que dan el efecto menta.
+    arr = rampa(v, [(0.0, (4, 16, 13)), (0.30, (8, 33, 26)), (0.55, (14, 56, 43)),
+                    (0.78, (28, 88, 67)), (0.93, (68, 128, 104)), (1.0, (132, 170, 150))])
     return Image.fromarray(arr, "RGB")
 
 
