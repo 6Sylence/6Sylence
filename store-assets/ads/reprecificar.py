@@ -86,30 +86,37 @@ def plan(productos):
             saltados[p["product_type"]] += 1
             continue
         s = subida(coste)
-        for v in p["variants"]:
-            viejo = float(v["price"])
-            cambios.append({
-                "producto": p["handle"], "tipo": p["product_type"],
-                "variant_id": v["id"], "antes": round(viejo, 2),
-                "despues": round(viejo + s, 2), "subida": s,
-            })
+        cambios.append({
+            "producto": p["handle"], "tipo": p["product_type"], "subida": s,
+            "producto_gid": "gid://shopify/Product/%s" % p["id"],
+            "variantes": [{"gid": "gid://shopify/ProductVariant/%s" % v["id"],
+                           "antes": round(float(v["price"]), 2),
+                           "despues": round(float(v["price"]) + s, 2)}
+                          for v in p["variants"]],
+        })
     return cambios, saltados
 
 
-def aplicar(cambios, tienda, token, tam=100):
-    """productVariantUpdate por lotes con alias. Requiere token de Admin."""
+def aplicar(cambios, tienda, token, tam=25):
+    """productVariantsBulkUpdate por lotes con alias. Requiere token de Admin.
+
+    Agrupado por producto y no por variante porque `productVariantUpdate` ya no
+    existe en la API actual: la unica via es la masiva, que exige el id del producto
+    junto a los de sus variantes."""
     url = f"https://{tienda}/admin/api/2025-07/graphql.json"
     hechos = 0
     for i in range(0, len(cambios), tam):
         trozo = cambios[i:i + tam]
         campos = " ".join(
-            f'v{j}: productVariantUpdate(input: {{id: $i{j}, price: $p{j}}}) '
+            f'v{j}: productVariantsBulkUpdate(productId: $pr{j}, variants: $vs{j}) '
             f'{{ userErrors {{ field message }} }}' for j in range(len(trozo)))
-        firma = ", ".join(f"$i{j}: ID!, $p{j}: Money!" for j in range(len(trozo)))
+        firma = ", ".join(f"$pr{j}: ID!, $vs{j}: [ProductVariantsBulkInput!]!"
+                          for j in range(len(trozo)))
         variables = {}
         for j, c in enumerate(trozo):
-            variables[f"i{j}"] = f'gid://shopify/ProductVariant/{c["variant_id"]}'
-            variables[f"p{j}"] = f'{c["despues"]:.2f}'
+            variables[f"pr{j}"] = c["producto_gid"]
+            variables[f"vs{j}"] = [{"id": v["gid"], "price": f'{v["despues"]:.2f}'}
+                                   for v in c["variantes"]]
         cuerpo = json.dumps({"query": f"mutation({firma}) {{ {campos} }}",
                              "variables": variables}).encode()
         req = urllib.request.Request(url, data=cuerpo, method="POST", headers={
@@ -135,7 +142,8 @@ if __name__ == "__main__":
 
     prods = catalogo()
     cambios, saltados = plan(prods)
-    print(f"{len(prods)} productos · {len(cambios)} variantes a reprecificar")
+    nv = sum(len(c["variantes"]) for c in cambios)
+    print(f"{len(prods)} productos · {len(cambios)} a tocar · {nv} variantes")
     if saltados:
         print("sin tarifa conocida (no se tocan):", dict(saltados))
 
@@ -145,7 +153,7 @@ if __name__ == "__main__":
             por_tipo[c["tipo"]][0] += 1
             por_tipo[c["tipo"]][1] = c["subida"]
         for t, (n, s) in sorted(por_tipo.items(), key=lambda x: -x[1][0]):
-            print(f"  {t:22s} {n:5d} variantes  +{s} €")
+            print(f"  {t:22s} {n:5d} productos  +{s} €")
 
     if a.salida:
         json.dump(cambios, open(a.salida, "w"), ensure_ascii=False)
