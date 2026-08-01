@@ -1,0 +1,12 @@
+# Backend
+backend/.venv/
+backend/.env
+backend/**/__pycache__/
+backend/.pytest_cache/
+
+# App
+app/node_modules/
+app/.expo/
+app/dist/
+app/.env
+app/expo-env.d.ts

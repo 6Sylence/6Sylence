@@ -1,0 +1,4 @@
+-r requirements.txt
+
+# Mongo en memoria para las pruebas de la API. No se instala en producción.
+mongomock-motor==0.0.36
