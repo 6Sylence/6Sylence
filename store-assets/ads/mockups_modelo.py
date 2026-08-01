@@ -18,8 +18,13 @@ analogía**: si se añade un tipo de prenda, hay que generar y mirar.
                     758 Men's Lifestyle 3   antebrazos tatuados     ✔ verificado
     gorra (206)   15130 Men's Lifestyle 2   antebrazos tatuados     ✔ verificado
                   15099 Women's Lifestyle 2 tatuaje pequeño en mano ✔ verificado
+    bandana (630)  4363 Lifestyle 2         antebrazo tatuado       ✔ verificado
     hoodie (380)  19955 Men's Lifestyle 2   SIN tatuajes            ✔ verificado
     sudadera (411), manga larga (356), bucket (654): no existen estilos Lifestyle 2/3
+
+Los de estampado integral —sudadera (320), hoodie (388), pantalón (618), bandolera
+(744) y crop top (200)— tienen Lifestyle con foto editorial buena, pero **ninguno con
+tatuajes**; verificados uno a uno el 01/08/2026.
 
 O sea: **hay modelo tatuado para camisetas y gorras, y no lo hay para el resto**.
 Para las demás prendas lo que sí se puede hacer —y hace falta— es pasar de foto
