@@ -1,0 +1,4 @@
+# El estudio lee el contenido del backend, así que necesita sus dependencias.
+-r ../backend/requirements.txt
+
+Pillow==12.3.0

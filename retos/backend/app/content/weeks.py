@@ -1,12 +1,13 @@
 """Contenido de las 12 semanas.
 
-Esto es la **semilla del esqueleto**, no el contenido de producción. Sirve para
-que la app funcione de punta a punta y para fijar el formato: cada semana tiene
-un tema, tres actividades sin pantalla y tres recompensas digitales a elegir.
+Cada semana tiene un tema, tres actividades sin pantalla y tres recompensas
+digitales entre las que el niño elige una.
 
-El contenido definitivo (redacción, ilustraciones y PDFs imprimibles) se genera
-en la fase B. Cuando llegue, sustituye a este fichero sin tocar el motor: la
-forma de los datos es la misma.
+Las recompensas son **propias de cada semana**, no plantillas: cada una tiene
+su personaje, su cuento y su lámina. Los archivos correspondientes los genera
+`retos/studio`, que lee este mismo fichero para que los títulos que sirve la
+API y los que aparecen impresos no puedan desincronizarse. `asset_key` es la
+ruta del archivo generado, sin extensión.
 
 Reglas al escribir actividades:
 
@@ -130,13 +131,91 @@ _RAW: list[dict] = [
     },
 ]
 
-# Cada semana ofrece las mismas tres familias de recompensa. Lo que cambia es
-# el asset. Mantener la estructura estable simplifica la pantalla de elección,
-# que es la que ve el niño y debe ser siempre igual.
-_REWARD_SHAPES = [
-    (RewardKind.CHARACTER, "Un amigo nuevo", "Se une a tu cuaderno de aventuras."),
-    (RewardKind.STORY, "Un cuento nuevo", "Para leer esta noche."),
-    (RewardKind.PRINTABLE, "Una lámina para imprimir", "Se imprime en casa y se colorea."),
+# Las tres familias de recompensa se repiten todas las semanas —personaje,
+# cuento y lámina— porque la pantalla de elección la ve un niño de tres años y
+# tiene que ser siempre igual. Lo que cambia es el contenido de cada una.
+#
+# `animal` no lo sirve la API: lo usa el generador de `retos/studio` para saber
+# qué dibujar.
+_CAST: list[dict] = [
+    {
+        "animal": "nutria",
+        "character": ("Nara la nutria", "Abre todo con las manos. Hasta lo que no debe."),
+        "story": ("Las manos de Nara", "Un cuento corto para leer esta noche."),
+        "printable": ("Manos para colorear", "Se imprime en casa y se colorea."),
+    },
+    {
+        "animal": "camaleon",
+        "character": ("Kimi el camaleón", "Cambia de color según cómo se levante."),
+        "story": ("Kimi pierde su color", "Un cuento corto para leer esta noche."),
+        "printable": ("Busca y colorea", "Se imprime en casa y se colorea."),
+    },
+    {
+        "animal": "loro",
+        "character": ("Pico el loro", "Repite todo lo que oye, y algo más."),
+        "story": ("El loro que solo decía sí", "Un cuento corto para leer esta noche."),
+        "printable": ("Trazos de palabras", "Se imprime en casa y se repasa con lápiz."),
+    },
+    {
+        "animal": "mapache",
+        "character": ("Rufo el mapache", "Guarda tesoros que nadie más ve."),
+        "story": ("El tesoro de Rufo", "Un cuento corto para leer esta noche."),
+        "printable": ("Recorta tu tesoro", "Se imprime en casa y se recorta."),
+    },
+    {
+        "animal": "oso",
+        "character": ("Tila la osa", "Tiene un día distinto cada día."),
+        "story": ("El día raro de Tila", "Un cuento corto para leer esta noche."),
+        "printable": ("Caras para colorear", "Se imprime en casa y se colorea."),
+    },
+    {
+        "animal": "hormiga",
+        "character": ("Uno la hormiga", "Lo cuenta absolutamente todo."),
+        "story": ("Uno cuenta hasta diez", "Un cuento corto para leer esta noche."),
+        "printable": ("Cuenta y colorea", "Se imprime en casa y se colorea."),
+    },
+    {
+        "animal": "rana",
+        "character": ("Brinco la rana", "Salta primero y piensa después."),
+        "story": ("Brinco aprende a parar", "Un cuento corto para leer esta noche."),
+        "printable": ("Circuito de trazos", "Se imprime en casa y se repasa con lápiz."),
+    },
+    {
+        "animal": "buho",
+        "character": ("Ulu el búho", "Oye lo que nadie oye."),
+        "story": ("La noche que Ulu escuchó", "Un cuento corto para leer esta noche."),
+        "printable": ("Recorta tu orquesta", "Se imprime en casa y se recorta."),
+    },
+    {
+        "animal": "erizo",
+        "character": ("Mote el erizo", "Cocina con mucho cuidado. Pincha."),
+        "story": ("Mote y la merienda", "Un cuento corto para leer esta noche."),
+        "printable": ("Receta para colorear", "Se imprime en casa y se colorea."),
+    },
+    {
+        "animal": "tortuga",
+        "character": ("Lenta la tortuga", "Llega la última y se entera de todo."),
+        "story": ("El paseo más largo", "Un cuento corto para leer esta noche."),
+        "printable": ("Hojas para buscar", "Se imprime en casa y se colorea."),
+    },
+    {
+        "animal": "zorro",
+        "character": ("Fábula la zorra", "Nunca cuenta dos veces el mismo cuento."),
+        "story": ("La zorra que inventaba", "Un cuento corto para leer esta noche."),
+        "printable": ("Dibuja el final", "Se imprime en casa y se dibuja."),
+    },
+    {
+        "animal": "ballena",
+        "character": ("Mar la ballena", "Es enorme y aun así necesita ayuda."),
+        "story": ("Mar no puede sola", "Un cuento corto para leer esta noche."),
+        "printable": ("Recorta y juega en equipo", "Se imprime en casa y se recorta."),
+    },
+]
+
+_REWARD_ORDER = [
+    (RewardKind.CHARACTER, "character"),
+    (RewardKind.STORY, "story"),
+    (RewardKind.PRINTABLE, "printable"),
 ]
 
 
@@ -152,15 +231,16 @@ def _build(index: int, raw: dict) -> WeekTemplate:
         )
         for i, (title, instructions, area, materials, minutes) in enumerate(raw["activities"], start=1)
     ]
+    cast = _CAST[index - 1]
     rewards = [
         RewardOption(
             option_id=f"w{index:02d}-r{i}",
             kind=kind,
-            title=title,
-            description=description,
+            title=cast[key][0],
+            description=cast[key][1],
             asset_key=f"w{index:02d}/{kind.value}",
         )
-        for i, (kind, title, description) in enumerate(_REWARD_SHAPES, start=1)
+        for i, (kind, key) in enumerate(_REWARD_ORDER, start=1)
     ]
     return WeekTemplate(
         week_index=index,
@@ -183,3 +263,8 @@ def get_week(week_index: int) -> WeekTemplate | None:
     if 1 <= week_index <= len(WEEKS):
         return WEEKS[week_index - 1]
     return None
+
+
+def animal_for_week(week_index: int) -> str:
+    """Animal protagonista de la semana. Lo consume el generador de assets."""
+    return _CAST[week_index - 1]["animal"]
