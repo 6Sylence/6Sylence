@@ -1,11 +1,21 @@
 # Anuncio de categoría — Tocados
 
-Creatividades: `out/anuncios/srhood-anuncio-gorros-story.jpg` (1080×1920) y
-`srhood-anuncio-gorros-feed.jpg` (1080×1350). Se regeneran con:
+Creatividades: `out/anuncios/srhood-anuncio-tocados-{verano|invierno}-{story|feed}.jpg`.
+Se regeneran con:
 
 ```bash
-python3 build_anuncio.py --qa /tmp/qa.json
+python3 build_anuncio.py --qa /tmp/qa.json            # los dos juegos
+python3 build_anuncio.py --qa /tmp/qa.json --juego verano
 ```
+
+**La configuración completa del anuncio está en `SEGMENTACION-ANUNCIO.md`.**
+
+**Hay dos juegos por temporada.** El primer montaje ponía de protagonista un gorro de
+punto acrílico y estamos en agosto: ningún ajuste de público arregla enseñar un gorro
+de invierno a alguien que está a 35 grados. De junio a septiembre manda el bucket
+(juego `verano`, desde 26,95 €); a partir de octubre entra el gorro (`invierno`,
+desde 24,95 €). El precio de la plancha se calcula de las piezas que salen en ella,
+así que al cambiar de juego no queda un «desde 24,95 €» falso.
 
 ## Configuración
 

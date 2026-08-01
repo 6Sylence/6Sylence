@@ -41,17 +41,31 @@ import catalogo as C
 # conservadora que **incluye la sombra**, y por eso lee «quitar la sombra» como
 # «perder producto» (0,16, por encima del corte). En un lote de cien eso es la
 # decisión prudente; en un anuncio de tres piezas escogidas a mano, se mira y se fija.
-PIEZAS = [
-    dict(handle="street-royalty-bucket-hat-corona-srh-negro-y-navy", escala=0.84, dx=-288, dy=40),
-    dict(handle="street-royalty-gorro-corona-srh-blanco-y-gris-jaspeado", escala=0.90, dx=0, dy=6),
-    dict(handle="street-royalty-gorra-sello-club-caqui", escala=0.84, dx=288, dy=46,
-         lmin=100),
-]
+#
+# Hay dos juegos porque **la temporada manda sobre el diseño**. El primer montaje
+# ponía de protagonista un gorro de punto acrílico, y en España de junio a
+# septiembre eso no se vende: gastar en anuncios para enseñar un gorro de invierno
+# en agosto es pagar alcance por una pieza que nadie va a comprar. En verano manda
+# el bucket, que es el que da sombra.
+JUEGOS = {
+    "verano": [
+        dict(handle="street-royalty-bucket-hat-corona-srh-negro-y-navy", escala=0.82, dx=-292, dy=52),
+        dict(handle="street-royalty-bucket-hat-corona-srh-blanco-y-caqui", escala=0.96, dx=0, dy=0),
+        dict(handle="street-royalty-gorra-sello-club-caqui", escala=0.84, dx=292, dy=44, lmin=100),
+    ],
+    "invierno": [
+        dict(handle="street-royalty-bucket-hat-corona-srh-negro-y-navy", escala=0.84, dx=-288, dy=40),
+        dict(handle="street-royalty-gorro-corona-srh-blanco-y-gris-jaspeado", escala=0.90, dx=0, dy=6),
+        dict(handle="street-royalty-gorra-sello-club-caqui", escala=0.84, dx=288, dy=46, lmin=100),
+    ],
+}
 
-TITULAR = "LO PRIMERO QUE SE VE"
-LINEA = "GORROS · BUCKETS · GORRAS"
-SUB = "BORDADO EN RELIEVE · TALLA ÚNICA"
-PRECIO = "24,95"
+TEXTOS = {
+    "verano": dict(titular="LO PRIMERO QUE SE VE", linea="BUCKETS · GORRAS",
+                   sub="ALA MEDIA · BORDADO EN RELIEVE · TALLA ÚNICA"),
+    "invierno": dict(titular="LO PRIMERO QUE SE VE", linea="GORROS · BUCKETS · GORRAS",
+                     sub="BORDADO EN RELIEVE · TALLA ÚNICA"),
+}
 
 # (ancho, alto, cy_vitrina, radio, y_titular, y_linea, y_sub, y_precio, y_pie, display)
 FORMATOS = {
@@ -62,15 +76,20 @@ FORMATOS = {
 }
 
 
-def cargar(qa_path):
+def cargar(qa_path, piezas):
     qa = {c["handle"]: c for c in json.load(open(qa_path))}
-    falta = [p["handle"] for p in PIEZAS if p["handle"] not in qa]
+    falta = [p["handle"] for p in piezas if p["handle"] not in qa]
     if falta:
         raise SystemExit("✗ No están en el QA: " + ", ".join(falta))
     return qa
 
 
-def anuncio(fmt, qa, acento=(120, 92, 40)):
+def anuncio(fmt, qa, juego, acento=(120, 92, 40)):
+    piezas, txt = JUEGOS[juego], TEXTOS[juego]
+    # el precio se calcula de las piezas en pantalla: escrito a mano se desfasa en
+    # cuanto se cambia el juego, y «desde 24,95 €» sobre un anuncio sin gorros sería
+    # sencillamente falso
+    precio = f'{min(float(qa[p["handle"]]["precio"]) for p in piezas):.2f}'.replace(".", ",")
     F_ = FORMATOS[fmt]
     W, H, CY, R = F_["w"], F_["h"], F_["cy"], F_["r"]
     S.set_canvas(W, H)
@@ -86,7 +105,7 @@ def anuncio(fmt, qa, acento=(120, 92, 40)):
     img.alpha_composite(tint(ring_mask((W, H), cx, CY, [(R - 8, 1.0, 255)]), ORO, 0.17))
 
     # las laterales primero, para que la central quede por encima en el solape
-    orden = sorted(PIEZAS, key=lambda p: -abs(p["dx"]))
+    orden = sorted(piezas, key=lambda p: -abs(p["dx"]))
     base = int(R * 1.02)
     for p in orden:
         q = qa[p["handle"]]["qa"]
@@ -106,14 +125,14 @@ def anuncio(fmt, qa, acento=(120, 92, 40)):
     track(d, (cx, yc + 42), "STREET ROYALTY HOOD", F(JURA_L, 20), CREMA_DIM + (255,), 10, "ct")
     rule(d, yc + 82, 100, ORO, 105)
 
-    f, tr = fit_display(d, TITULAR, ITALIANA, F_["display"], 8, max_w=W - 180)
-    track(d, (cx, F_["y_tit"]), TITULAR, f, CREMA + (255,), tr, "cm")
+    f, tr = fit_display(d, txt["titular"], ITALIANA, F_["display"], 8, max_w=W - 180)
+    track(d, (cx, F_["y_tit"]), txt["titular"], f, CREMA + (255,), tr, "cm")
     rule(d, F_["y_lin"] - 32, 250, ORO, 80)
-    track(d, (cx, F_["y_lin"]), LINEA, F(GEIST, 16), ORO_HI + (232,), 4.0, "cm")
-    track(d, (cx, F_["y_sub"]), SUB, F(GEIST, 14), CREMA_MUTE + (255,), 3.6, "cm")
+    track(d, (cx, F_["y_lin"]), txt["linea"], F(GEIST, 16), ORO_HI + (232,), 4.0, "cm")
+    track(d, (cx, F_["y_sub"]), txt["sub"], F(GEIST, 14), CREMA_MUTE + (255,), 3.6, "cm")
 
     track(d, (cx, F_["y_pre"] - 34), "DESDE", F(JURA_M, 16), CREMA_MUTE + (230,), 6, "cm")
-    price_tag(d, cx, F_["y_pre"], PRECIO, size=58)
+    price_tag(d, cx, F_["y_pre"], precio, size=58)
 
     rule(d, F_["y_pie"] - 32, 360, ORO, 62)
     track(d, (cx, F_["y_pie"]), "SRHOOD.COM", F(BIGSH_B, 42), CREMA + (255,), 11, "cm")
@@ -128,11 +147,14 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--qa", required=True)
     ap.add_argument("--salida", default="out/anuncios")
+    ap.add_argument("--juego", choices=list(JUEGOS) + ["todos"], default="todos")
     a = ap.parse_args()
     asegurar_fuentes()
-    qa = cargar(a.qa)
     os.makedirs(a.salida, exist_ok=True)
-    for fmt in FORMATOS:
-        ruta = os.path.join(a.salida, f"srhood-anuncio-gorros-{fmt}.jpg")
-        anuncio(fmt, qa).convert("RGB").save(ruta, "JPEG", quality=94, subsampling=0)
-        print("→", ruta)
+    juegos = list(JUEGOS) if a.juego == "todos" else [a.juego]
+    for j in juegos:
+        qa = cargar(a.qa, JUEGOS[j])
+        for fmt in FORMATOS:
+            ruta = os.path.join(a.salida, f"srhood-anuncio-tocados-{j}-{fmt}.jpg")
+            anuncio(fmt, qa, j).convert("RGB").save(ruta, "JPEG", quality=94, subsampling=0)
+            print("→", ruta)
