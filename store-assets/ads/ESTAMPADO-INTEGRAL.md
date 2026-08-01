@@ -15,13 +15,18 @@ un permiso que falte ni un token: el endpoint lo dice literalmente.
 
 Lo comprobé también en `/v2/sync-products` (404 en la tienda de Shopify, y sí funciona
 en la tienda nativa 18449429 — que no sincroniza con srhood.com, así que no sirve) y en
-`/v2/product-templates` (se leen, no se crean). El producto tiene que nacer en el
-Creador de productos de Printful, que es quien lo empuja a Shopify con sus variantes,
-sus tallas y su vínculo de fabricación. Un producto creado a mano en Shopify **no se
-fabricaría**: entraría el pedido y no habría nada al otro lado.
+`/v2/product-templates` (se leen, no se crean).
 
-Así que el trabajo se ha hecho hasta el último paso automatizable, y ese último paso
-está descrito para que lleve tres minutos por prenda.
+> **Corrección importante (01/08, más tarde).** De aquí saqué la conclusión de que un
+> producto creado en Shopify «no se fabricaría nunca», y **era falsa**. No se puede
+> *crear* el producto por API, pero sí se puede **crear en Shopify y vincularlo después**,
+> y el vínculo también es automatizable: está en la v1, en
+> `PUT /sync/variant/{id}`. Los 20 productos se crearon con `productSet` y se
+> vincularon con `vincular_aop.py`, sin pisar el Creador de productos.
+>
+> El error de método fue generalizar de un endpoint a una API entera: que
+> `/store/products` conteste «solo para tiendas Manual Order» dice algo sobre **crear**
+> productos, no sobre **vincularlos**, que es otra operación y vive en otra ruta.
 
 ## Y el estampado tampoco se podía recuperar
 
@@ -137,13 +142,17 @@ catálogo pasó de **588 a 608** productos publicados.
 patrón que las fichas que ya se fabrican— y el **coste real de Printful** en
 `inventoryItem.cost`, para que el margen salga solo en los informes de Shopify.
 
-### El paso que queda, y por qué
+### Vinculados en Printful, también por API
 
-En Printful los 20 aparecen ahora bajo **Sync products** con `is_ignored: true` y
-`catalog_variant_id: null`. Es el estado normal de un producto creado desde Shopify: hay
-que conectarlo en Printful eligiendo el producto de catálogo y subiendo el fichero de
-impresión por colocación. Los ficheros están en `out/aop/` y también en el CDN de la
-tienda, con las URL listadas arriba.
+Nacieron en Printful como `is_ignored: true` y `catalog_variant_id: null`, que es el
+estado normal de un producto creado desde Shopify. **Ya no**: `vincular_aop.py` los
+conecta con `PUT /sync/variant/{id}`, poniendo la variante de catálogo, el precio, la
+opción `stitch_color` y el fichero de impresión en **todas** las colocaciones de cada
+prenda.
+
+El `variant_id` de catálogo no hay que buscarlo en ninguna tabla: está en el SKU. Las
+fichas se crearon con `PF` + `catalog_variant_id` precisamente por esto, así que
+`variant_id = int(sku[2:])` y no hay nada que mantener sincronizado a mano.
 
 La API no puede dar ese paso: `PUT /v2/sync-variants` responde
 `409 · Cannot update the design of a sync variant with no catalog_variant_id` —edita el

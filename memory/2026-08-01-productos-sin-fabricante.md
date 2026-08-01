@@ -37,22 +37,36 @@ cortavientos, zapatillas, bañadores, bikinis—.
 El único pedido real de la tienda (#1001, Camiseta Crown, servido) **sí estaba
 vinculado**. El patrón se sostiene: lo vinculado se fabrica, lo demás no se fabricaría.
 
-## Por qué la API no lo puede arreglar sola
+## La API sí lo puede arreglar — me equivoqué dos veces seguidas
 
-Se puede crear el producto en Shopify por API — así aparecieron los 721. Lo que no se
-puede es vincularlo. Probadas doce combinaciones de ruta, método y carga; la reveladora:
+Primero escribí que no se podía vincular por API. **También era falso.** Probé veinte
+combinaciones alrededor de `/v2/sync-products` y `/v2/sync-variants`, todas fallan, y la
+más reveladora es:
 
     PUT /v2/sync-variants/{id}?syncProductId=…&syncVariantId=…
     409 · "Cannot update the design of a sync variant with no catalog_variant_id"
 
-Ese endpoint **existe y responde**, pero lee el `catalog_variant_id` del registro, no del
-cuerpo: sirve para cambiar el **diseño** de una variante ya vinculada, no para crear el
-vínculo. Elegir qué producto de Printful corresponde a cada variante de Shopify es
-precisamente el paso que la API no expone.
+Ese endpoint existe y responde, pero lee el `catalog_variant_id` del registro y no del
+cuerpo: cambia el **diseño** de una variante ya vinculada, no crea el vínculo.
 
-**El lado bueno de ese hallazgo:** sobre los 582 productos ya vinculados **sí se puede
-cambiar el diseño por API**. Eso permite reemplazar estampados en masa sin tocar el
-Creador de productos, que hasta hoy dábamos por imposible.
+**Lo que sí funciona está en la v1**, en una familia de rutas que no había tocado:
+
+    PUT /sync/variant/{sync_variant_id}
+    PUT /sync/variant/@{external_id}          ← acepta el id de variante de Shopify
+
+con `variant_id` (el de catálogo), `retail_price`, `is_ignored: false`, `files` y
+`options`. Devuelve `synced: true` y el producto queda fabricable. Implementado en
+`store-assets/ads/vincular_aop.py`.
+
+**El error de método, que es el mismo dos veces:** generalicé de un endpoint a una API
+entera. Que `/store/products` conteste «solo para tiendas de plataforma Manual Order»
+dice algo sobre **crear** productos, no sobre **vincularlos** — son operaciones
+distintas y viven en rutas distintas. Igual que antes di por buena una comprobación que
+habría dado el mismo resultado aunque mi creencia fuese falsa.
+
+**Consecuencia para los 208:** son arreglables por API, no hace falta el Creador de
+productos. Álvaro dijo el 01/08 que los productos están bien y que no los toque, así que
+**no se ha tocado ninguno**; queda anotado que la vía existe si algún día se quiere.
 
 ## Qué hacer, por orden de dinero protegido
 
