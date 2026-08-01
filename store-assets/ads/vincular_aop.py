@@ -127,9 +127,16 @@ def vincular(sp_id, prenda, capsula, seco=False):
     pid, colocaciones, sufijo, pvp = PRENDAS[prenda]
     url = f"{CDN}{capsula}-{sufijo}.jpg"
     detalle = api("GET", f"/sync/products/{sp_id}")["result"]
+    # `front` se guarda como `default`; `preview` lo añade Printful y no cuenta
+    esperados = {("default" if c == "front" else c) for c in colocaciones}
     hechas = 0
     for v in detalle["sync_variants"]:
-        if v.get("synced") and v.get("variant_id"):
+        puestos = {f["type"] for f in v.get("files", []) if f["type"] != "preview"}
+        # No basta con que esté sincronizada: una variante puede estar vinculada y
+        # llevar solo el frontal. Pasó de verdad —una prueba a medias quedó así y el
+        # filtro de «ya sincronizada» la saltó—, y el resultado habría sido un hoodie
+        # estampado por delante y liso por detrás.
+        if v.get("synced") and v.get("variant_id") and puestos >= esperados:
             continue
         sku = v.get("sku") or ""
         if not re.fullmatch(r"PF\d+", sku):
