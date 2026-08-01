@@ -116,3 +116,43 @@ Quedan 21 cápsulas del catálogo sin llevar a estampado integral.
 `comprobar()` mide si el mosaico cierra antes de escribir nada. Es la única prueba que
 de verdad importa aquí: un patrón que no cierra deja una costura recta cada 16 cm y se
 ve a un metro de distancia.
+
+---
+
+## Actualización: los 20 productos están creados y publicados
+
+Creados con `productSet` de la Admin API y publicados en los seis canales (Tienda
+online, Shop, Google & YouTube, TikTok, Facebook & Instagram, Instagram Shop-AI). El
+catálogo pasó de **588 a 608** productos publicados.
+
+| Prenda | Cápsulas | PVP | Tallas |
+|---|---|---|---|
+| Hoodie Integral | Brocado, Malaquita, Meandro, Camo | 84,95 € | XS–3XL |
+| Sudadera Integral | las cuatro | 74,95 € | XS–3XL |
+| Pantalón Integral | las cuatro | 69,95 € | XS–3XL |
+| Bandolera Integral | las cuatro | 44,95 € | única |
+| Crop Top Integral | las cuatro | 39,95 € | XS–XL |
+
+108 variantes en total. Cada una lleva su **SKU `PF` + `catalog_variant_id`** —el mismo
+patrón que las fichas que ya se fabrican— y el **coste real de Printful** en
+`inventoryItem.cost`, para que el margen salga solo en los informes de Shopify.
+
+### El paso que queda, y por qué
+
+En Printful los 20 aparecen ahora bajo **Sync products** con `is_ignored: true` y
+`catalog_variant_id: null`. Es el estado normal de un producto creado desde Shopify: hay
+que conectarlo en Printful eligiendo el producto de catálogo y subiendo el fichero de
+impresión por colocación. Los ficheros están en `out/aop/` y también en el CDN de la
+tienda, con las URL listadas arriba.
+
+La API no puede dar ese paso: `PUT /v2/sync-variants` responde
+`409 · Cannot update the design of a sync variant with no catalog_variant_id` —edita el
+diseño de una variante ya conectada, no crea la conexión—. Comprobadas doce
+combinaciones de ruta, método y carga.
+
+### Un defecto que se cazó mirando, no midiendo
+
+La primera tanda de bandoleras salió con **los laterales blancos**: había cubierto
+`front`, `back` y `pocket`, pero no `details` ni `inside_pocket`, y esas dos son las
+caras laterales de la bolsa. Ninguna comprobación automática lo habría dicho —la tarea
+de mockup se completó sin error—. Regeneradas con las cinco colocaciones.

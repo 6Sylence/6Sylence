@@ -1,0 +1,147 @@
+{
+ "320": [
+  {
+   "talla": "XS",
+   "cvid": 9730,
+   "sku": "PF9730"
+  },
+  {
+   "talla": "S",
+   "cvid": 9731,
+   "sku": "PF9731"
+  },
+  {
+   "talla": "M",
+   "cvid": 9732,
+   "sku": "PF9732"
+  },
+  {
+   "talla": "L",
+   "cvid": 9733,
+   "sku": "PF9733"
+  },
+  {
+   "talla": "XL",
+   "cvid": 9734,
+   "sku": "PF9734"
+  },
+  {
+   "talla": "2XL",
+   "cvid": 9735,
+   "sku": "PF9735"
+  },
+  {
+   "talla": "3XL",
+   "cvid": 9736,
+   "sku": "PF9736"
+  }
+ ],
+ "388": [
+  {
+   "talla": "XS",
+   "cvid": 10869,
+   "sku": "PF10869"
+  },
+  {
+   "talla": "S",
+   "cvid": 10870,
+   "sku": "PF10870"
+  },
+  {
+   "talla": "M",
+   "cvid": 10871,
+   "sku": "PF10871"
+  },
+  {
+   "talla": "L",
+   "cvid": 10872,
+   "sku": "PF10872"
+  },
+  {
+   "talla": "XL",
+   "cvid": 10873,
+   "sku": "PF10873"
+  },
+  {
+   "talla": "2XL",
+   "cvid": 10874,
+   "sku": "PF10874"
+  },
+  {
+   "talla": "3XL",
+   "cvid": 10875,
+   "sku": "PF10875"
+  }
+ ],
+ "618": [
+  {
+   "talla": "XS",
+   "cvid": 15742,
+   "sku": "PF15742"
+  },
+  {
+   "talla": "S",
+   "cvid": 15743,
+   "sku": "PF15743"
+  },
+  {
+   "talla": "M",
+   "cvid": 15744,
+   "sku": "PF15744"
+  },
+  {
+   "talla": "L",
+   "cvid": 15745,
+   "sku": "PF15745"
+  },
+  {
+   "talla": "XL",
+   "cvid": 15746,
+   "sku": "PF15746"
+  },
+  {
+   "talla": "2XL",
+   "cvid": 15747,
+   "sku": "PF15747"
+  },
+  {
+   "talla": "3XL",
+   "cvid": 15748,
+   "sku": "PF15748"
+  }
+ ],
+ "744": [
+  {
+   "talla": "One size",
+   "cvid": 19256,
+   "sku": "PF19256"
+  }
+ ],
+ "200": [
+  {
+   "talla": "XS",
+   "cvid": 7812,
+   "sku": "PF7812"
+  },
+  {
+   "talla": "S",
+   "cvid": 7813,
+   "sku": "PF7813"
+  },
+  {
+   "talla": "M",
+   "cvid": 7814,
+   "sku": "PF7814"
+  },
+  {
+   "talla": "L",
+   "cvid": 7815,
+   "sku": "PF7815"
+  },
+  {
+   "talla": "XL",
+   "cvid": 7816,
+   "sku": "PF7816"
+  }
+ ]
+}

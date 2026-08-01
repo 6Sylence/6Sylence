@@ -1,0 +1,173 @@
+{
+ "320": {
+  "tipo": "measure_yourself",
+  "filas": {
+   "XS": {
+    "Chest": "92.00",
+    "Waist": "76.00",
+    "Hips": "94.01"
+   },
+   "S": {
+    "Chest": "96.01",
+    "Waist": "80.01",
+    "Hips": "97.99"
+   },
+   "M": {
+    "Chest": "100.00",
+    "Waist": "84.00",
+    "Hips": "102.01"
+   },
+   "L": {
+    "Chest": "108.00",
+    "Waist": "92.00",
+    "Hips": "110.01"
+   },
+   "XL": {
+    "Chest": "116.00",
+    "Waist": "100.00",
+    "Hips": "118.01"
+   },
+   "2XL": {
+    "Chest": "124.00",
+    "Waist": "108.00",
+    "Hips": "126.01"
+   },
+   "3XL": {
+    "Chest": "132.00",
+    "Waist": "116.00",
+    "Hips": "134.01"
+   }
+  },
+  "cols": [
+   "Chest",
+   "Waist",
+   "Hips"
+  ]
+ },
+ "388": {
+  "tipo": "measure_yourself",
+  "filas": {
+   "XS": {
+    "Chest": "92.00",
+    "Waist": "76.00",
+    "Hips": "94.01"
+   },
+   "S": {
+    "Chest": "96.01",
+    "Waist": "80.01",
+    "Hips": "97.99"
+   },
+   "M": {
+    "Chest": "100.00",
+    "Waist": "84.00",
+    "Hips": "102.01"
+   },
+   "L": {
+    "Chest": "108.00",
+    "Waist": "92.00",
+    "Hips": "110.01"
+   },
+   "XL": {
+    "Chest": "116.00",
+    "Waist": "100.00",
+    "Hips": "118.01"
+   },
+   "2XL": {
+    "Chest": "124.00",
+    "Waist": "108.00",
+    "Hips": "126.01"
+   },
+   "3XL": {
+    "Chest": "132.00",
+    "Waist": "116.00",
+    "Hips": "134.01"
+   }
+  },
+  "cols": [
+   "Chest",
+   "Waist",
+   "Hips"
+  ]
+ },
+ "618": {
+  "tipo": "product_measure",
+  "filas": {
+   "XS": {
+    "Waistband": "63.50",
+    "Inseam": "71.12"
+   },
+   "S": {
+    "Waistband": "68.58",
+    "Inseam": "72.39"
+   },
+   "M": {
+    "Waistband": "74.93",
+    "Inseam": "73.03"
+   },
+   "L": {
+    "Waistband": "81.28",
+    "Inseam": "74.30"
+   },
+   "XL": {
+    "Waistband": "88.90",
+    "Inseam": "74.93"
+   },
+   "2XL": {
+    "Waistband": "92.71",
+    "Inseam": "76.20"
+   },
+   "3XL": {
+    "Waistband": "99.06",
+    "Inseam": "76.84"
+   }
+  },
+  "cols": [
+   "Waistband",
+   "Inseam"
+  ]
+ },
+ "744": {
+  "tipo": "product_measure",
+  "filas": {
+   "One size": {
+    "A": "14.50",
+    "B": "19.51",
+    "C": "5.00"
+   }
+  },
+  "cols": [
+   "A",
+   "B",
+   "C"
+  ]
+ },
+ "200": {
+  "tipo": "measure_yourself",
+  "filas": {
+   "XS": {
+    "Chest": "84.00",
+    "Waist": "64.01"
+   },
+   "S": {
+    "Chest": "88.01",
+    "Waist": "68.00"
+   },
+   "M": {
+    "Chest": "92.00",
+    "Waist": "72.01"
+   },
+   "L": {
+    "Chest": "100.00",
+    "Waist": "80.01"
+   },
+   "XL": {
+    "Chest": "108.00",
+    "Waist": "88.01"
+   }
+  },
+  "cols": [
+   "Chest",
+   "Waist"
+  ]
+ }
+}
