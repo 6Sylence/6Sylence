@@ -56,6 +56,18 @@ Tienda: Street Royalty Hood (srhood.com) · Tarea programada "Mejora el branding
   Completa el Look, Drop Julio) se dejaron como estaban: funcionales, y tocarlos
   sin ambos campos era el riesgo anterior. Candidatos a normalizar en otra corrida.
 
+## Corrida 4 (mismo día): SEO de productos destacados + títulos normalizados
+- Normalizados los 6 títulos SEO keyword-stuffed de colecciones (Nuevos Colores,
+  Completa el Look, AOP, Deporte & Gym, Eco, Drop Julio) → formato "Nombre | SRHOOD".
+- SEO de los 46 productos de la colección de portada ("Home page"): 42 no tenían
+  título SEO → añadido "Nombre — Color | SRHOOD" (≤60 chars) y descripciones
+  revisadas; reescritas las 3 que estaban truncadas a mitad de frase (Bucket Hat
+  Corona, Tote Sello Circular, Zapatillas Altas Crown) y varias genéricas
+  ("Compra X en SRHOOD...") en voz de casa. `productUpdate(product:)` con seo
+  también reemplaza el objeto completo — se enviaron siempre ambos campos.
+- Verificado por muestreo. Quedan sin tocar los productos activos fuera de
+  portada (~336) — hacer por lotes en corridas siguientes si se quiere.
+
 ## Pendiente / siguientes corridas
 - Sigue pendiente (requiere admin): idioma principal a Español; la meta descripción
   de la tienda sigue en inglés (no editable por API).
