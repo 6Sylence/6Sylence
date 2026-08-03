@@ -489,6 +489,328 @@ def suminagashi(n, semilla=21):
     return Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8), "RGB")
 
 
+# ══════════════════════════════════════════════════════ taller de segunda hornada
+#
+# Las ocho cápsulas de arriba comparten dos limitaciones que se ven cuando las
+# pones juntas, y que no son de gusto sino de oficio:
+#
+# 1. **Una sola escala.** Cada patrón repite un motivo del mismo tamaño por toda
+#    la tela. Un estampado de firma tiene jerarquía —un motivo dominante, un
+#    relleno secundario y un fondo con textura— y esa jerarquía es lo que hace
+#    que la prenda funcione tanto de lejos como de cerca. A un metro, un patrón
+#    de escala única se convierte en un color plano.
+# 2. **Trazo de grosor constante.** Una línea de ancho fijo se lee como cable.
+#    El dibujo a mano engorda donde el pincel apoya y adelgaza donde levanta, y
+#    esa modulación es la mitad de lo que distingue un grabado de un clipart.
+#
+# Lo que sigue son las herramientas para arreglar las dos cosas.
+
+def trazo_conico(d, pts, w0, w1, color):
+    """Polilínea de grosor variable, de `w0` en el arranque a `w1` en la punta.
+
+    `ImageDraw.line` solo sabe dibujar ancho constante, así que el contorno se
+    construye a mano: en cada punto se toma la normal a la dirección local y se
+    desplaza medio grosor a cada lado. El resultado son dos orillas que, cerradas,
+    dan el polígono del trazo."""
+    if len(pts) < 2:
+        return
+    izq, der, m = [], [], len(pts) - 1
+    for i, (x, y) in enumerate(pts):
+        a, b = pts[max(i - 1, 0)], pts[min(i + 1, m)]
+        dx, dy = b[0] - a[0], b[1] - a[1]
+        L = math.hypot(dx, dy) or 1.0
+        nx, ny = -dy / L, dx / L
+        w = (w0 + (w1 - w0) * (i / m)) / 2
+        izq.append((x + nx * w, y + ny * w))
+        der.append((x - nx * w, y - ny * w))
+    d.polygon(izq + der[::-1], fill=color)
+
+
+def curva(p0, p1, p2, pasos=40):
+    """Bézier cuadrática. Es el trazo mínimo que ya no parece dibujado con regla."""
+    return [((1 - t) ** 2 * p0[0] + 2 * (1 - t) * t * p1[0] + t * t * p2[0],
+             (1 - t) ** 2 * p0[1] + 2 * (1 - t) * t * p1[1] + t * t * p2[1])
+            for t in (k / (pasos - 1) for k in range(pasos))]
+
+
+def trazo_perfilado(d, pts, anchos, color):
+    """Como `trazo_conico`, pero el grosor lo da una lista punto a punto.
+
+    El cono —ancho al principio, punta al final— sirve para un tallo, pero **no
+    para una hoja**, y confundir las dos cosas fue el primer intento del barroco:
+    salía una espina de pescado. Una hoja es panzuda: nace fina, engorda hacia el
+    tercio central y muere en punta. Eso no es un cono, es un perfil, y hace falta
+    poder describirlo entero."""
+    if len(pts) < 2:
+        return
+    izq, der, m = [], [], len(pts) - 1
+    for i, (x, y) in enumerate(pts):
+        a, b = pts[max(i - 1, 0)], pts[min(i + 1, m)]
+        dx, dy = b[0] - a[0], b[1] - a[1]
+        L = math.hypot(dx, dy) or 1.0
+        nx, ny = -dy / L, dx / L
+        w = anchos[i] / 2
+        izq.append((x + nx * w, y + ny * w))
+        der.append((x - nx * w, y - ny * w))
+    d.polygon(izq + der[::-1], fill=color)
+
+
+def hoja(d, x, y, ang, largo, ancho, color, alta=None, curvatura=0.45, panza=0.42,
+         dientes=0, recorte=None):
+    """Hoja de acanto: lámina panzuda curvada, dentada y con nervadura.
+
+    El perfil `sin(πt)^0.62` es el que da la lámina: cero en el arranque, máximo
+    en el centro y cero en la punta. El factor `panza` corre el máximo hacia la
+    base, que es donde lo tiene una hoja de verdad.
+
+    **Los dientes no son un adorno.** Una lámina lisa de este tamaño se lee como
+    un plátano —fue literalmente lo que salió en el primer intento—; lo que hace
+    que el ojo diga «acanto» es el borde recortado. Se pican en el color del
+    fondo sobre la orilla exterior, que es como se graba de verdad."""
+    dx, dy = math.cos(ang), math.sin(ang)
+    px, py = -dy, dx
+    espina = curva((x, y),
+                   (x + dx * largo * 0.5 + px * largo * curvatura * 0.75,
+                    y + dy * largo * 0.5 + py * largo * curvatura * 0.75),
+                   (x + dx * largo + px * largo * curvatura,
+                    y + dy * largo + py * largo * curvatura))
+    m = len(espina) - 1
+    exp = math.log(0.5) / math.log(panza)               # corre el máximo a `panza`
+    anchos = [ancho * math.sin(math.pi * (i / m) ** exp) ** 0.62
+              for i in range(len(espina))]
+    trazo_perfilado(d, espina, anchos, color)
+    if dientes and recorte:
+        signo = 1 if curvatura >= 0 else -1
+        for k in range(dientes):
+            t = 0.26 + 0.52 * k / max(dientes - 1, 1)
+            i = int(t * m)
+            xi, yi = espina[i]
+            a, b = espina[max(i - 1, 0)], espina[min(i + 1, m)]
+            L = math.hypot(b[0] - a[0], b[1] - a[1]) or 1.0
+            nx, ny = -(b[1] - a[1]) / L, (b[0] - a[0]) / L
+            w = anchos[i] / 2
+            bx, by = xi + signo * nx * w, yi + signo * ny * w      # orilla exterior
+            r = anchos[i] * 0.30
+            d.ellipse([bx - r, by - r, bx + r, by + r], fill=recorte)
+    if alta:
+        i0, i1 = int(m * 0.14), int(m * 0.86)
+        d.line(espina[i0:i1], fill=alta, width=max(1, int(ancho * 0.11)), joint="curve")
+
+
+def ojiva_llena(w, h, pasos=90):
+    """Contorno de un cuerpo ojival: punta arriba, panza abajo.
+
+    Es la silueta de la granada del damasco, el motivo dominante de medio Barroco
+    europeo. Dos Bézier simétricas desde la punta hasta la base."""
+    izq = curva((w / 2, 0), (-w * 0.22, h * 0.42), (w / 2, h), pasos)
+    der = curva((w / 2, 0), (w * 1.22, h * 0.42), (w / 2, h), pasos)
+    return izq + der[::-1]
+
+
+def voluta(d, x, y, r, ang0, giro, color, alta=None, vueltas=1.25, w=None):
+    """Voluta: espiral logarítmica de grosor decreciente.
+
+    Es el gesto que sostiene todo el barroco. La espiral logarítmica —no la de
+    Arquímedes— es la que se cierra apretando, que es como enrolla una hoja seca."""
+    w = w or r * 0.30
+    pts = []
+    pasos = 90
+    for k in range(pasos):
+        t = k / (pasos - 1) * 2 * math.pi * vueltas
+        rr = r * math.exp(-0.30 * t)
+        pts.append((x + rr * math.cos(ang0 + giro * t),
+                    y + rr * math.sin(ang0 + giro * t)))
+    trazo_conico(d, pts, w, w * 0.12, color)
+    if alta:
+        d.line(pts[:int(pasos * 0.7)], fill=alta, width=max(1, int(w * 0.16)),
+               joint="curve")
+
+
+def media_caida(base, motivo, cols, filas, x0=0.0, y0=0.0):
+    """Coloca el motivo en retícula a media caída y lo pega envuelto.
+
+    La media caída es lo que separa un damasco de una cuadrícula de sellos: cada
+    columna baja medio alto de celda respecto a la anterior, y el ojo deja de ver
+    filas. Pero solo cierra si el desplazamiento acumulado al dar la vuelta al
+    azulejo es múltiplo del propio azulejo, y eso obliga a **cols = 2 · filas**:
+    tras `cols` columnas el desfase suma `cols/2` celdas de alto, que es un número
+    entero de repeticiones verticales justo cuando cols/2 es múltiplo de filas.
+    Con cualquier otra pareja el patrón salta en la costura vertical."""
+    if cols != 2 * filas:
+        raise ValueError(f"media caída: cols debe ser 2·filas, no {cols} y {filas}")
+    n = base.size[0]
+    cw, ch = n / cols, n / filas
+    mw, mh = motivo.size
+    for col in range(cols):
+        for fila in range(filas + 1):
+            cx = x0 + (col + 0.5) * cw
+            cy = y0 + (fila + 0.5) * ch - (ch / 2 if col % 2 else 0)
+            pegar_envuelto(base, motivo, cx - mw / 2, cy - mh / 2)
+
+
+# Colorways. El mismo dibujo cambiado de paleta es como trabaja de verdad una
+# marca de moda: multiplica la colección sin multiplicar el trabajo de diseño, y
+# deja elegir al cliente sin obligarle a cambiar de motivo.
+PALETAS = {
+    "oro_negro":   dict(fondo=NEGRO_WARM, tinta=ORO,     alta=ORO_HI,  acento=ORO_HI),
+    "oro_burdeos": dict(fondo=(46, 14, 20), tinta=ORO,   alta=ORO_HI,  acento=CREMA),
+    "tinta_hueso": dict(fondo=HUESO,      tinta=(52, 44, 38), alta=(120, 104, 86),
+                        acento=ORO),
+}
+
+
+def barroco(n, semilla=7, paleta="oro_negro"):
+    """Barroco Real: cartela de acanto a media caída sobre fondo rayado.
+
+    Es la cápsula donde se prueban las tres cosas nuevas a la vez. Tiene **tres
+    escalas**: la cartela dominante ocupa media celda, los cogollos de relleno van
+    en los cruces y el fondo lleva una trama diagonal finísima que solo se ve de
+    cerca. Y todo el dibujo está hecho con trazo cónico, así que las hojas nacen
+    gruesas del tallo y mueren en punta."""
+    P = PALETAS[paleta]
+    N = n * SS
+    cols, filas = 4, 2
+    cw, ch = N / cols, N / filas
+
+    # ── fondo: trama diagonal exactamente periódica (frecuencia entera)
+    y, x = np.mgrid[0:N, 0:N]
+    trama = 0.5 + 0.5 * np.sin(2 * math.pi * 96 * (x + y) / N)
+    base = (np.array(P["fondo"], np.float64)[None, None, :]
+            * (0.94 + 0.06 * trama)[..., None])
+    img = Image.fromarray(np.clip(base, 0, 255).astype(np.uint8), "RGB").convert("RGBA")
+
+    tinta, alta = P["tinta"] + (232,), P["alta"] + (240,)
+    fondo_a = P["fondo"] + (255,)
+
+    # ── motivo dominante: granada de damasco con dos hojas envolventes
+    mw, mh = int(cw * 1.02), int(ch * 0.88)
+    cart = Image.new("RGBA", (mw, mh), (0, 0, 0, 0))
+    dc = ImageDraw.Draw(cart)
+    cx, gr = mw / 2, max(2, int(mw / 120))
+
+    # las hojas van primero, para que el cuerpo se recorte encima de ellas
+    for signo in (1, -1):
+        hoja(dc, cx + signo * mw * 0.06, mh * 0.78, -math.pi / 2 - signo * 0.26,
+             mh * 0.40, mw * 0.17, tinta, alta, curvatura=signo * 0.85, panza=0.38,
+             dientes=3, recorte=fondo_a)
+        hoja(dc, cx + signo * mw * 0.09, mh * 0.84, -math.pi / 2 + signo * 1.08,
+             mh * 0.20, mw * 0.095, tinta, None, curvatura=signo * 0.55, panza=0.40)
+
+    # cuerpo ojival: silueta llena y recortada, con escamas dentro
+    bw, bh = mw * 0.40, mh * 0.54
+    cuerpo = [(x + cx - bw / 2, y + mh * 0.16) for x, y in ojiva_llena(bw, bh)]
+    dc.polygon(cuerpo, fill=tinta)
+    interior = Image.new("L", (mw, mh), 0)
+    ImageDraw.Draw(interior).polygon(cuerpo, fill=255)
+    escamas = Image.new("RGBA", (mw, mh), (0, 0, 0, 0))
+    de = ImageDraw.Draw(escamas)
+    paso = bh / 11
+    for k in range(12):                              # escamas: arcos superpuestos
+        yy = mh * 0.16 + k * paso
+        r = bw * 0.30 * math.sin(math.pi * min(k / 11 * 1.05, 1.0)) ** 0.5
+        if r < 2:
+            continue
+        for signo in (-1, 1):
+            de.arc([cx + signo * r * 0.62 - r, yy - r * 0.7,
+                    cx + signo * r * 0.62 + r, yy + r * 0.7],
+                   200, 340, fill=fondo_a, width=gr)
+    cart.paste(escamas, (0, 0), Image.composite(
+        escamas.getchannel("A"), Image.new("L", (mw, mh), 0), interior))
+    dc.polygon(cuerpo, outline=alta, width=gr * 2)
+
+    # volutas laterales a media altura: el gesto que ata el motivo a la retícula
+    for signo in (1, -1):
+        voluta(dc, cx + signo * mw * 0.355, mh * 0.30, mw * 0.10,
+               math.pi / 2 - signo * 0.35, -signo, tinta, alta, w=mw * 0.048)
+    # corona arriba y roseta abajo: los dos anclajes de la casa
+    corona(dc, cx, mh * 0.075, mw * 0.24, mw * 0.16, P["acento"] + (240,))
+    for k, rr in enumerate((0.085, 0.052)):
+        dc.ellipse([cx - mw * rr, mh * 0.93 - mw * rr, cx + mw * rr, mh * 0.93 + mw * rr],
+                   outline=(alta if k else tinta), width=gr * 2)
+    media_caida(img, cart, cols, filas)
+
+    # ── relleno: palmeta pequeña en los huecos, la segunda escala
+    pw = int(cw * 0.32)
+    bud = Image.new("RGBA", (pw, pw), (0, 0, 0, 0))
+    db = ImageDraw.Draw(bud)
+    for i in range(5):
+        a = -math.pi / 2 + (i - 2) * 0.40
+        hoja(db, pw / 2, pw * 0.82, a, pw * (0.50 - abs(i - 2) * 0.06),
+             pw * (0.17 - abs(i - 2) * 0.025), tinta, alta,
+             curvatura=(i - 2) * 0.14, panza=0.40)
+    db.ellipse([pw * 0.43, pw * 0.74, pw * 0.57, pw * 0.88], fill=P["acento"] + (235,))
+    media_caida(img, bud, cols, filas, x0=cw / 2, y0=ch / 2)
+
+    return img.convert("RGB").resize((n, n), Image.LANCZOS)
+
+
+def piton(n, semilla=13, paleta="oro_negro"):
+    """Pitón Real: escamas con volumen y manchas de silla.
+
+    La piel de serpiente es el caso donde el patrón **tiene** que ser de dos
+    escalas: escamas finas de cerca, manchas grandes de lejos. Se construye por
+    campos —no dibujando escama a escama— porque son decenas de miles: una
+    retícula a ladrillo da la posición, un degradado dentro de cada celda da el
+    bombeado, y un ruido de frecuencia baja decide qué zonas son oscuras."""
+    P = PALETAS[paleta]
+    filas, cols = 26, 18                       # enteros ⇒ cierra por construcción
+    ey, ex = np.mgrid[0:n, 0:n]
+    fy = ey / n * filas
+    # ladrillo: las filas impares van media escama corridas
+    desp = (np.floor(fy).astype(int) % 2) * 0.5
+    fx = ex / n * cols + desp
+    u, v = fx - np.floor(fx), fy - np.floor(fy)          # coordenada dentro de escama
+
+    # Bombeado. Las escamas **se solapan como tejas**, no se tocan como burbujas,
+    # y ese solape hay que construirlo mirando también a las celdas vecinas.
+    #
+    # El intento anterior se limitó a agrandar el semieje vertical dentro de la
+    # propia celda, y eso no solapa nada: cada píxel solo evalúa su celda, así que
+    # la escama se **recorta** en el límite y aparece un escalón duro en cada fila
+    # —la costura pasó de 9,6 a 11,45, que fue lo que lo delató—. Para que una
+    # escama monte de verdad sobre la de abajo hay que evaluar tres candidatas: la
+    # de la celda propia y las de las filas de arriba y de abajo, y quedarse con
+    # la que toca. Como el ladrillo alterna media escama en cada fila, el centro
+    # de las vecinas cae siempre en u ≡ 0, sea cual sea la paridad.
+    RU, RV = 0.60, 0.74                                  # semiejes de la escama
+    du_propia = np.abs(u - 0.5)
+    du_vecina = np.minimum(u, 1 - u)
+    cuerpo = np.zeros_like(u)
+    luz = np.zeros_like(u)
+    borde = np.ones_like(u)
+    # de abajo arriba: la escama de la fila superior se pinta encima, que es como
+    # se solapan de verdad —el canto libre apunta hacia abajo—
+    for du, vc in ((du_vecina, 1.62), (du_propia, 0.62), (du_vecina, -0.38)):
+        s = (v - vc) / RV                                # -1 arriba, +1 abajo
+        d2 = (du / RU) ** 2 + s ** 2
+        c = np.clip(1.0 - d2, 0, 1) ** 0.40
+        # el canto que asoma recibe la luz; un punto en el centro daría la burbuja
+        l = np.clip(1.0 - ((s + 0.55) / 0.42) ** 2, 0, 1) ** 1.2 * c
+        c = c * np.clip(0.80 - 0.24 * s, 0.52, 1.04)     # degradado de teja
+        dentro = d2 < 1.0
+        cuerpo = np.where(dentro, c, cuerpo)
+        luz = np.where(dentro, l, luz)
+        borde = np.where(dentro, np.clip((d2 - 0.86) / 0.20, 0, 1), borde)
+
+    # manchas: ruido de baja frecuencia, umbralizado con orla clara
+    mancha_c = ruido(n, (2, 3, 5), semilla, terminos=4)
+    silla = np.clip((mancha_c - 0.06) / 0.20, 0, 1)
+    orla = np.clip(1 - np.abs(mancha_c - 0.02) / 0.10, 0, 1)
+
+    fondo = np.array(P["fondo"], np.float64)
+    tinta = np.array(P["tinta"], np.float64)
+    alta = np.array(P["alta"], np.float64)
+
+    # base: escama clara sobre fondo; la silla la oscurece, la orla la enciende
+    col = (fondo[None, None, :] * (1 - cuerpo[..., None])
+           + tinta[None, None, :] * cuerpo[..., None])
+    col = col * (1 - 0.72 * silla[..., None]) + fondo[None, None, :] * 0.72 * silla[..., None]
+    col = col + (alta - tinta)[None, None, :] * (orla * cuerpo * 0.75)[..., None]
+    col = col + (alta[None, None, :] - col) * (luz * 0.26 * (1 - silla))[..., None]
+    col = col * (1 - 0.80 * borde[..., None])
+    return Image.fromarray(np.clip(col, 0, 255).astype(np.uint8), "RGB")
+
+
 CAPSULAS = {
     "malaquita": dict(fn=malaquita, nombre="Malaquita — Piedra Real", sigla="MLQ"),
     "brocado":   dict(fn=brocado,   nombre="Brocado — Seda Real",     sigla="BRC"),
@@ -498,6 +820,14 @@ CAPSULAS = {
     "azulejo":    dict(fn=azulejo,    nombre="Azulejo — Cerámica Real",  sigla="AZL"),
     "eslabon":    dict(fn=eslabon,    nombre="Eslabón — Cadena Real",    sigla="ESL"),
     "suminagashi": dict(fn=suminagashi, nombre="Suminagashi — Tinta al Agua", sigla="SMG"),
+    # Segunda hornada: tres escalas y trazo cónico. El mismo dibujo en dos
+    # colorways cuenta como dos cápsulas para la tienda y como una para el taller.
+    "barroco":     dict(fn=barroco, nombre="Barroco — Cartela Real", sigla="BRR"),
+    "barroco-vino": dict(fn=lambda n, semilla=7: barroco(n, semilla, "oro_burdeos"),
+                         nombre="Barroco Vino — Cartela Real", sigla="BRV"),
+    "piton":       dict(fn=piton, nombre="Pitón — Piel Real", sigla="PTN"),
+    "piton-hueso": dict(fn=lambda n, semilla=13: piton(n, semilla, "tinta_hueso"),
+                        nombre="Pitón Hueso — Piel Real", sigla="PTH"),
 }
 
 
