@@ -292,3 +292,14 @@ más como **camuflaje escamado** que como piel de serpiente, y la tienda ya tien
 cápsula Camo. En bandolera y crop top sí se lee como pitón, porque el panel es
 pequeño y cae dentro de una sola mancha. Se corrige agrandando el repetido solo para
 esta cápsula; queda anotado, no hecho.
+
+### Estado final de la tercera tanda
+
+**324/324 variantes vinculadas y 376 ficheros nuevos en `ok`**, colocaciones
+completas. El catálogo de estampado integral queda en **60 productos**: doce cápsulas
+× cinco bases, 324 variantes fabricables.
+
+Se comprobó además, **sobre los datos vivos de Printful**, qué fichero recibió de
+verdad cada cápsula: `barroco → barroco`, `barroco-vino → barroco-vino`,
+`piton → piton`, `piton-hueso → piton-hueso`, 94 ficheros cada una. Con colorways no
+basta la prueba unitaria del clasificador: hay que mirar qué se mandó a fabricar.
