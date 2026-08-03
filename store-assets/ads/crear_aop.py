@@ -55,6 +55,40 @@ CAPSULAS = {
         nombre="Camo", sub="Camuflaje Coronado", tag="camo-real", color="Verde y arena",
         intro="Camuflaje en la paleta de la casa: negro, oliva, esmeralda y arena. Y si "
               "miras de cerca, hay coronas escondidas entre las manchas."),
+    # ── Segunda tanda. Se eligieron por color, no por motivo: la primera son dos
+    # oros sobre negro, un verde y un camuflaje, así que en la cuadrícula de
+    # colección se leían como una sola familia oscura. Estas cuatro abren la
+    # paleta —burdeos, cobalto sobre crema, oro sobre negro y tinta sobre hueso—
+    # y traen el primer estampado claro del catálogo.
+    "tartan": dict(
+        nombre="Tartán", sub="Herencia Real", tag="tartan-real", color="Burdeos y oro",
+        intro="El tartán es un apellido tejido: cada casa tenía el suyo y las bandas se "
+              "contaban como se cuenta un linaje. Este es el de la nuestra —burdeos de "
+              "fondo, bandas negras, filetes en crema y oro— con la sarga diagonal "
+              "marcada, como en la lana de verdad."),
+    "azulejo": dict(
+        nombre="Azulejo", sub="Cerámica Real", tag="azulejo-real", color="Cobalto y crema",
+        intro="Cobalto sobre crema, el azul que llegó a Andalucía desde Persia y se quedó "
+              "en los zócalos de los patios. Octagrama, rosetón en cada vértice y una "
+              "corona en el centro de cada baldosa. Es el primer estampado claro de la "
+              "casa: el único que se lleva de día sin pedir permiso."),
+    "eslabon": dict(
+        nombre="Eslabón", sub="Cadena Real", tag="eslabon-real", color="Negro y oro",
+        intro="La cadena de oro es el emblema más honesto del streetwear: se lleva a la "
+              "vista y dice exactamente lo que quiere decir. Aquí deja de ser un accesorio "
+              "y pasa a ser el tejido —eslabones ovalados entrelazados, con su bisel y su "
+              "brillo, cubriendo la prenda entera."),
+    "suminagashi": dict(
+        # Ojo: la colección de esta cápsula filtra por `suminagashi` a secas, no por
+        # `suminagashi-real`. Las cuatro colecciones ya existían con seis productos
+        # cada una, así que estas piezas entran solas en la cápsula que les toca —
+        # pero solo si la etiqueta coincide exactamente con la regla.
+        nombre="Suminagashi", sub="Tinta al Agua", tag="suminagashi",
+        color="Hueso y tinta",
+        intro="Suminagashi es «tinta flotante»: se deja caer una gota en agua quieta y se "
+              "recoge en papel la figura que el agua le da. Nunca sale dos veces igual. "
+              "Tinta sobre hueso, línea finísima, sin un solo color más. Lo más callado "
+              "que ha hecho la casa, y por eso lo más difícil de ignorar."),
 }
 
 PRENDAS = {

@@ -165,3 +165,75 @@ La primera tanda de bandoleras salió con **los laterales blancos**: había cubi
 `front`, `back` y `pocket`, pero no `details` ni `inside_pocket`, y esas dos son las
 caras laterales de la bolsa. Ninguna comprobación automática lo habría dicho —la tarea
 de mockup se completó sin error—. Regeneradas con las cinco colocaciones.
+
+---
+
+## Segunda tanda: cuatro cápsulas más (03/08)
+
+Veinte fichas nuevas, 108 variantes. Las cuatro primeras cápsulas eran **dos oros
+sobre negro, un verde y un camuflaje**: en la cuadrícula de colección se leían como
+una sola familia oscura. Estas cuatro se eligieron por **color**, no por motivo.
+
+| Cápsula | Paleta | Qué aporta |
+|---|---|---|
+| **Tartán — Herencia Real** | Burdeos, negro, crema, oro | El primer burdeos integral. Sett propio, con sarga diagonal |
+| **Azulejo — Cerámica Real** | Cobalto sobre crema | **El primer estampado claro del catálogo.** Se lleva de día |
+| **Eslabón — Cadena Real** | Oro sobre negro | La cadena deja de ser accesorio y pasa a ser el tejido |
+| **Suminagashi — Tinta al Agua** | Tinta sobre hueso | Monocromo, línea finísima. Lo más callado de la casa |
+
+Las cuatro **ya existían como cápsulas de la casa**, con su colección automática y
+seis productos cada una. No hubo que crear ninguna colección: las fichas entran
+solas por etiqueta. Con un matiz que costó encontrar — la regla de Suminagashi
+filtra por `suminagashi` **a secas**, no por `suminagashi-real` como las otras tres.
+
+### La costura: la métrica anterior se equivocaba en los dos sentidos
+
+`comprobar()` comparaba el salto de la costura contra la media de todo el azulejo.
+Esa referencia miente:
+
+- **Falso positivo.** El suminagashi daba 2,82 y **no tenía nada roto**: es un
+  patrón disperso —tinta fina sobre papel liso—, así que la media interior es
+  minúscula y cualquier línea que pase por el borde dispara el ratio.
+- **Falso negativo, que es el grave.** El azulejo daba 1,66, dentro del umbral,
+  **teniendo una discontinuidad saturada de 175 sobre 255 en 90 filas**. La media
+  global estaba inflada por los filetes de cobalto del interior de la baldosa y
+  tapaba el salto.
+
+La referencia correcta es **local**: los cuatro saltos inmediatamente a cada lado de
+la costura. Una discontinuidad real destaca sobre su propia vecindad; el contenido
+que casualmente cae en el borde, no. Con esa medida el azulejo roto marcaba **990**
+y el suminagashi sano **1,31**.
+
+El defecto del azulejo era este: el rosetón de la esquina se dibujaba como un
+**cuarto** de círculo dentro de un lienzo anclado en el vértice. `pegar_envuelto`
+**no puede envolver lo que nunca se dibujó** —los otros tres cuartos no existían—,
+así que el borde izquierdo llevaba arco de cobalto y el derecho crema plana. Se
+arregla dibujando el rosetón entero y pegándolo centrado en el vértice.
+
+### Y el suminagashi tenía otro defecto, este solo visible mirando
+
+Recortar la onda por umbral da líneas cuyo grosor depende de lo deprisa que suba la
+fase: donde el campo se aplana la cresta se ensancha y la tinta se emborrona en
+manchas que parecen suciedad de impresión. Se corrige dividiendo la distancia
+angular a la cresta por el **módulo del gradiente**, que la convierte en distancia
+en píxeles y deja el trazo del mismo grosor en todo el azulejo. El gradiente se
+calcula con `np.roll` —exactamente periódico—; `np.gradient` no lo es y rompería la
+costura que acabamos de arreglar.
+
+Primer intento con 1,6 px: a 150 dpi son 0,27 mm y sobre tela se leía como papel en
+blanco. Subido a 3,4 px (0,58 mm), el trazo de un pincel fino.
+
+### Mockups, ahora automatizados
+
+`mockups_aop.py` genera las 20 tandas de fotos con `source: catalog`, o sea **antes
+de que la ficha exista en Shopify**. Eso permite crear el producto con sus fotos ya
+puestas en vez de crearlo desnudo. Los estilos van elegidos a mano, uno por uno, y
+la bandolera lleva el **plano de estudio como principal** a propósito: su estilo
+«Lifestyle Front» fotografía al modelo de espaldas y la primera imagen de la ficha
+no enseñaba el estampado.
+
+### Precios y márgenes
+
+Los mismos de la primera tanda, porque la base es la misma: hoodie 84,95 €,
+sudadera 74,95 €, pantalón 69,95 €, bandolera 44,95 €, crop top 39,95 €. Siguen
+siendo los mejores márgenes del catálogo, de +19,38 € a +40,01 €.

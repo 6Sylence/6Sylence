@@ -49,7 +49,7 @@ resto conserva su nombre.
     python3 vincular_aop.py --aplicar
     python3 vincular_aop.py --verificar     # cuántas quedan sincronizadas
 """
-import argparse, json, os, re, sys, time
+import argparse, json, os, re, sys, time, unicodedata
 import urllib.request, urllib.error
 
 CLAVE = os.environ.get("PRINTFUL_API_KEY", "")
@@ -67,7 +67,8 @@ PRENDAS = {
                   "744-886x591", "44.95"),
     "crop":      (200, ["default"], "200-2421x1240", "39.95"),
 }
-CAPSULAS = ["brocado", "malaquita", "meandro", "camo"]
+CAPSULAS = ["brocado", "malaquita", "meandro", "camo",
+            "tartan", "azulejo", "eslabon", "suminagashi"]
 
 
 def api(metodo, ruta, cuerpo=None, reintentos=6):
@@ -93,10 +94,20 @@ def api(metodo, ruta, cuerpo=None, reintentos=6):
             raise
 
 
+def sin_tildes(s):
+    """El título lleva tildes y el nombre del fichero no.
+
+    «Tartán», «Eslabón» y «Pantalón» se escriben con tilde en la ficha, pero las
+    claves de cápsula y los ficheros del CDN van sin ella. Comparar en crudo hacía
+    que `tartan` no encontrase «Tartán» y la cápsula entera se quedara fuera de la
+    lista sin dar ningún error: simplemente no aparecía."""
+    return unicodedata.normalize("NFKD", s).encode("ascii", "ignore").decode()
+
+
 def clasificar(nombre):
     """Del título de la ficha saca la prenda y la cápsula. Devuelve None si no es
     de estampado integral, para no tocar nunca un producto que no sea nuestro."""
-    n = nombre.lower()
+    n = sin_tildes(nombre.lower())
     if "integral" not in n:
         return None
     prenda = ("hoodie" if "hoodie" in n else "sudadera" if "sudadera" in n else

@@ -63,6 +63,9 @@ CREMA      = (240, 233, 218)
 BURDEOS    = (74, 22, 32)
 OLIVA      = (74, 78, 55)
 ARENA      = (176, 158, 124)
+COBALTO    = (26, 54, 118)
+HUESO      = (241, 237, 228)
+TINTA      = (30, 34, 44)
 
 DPI = 150
 REPETIDO_CM = 16.0
@@ -320,29 +323,220 @@ def brocado(n, semilla=3):
     return img.convert("RGB").resize((n, n), Image.LANCZOS)
 
 
+def tartan(n, semilla=0):
+    """Tartán en el sett de la casa: burdeos de fondo, bandas negras, filetes en
+    crema y oro.
+
+    Un tartán es dos sistemas de bandas idénticos —uno vertical, uno horizontal—
+    entrelazados por una sarga diagonal. Las bandas se definen como **fracciones del
+    azulejo**, así que cierran por construcción. La sarga no puede ser el clásico
+    `((x+y)//t) % 2` porque su periodo tendría que dividir al lado y 945 es impar:
+    se usa `sin(2πk(x+y)/n) > 0`, que es exactamente periódico para cualquier k
+    entero y da la misma diagonal."""
+    # sett simétrico como fracciones acumuladas del lado: (hasta, color)
+    SETT = [(0.30, BURDEOS), (0.34, NEGRO), (0.36, BURDEOS), (0.37, ORO),
+            (0.39, BURDEOS), (0.43, NEGRO), (0.445, CREMA), (0.48, NEGRO),
+            (0.78, BURDEOS), (0.80, NEGRO), (0.815, CREMA), (0.83, NEGRO),
+            (0.845, ORO), (1.0, BURDEOS)]
+    eje = np.arange(n) / n
+    banda = np.zeros((n, 3), np.float64)
+    prev = 0.0
+    for hasta, color in SETT:
+        m = (eje >= prev) & (eje < hasta)
+        banda[m] = color
+        prev = hasta
+    cx = banda[None, :, :].repeat(n, 0)          # sistema vertical
+    cy = banda[:, None, :].repeat(n, 1)          # sistema horizontal
+    y, x = np.mgrid[0:n, 0:n]
+    sarga = np.sin(2 * math.pi * 67 * (x + y) / n) > 0
+    arr = np.where(sarga[..., None], cx, cy)
+    # el hilo se insinúa con una trama fina, también periódica
+    hilo = 0.94 + 0.06 * np.sin(2 * math.pi * 189 * x / n) * np.sin(2 * math.pi * 189 * y / n)
+    return Image.fromarray(np.clip(arr * hilo[..., None], 0, 255).astype(np.uint8), "RGB")
+
+
+def azulejo(n, semilla=0, celdas=3):
+    """Azulejería andaluza: octagrama cobalto sobre crema, celda a celda.
+
+    Cada celda dibuja su motivo entero dentro de sus límites y el rosetón de la
+    esquina se pega **entero y centrado** en el vértice, así que el mosaico cierra
+    igual que cierra un zócalo real: porque la unidad es la baldosa.
+
+    Aquí estuvo el único defecto de costura de esta tanda, y es una trampa que
+    conviene recordar: el rosetón se dibujaba como un cuarto de círculo dentro de
+    un lienzo anclado en el vértice, y `pegar_envuelto` **no puede envolver lo que
+    nunca se dibujó** — los otros tres cuartos no existían, así que el borde
+    izquierdo llevaba arco de cobalto y el derecho crema plana, un salto de 175
+    sobre 255 en 90 filas. La costura solo cierra si el motivo del vértice está
+    completo antes de pegarlo."""
+    N = n * SS
+    img = Image.new("RGBA", (N, N), CREMA + (255,))
+    d = ImageDraw.Draw(img)
+    c = N / celdas
+    gr = max(2, int(c / 42))
+    for f in range(celdas):
+        for col in range(celdas):
+            ox, oy = col * c, f * c
+            cx, cy = ox + c / 2, oy + c / 2
+            # doble filete perimetral
+            for m_ in (0.03, 0.055):
+                d.rectangle([ox + c * m_, oy + c * m_, ox + c * (1 - m_), oy + c * (1 - m_)],
+                            outline=COBALTO, width=gr)
+            # octagrama: dos cuadrados girados 45°
+            for ang0 in (0, math.pi / 4):
+                r = c * 0.30
+                pts = [(cx + r * math.cos(ang0 + i * math.pi / 2) * 1.15,
+                        cy + r * math.sin(ang0 + i * math.pi / 2) * 1.15) for i in range(4)]
+                d.polygon(pts, outline=COBALTO, width=gr)
+            d.ellipse([cx - c * 0.10, cy - c * 0.10, cx + c * 0.10, cy + c * 0.10],
+                      outline=COBALTO, width=gr)
+            corona(d, cx, cy + c * 0.01, c * 0.11, c * 0.075, ORO + (255,))
+            # rosetón entero centrado en el vértice, pegado envuelto
+            r = c * 0.13
+            lado = int(r * 2.2)
+            ros = Image.new("RGBA", (lado * 2, lado * 2), (0, 0, 0, 0))
+            dr = ImageDraw.Draw(ros)
+            m = lado                                   # centro del lienzo
+            for rr in (1.00, 0.68, 0.36):
+                dr.ellipse([m - r * rr, m - r * rr, m + r * rr, m + r * rr],
+                           outline=COBALTO, width=gr)
+            for k in range(8):                         # ocho pétalos radiales
+                ang = k * math.pi / 4
+                dr.line([m + r * 0.36 * math.cos(ang), m + r * 0.36 * math.sin(ang),
+                         m + r * 1.00 * math.cos(ang), m + r * 1.00 * math.sin(ang)],
+                        fill=COBALTO, width=gr)
+            dr.ellipse([m - r * 0.14, m - r * 0.14, m + r * 0.14, m + r * 0.14],
+                       fill=ORO + (255,))
+            pegar_envuelto(img, ros, ox - m, oy - m)
+    return img.convert("RGB").resize((n, n), Image.LANCZOS)
+
+
+def eslabon(n, semilla=0, filas=5):
+    """Cadena Real: filas de eslabones de oro entrelazados sobre negro.
+
+    Cada eslabón es un anillo ovalado con bisel —dos elipses concéntricas—.
+    El entrelazado se dibuja por capas: primero los pares, luego los impares
+    encima, y al final se repinta un arco corto del par sobre el impar para que
+    la cadena alterne por-encima/por-debajo como una cadena de verdad."""
+    N = n * SS
+    img = Image.new("RGBA", (N, N), NEGRO + (255,))
+    ancho, alto = N / 3.2, N / 6.4                 # eslabón horizontal
+    paso = ancho * 0.72                            # solape entre eslabones
+    gr = int(alto * 0.16)
+
+    def anillo(color, borde):
+        st = Image.new("RGBA", (int(ancho), int(alto)), (0, 0, 0, 0))
+        sd = ImageDraw.Draw(st)
+        sd.ellipse([gr // 2, gr // 2, ancho - gr // 2, alto - gr // 2],
+                   outline=color, width=gr)
+        if borde:                                   # canto oscuro que separa capas
+            sd.ellipse([0, 0, ancho, alto], outline=NEGRO + (255,), width=max(2, gr // 4))
+            sd.ellipse([gr, gr, ancho - gr, alto - gr], outline=NEGRO + (255,),
+                       width=max(2, gr // 4))
+        return st
+
+    par, impar = anillo(ORO + (255,), True), anillo(ORO_HI + (255,), True)
+    # nº de eslabones por fila: entero para que la fila cierre en el toro
+    por_fila = max(4, round(N / paso))
+    paso_real = N / por_fila
+    for f in range(filas):
+        cy = (f + 0.5) * N / filas - alto / 2
+        desfase = (f % 2) * paso_real / 2
+        for k in range(por_fila):
+            x = k * paso_real + desfase
+            pegar_envuelto(img, par if k % 2 == 0 else impar, x, cy)
+        # repaso de arcos para el entrelazado: un tramo del par vuelve encima
+        for k in range(0, por_fila, 2):
+            x = k * paso_real + desfase
+            arco = par.crop((0, 0, int(ancho * 0.22), int(alto)))
+            pegar_envuelto(img, arco, x, cy)
+    return img.convert("RGB").resize((n, n), Image.LANCZOS)
+
+
+def suminagashi(n, semilla=21):
+    """Tinta al agua: anillos finos de tinta sobre papel hueso.
+
+    La misma mecánica que la malaquita —distancia en el toro más turbulencia—
+    pero invertida y afinada: pocos núcleos, mucha turbulencia y solo la cresta
+    de la onda se entinta, que es como queda el suminagashi de verdad cuando la
+    gota se expande y el agua la deforma.
+
+    El trazo se mide **en píxeles, no en fase**. Recortar la onda por umbral da
+    líneas cuyo grosor depende de lo deprisa que suba la fase ahí: donde el campo
+    se aplana la cresta se ensancha y la tinta se emborrona en manchas que parecen
+    suciedad de impresión. Dividiendo por el módulo del gradiente se convierte la
+    distancia angular a la cresta en distancia real, y la línea sale del mismo
+    grosor en todo el azulejo. El gradiente se calcula con `np.roll`, que es
+    exactamente periódico; `np.gradient` no lo es y rompería la costura."""
+    rng = np.random.default_rng(semilla)
+    d = np.full((n, n), 1e9)
+    for _ in range(5):
+        cx, cy = rng.integers(0, n, 2)
+        d = np.minimum(d, dist_toro(n, cx, cy) * rng.uniform(0.8, 1.25))
+    turb = ruido(n, (2, 3, 5, 9), semilla + 1, terminos=4) * n * 0.11
+    fase = (d + turb) / (n / 13.0) * 2 * math.pi
+    dif = lambda eje: (np.roll(fase, -1, eje) - np.roll(fase, 1, eje)) / 2
+    grad = np.hypot(dif(1), dif(0))
+    # distancia angular con signo a la cresta más cercana, llevada a píxeles
+    r = np.abs((fase - math.pi / 2 + math.pi) % (2 * math.pi) - math.pi)
+    # 3,4 px a 150 dpi son 0,58 mm: el trazo de un pincel fino. Con 1,6 px la
+    # línea medía 0,27 mm y sobre tela se leía como papel en blanco.
+    ancho = 3.4 * (0.75 + 0.5 * (0.5 + 0.5 * ruido(n, (3, 7), semilla + 2)))
+    tinta = np.clip(1.0 - (r / np.maximum(grad, 1e-6)) / ancho, 0, 1)
+    papel = np.array(HUESO, np.float64)[None, None, :] * \
+        (0.97 + 0.03 * (0.5 + 0.5 * ruido(n, (2, 5), semilla + 3)))[..., None]
+    arr = papel * (1 - tinta[..., None]) + np.array(TINTA, np.float64) * tinta[..., None]
+    return Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8), "RGB")
+
+
 CAPSULAS = {
     "malaquita": dict(fn=malaquita, nombre="Malaquita — Piedra Real", sigla="MLQ"),
     "brocado":   dict(fn=brocado,   nombre="Brocado — Seda Real",     sigla="BRC"),
     "meandro":   dict(fn=meandro,   nombre="Meandro — Laberinto Real", sigla="MDR"),
     "camo":      dict(fn=camo,      nombre="Camo — Camuflaje Coronado", sigla="CMO"),
+    "tartan":     dict(fn=tartan,     nombre="Tartán — Herencia Real",   sigla="TRT"),
+    "azulejo":    dict(fn=azulejo,    nombre="Azulejo — Cerámica Real",  sigla="AZL"),
+    "eslabon":    dict(fn=eslabon,    nombre="Eslabón — Cadena Real",    sigla="ESL"),
+    "suminagashi": dict(fn=suminagashi, nombre="Suminagashi — Tinta al Agua", sigla="SMG"),
 }
 
 
 # ────────────────────────────────────────────────────────────── comprobación
 
 def comprobar(tile):
-    """¿Cierra el mosaico? Compara el salto en la costura con el salto interior.
+    """¿Cierra el mosaico? Compara el salto de la costura con el de sus vecinos.
 
-    Si el azulejo cerrara mal, la diferencia entre la última columna y la primera
-    sería mucho mayor que la diferencia entre dos columnas contiguas cualesquiera.
-    Se exige que no lo sea. Devuelve (ok, ratio_x, ratio_y); 1.0 es perfecto."""
+    La versión anterior comparaba contra la media de **todo** el azulejo, y esa
+    referencia engaña en los dos sentidos:
+
+    - **Falso positivo.** En un patrón disperso —tinta fina sobre papel liso— la
+      media interior es minúscula, así que cualquier línea que pase por el borde
+      dispara el ratio. El suminagashi daba 2.82 y no tenía nada roto: tenía una
+      línea de tinta en x=0, que se ve como una línea, no como una costura.
+    - **Falso negativo.** El azulejo daba 1.66 —dentro del umbral— teniendo una
+      discontinuidad saturada de 175 sobre 255. La media global estaba inflada
+      por los filetes de cobalto del interior de cada baldosa y tapaba el salto.
+
+    La referencia correcta es **local**: los cuatro saltos inmediatamente a cada
+    lado de la costura. Una discontinuidad real destaca sobre su propia vecindad;
+    el contenido que casualmente cae en el borde, no. Con esto el azulejo roto
+    marcaba 990 y el suminagashi sano 1.31.
+
+    Devuelve (ok, ratio_x, ratio_y); 1.0 es perfecto."""
     a = np.asarray(tile, np.float64)
-    interior_x = np.abs(np.diff(a, axis=1)).mean()
-    interior_y = np.abs(np.diff(a, axis=0)).mean()
-    costura_x = np.abs(a[:, -1] - a[:, 0]).mean()
-    costura_y = np.abs(a[-1, :] - a[0, :]).mean()
-    rx = costura_x / max(interior_x, 1e-9)
-    ry = costura_y / max(interior_y, 1e-9)
+
+    def eje(u):
+        b = a if u == 0 else a.transpose(1, 0, 2)
+        salto = lambda i, j: np.abs(b[:, i] - b[:, j]).mean()
+        costura = salto(-1, 0)
+        # Un salto invisible es correcto aunque su vecindad sea exactamente plana,
+        # que es el caso del brocado y el meandro: 0 sobre 0 no es un defecto.
+        if costura < 0.5:
+            return 0.0
+        vecinos = np.mean([salto(-2, -1), salto(-3, -2), salto(0, 1), salto(1, 2)])
+        return costura / max(vecinos, 1e-9)
+
+    rx, ry = eje(0), eje(1)
     return (rx < 2.0 and ry < 2.0), round(rx, 2), round(ry, 2)
 
 
@@ -362,11 +556,15 @@ if __name__ == "__main__":
     ap.add_argument("--generar", action="store_true")
     ap.add_argument("--spec", default="spec-aop.json")
     ap.add_argument("--salida", default="out/aop")
+    ap.add_argument("--solo", help="solo estas cápsulas, separadas por comas")
     a = ap.parse_args()
 
     n = px(REPETIDO_CM)
+    quiero = set(a.solo.split(",")) if a.solo else set(CAPSULAS)
     tiles = {}
     for clave, cfg in CAPSULAS.items():
+        if clave not in quiero:
+            continue
         t = cfg["fn"](n)
         ok, rx, ry = comprobar(t)
         print(f'{clave:10s} {n}×{n}px  costura x{rx} y{ry}  {"✓" if ok else "✗ NO CIERRA"}')
