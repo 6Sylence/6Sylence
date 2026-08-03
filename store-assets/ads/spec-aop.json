@@ -1,0 +1,533 @@
+{
+ "320": {
+  "nombre": "Sudadera AOP",
+  "placements": {
+   "front": {
+    "cm": [
+     33.58,
+     44.0
+    ],
+    "dpi": 150,
+    "px": [
+     1983,
+     2598
+    ]
+   },
+   "back": {
+    "cm": [
+     33.58,
+     44.0
+    ],
+    "dpi": 150,
+    "px": [
+     1983,
+     2598
+    ]
+   },
+   "sleeve_right": {
+    "cm": [
+     33.58,
+     44.0
+    ],
+    "dpi": 150,
+    "px": [
+     1983,
+     2598
+    ]
+   },
+   "sleeve_left": {
+    "cm": [
+     33.58,
+     44.0
+    ],
+    "dpi": 150,
+    "px": [
+     1983,
+     2598
+    ]
+   },
+   "label_inside": {
+    "cm": [
+     2.5,
+     1.0
+    ],
+    "dpi": 150,
+    "px": [
+     148,
+     59
+    ]
+   },
+   "label_panel": {
+    "cm": [
+     33.58,
+     44.0
+    ],
+    "dpi": 150,
+    "px": [
+     1983,
+     2598
+    ]
+   }
+  },
+  "variantes": [
+   {
+    "id": 19769,
+    "talla": "2XS",
+    "color": "White"
+   },
+   {
+    "id": 19770,
+    "talla": "4XL",
+    "color": "White"
+   },
+   {
+    "id": 19771,
+    "talla": "5XL",
+    "color": "White"
+   },
+   {
+    "id": 19772,
+    "talla": "6XL",
+    "color": "White"
+   },
+   {
+    "id": 9735,
+    "talla": "2XL",
+    "color": "White"
+   },
+   {
+    "id": 9736,
+    "talla": "3XL",
+    "color": "White"
+   },
+   {
+    "id": 9733,
+    "talla": "L",
+    "color": "White"
+   },
+   {
+    "id": 9732,
+    "talla": "M",
+    "color": "White"
+   },
+   {
+    "id": 9731,
+    "talla": "S",
+    "color": "White"
+   },
+   {
+    "id": 9734,
+    "talla": "XL",
+    "color": "White"
+   },
+   {
+    "id": 9730,
+    "talla": "XS",
+    "color": "White"
+   }
+  ]
+ },
+ "388": {
+  "nombre": "Hoodie AOP",
+  "placements": {
+   "front": {
+    "cm": [
+     40.0,
+     40.0
+    ],
+    "dpi": 150,
+    "px": [
+     2362,
+     2362
+    ]
+   },
+   "back": {
+    "cm": [
+     40.0,
+     40.0
+    ],
+    "dpi": 150,
+    "px": [
+     2362,
+     2362
+    ]
+   },
+   "sleeve_right": {
+    "cm": [
+     40.0,
+     40.0
+    ],
+    "dpi": 150,
+    "px": [
+     2362,
+     2362
+    ]
+   },
+   "sleeve_left": {
+    "cm": [
+     40.0,
+     40.0
+    ],
+    "dpi": 150,
+    "px": [
+     2362,
+     2362
+    ]
+   },
+   "pocket": {
+    "cm": [
+     40.0,
+     40.0
+    ],
+    "dpi": 150,
+    "px": [
+     2362,
+     2362
+    ]
+   },
+   "hood": {
+    "cm": [
+     40.0,
+     40.0
+    ],
+    "dpi": 150,
+    "px": [
+     2362,
+     2362
+    ]
+   },
+   "label_inside": {
+    "cm": [
+     2.5,
+     1.0
+    ],
+    "dpi": 150,
+    "px": [
+     148,
+     59
+    ]
+   },
+   "label_panel": {
+    "cm": [
+     40.0,
+     40.0
+    ],
+    "dpi": 150,
+    "px": [
+     2362,
+     2362
+    ]
+   }
+  },
+  "variantes": [
+   {
+    "id": 18730,
+    "talla": "2XS",
+    "color": "White"
+   },
+   {
+    "id": 18731,
+    "talla": "4XL",
+    "color": "White"
+   },
+   {
+    "id": 18732,
+    "talla": "5XL",
+    "color": "White"
+   },
+   {
+    "id": 18733,
+    "talla": "6XL",
+    "color": "White"
+   },
+   {
+    "id": 10874,
+    "talla": "2XL",
+    "color": "White"
+   },
+   {
+    "id": 10875,
+    "talla": "3XL",
+    "color": "White"
+   },
+   {
+    "id": 10872,
+    "talla": "L",
+    "color": "White"
+   },
+   {
+    "id": 10871,
+    "talla": "M",
+    "color": "White"
+   },
+   {
+    "id": 10870,
+    "talla": "S",
+    "color": "White"
+   },
+   {
+    "id": 10873,
+    "talla": "XL",
+    "color": "White"
+   },
+   {
+    "id": 10869,
+    "talla": "XS",
+    "color": "White"
+   }
+  ]
+ },
+ "618": {
+  "nombre": "Track pants AOP",
+  "placements": {
+   "front": {
+    "cm": [
+     56.0,
+     54.0
+    ],
+    "dpi": 150,
+    "px": [
+     3307,
+     3189
+    ]
+   },
+   "back": {
+    "cm": [
+     56.0,
+     54.0
+    ],
+    "dpi": 150,
+    "px": [
+     3307,
+     3189
+    ]
+   },
+   "label_inside": {
+    "cm": [
+     7.0,
+     4.0
+    ],
+    "dpi": 150,
+    "px": [
+     413,
+     236
+    ]
+   }
+  },
+  "variantes": [
+   {
+    "id": 15747,
+    "talla": "2XL",
+    "color": "Black"
+   },
+   {
+    "id": 15748,
+    "talla": "3XL",
+    "color": "Black"
+   },
+   {
+    "id": 15745,
+    "talla": "L",
+    "color": "Black"
+   },
+   {
+    "id": 15744,
+    "talla": "M",
+    "color": "Black"
+   },
+   {
+    "id": 15743,
+    "talla": "S",
+    "color": "Black"
+   },
+   {
+    "id": 15746,
+    "talla": "XL",
+    "color": "Black"
+   },
+   {
+    "id": 15742,
+    "talla": "XS",
+    "color": "Black"
+   },
+   {
+    "id": 15754,
+    "talla": "2XL",
+    "color": "White"
+   },
+   {
+    "id": 15755,
+    "talla": "3XL",
+    "color": "White"
+   },
+   {
+    "id": 15752,
+    "talla": "L",
+    "color": "White"
+   },
+   {
+    "id": 15751,
+    "talla": "M",
+    "color": "White"
+   },
+   {
+    "id": 15750,
+    "talla": "S",
+    "color": "White"
+   },
+   {
+    "id": 15753,
+    "talla": "XL",
+    "color": "White"
+   },
+   {
+    "id": 15749,
+    "talla": "XS",
+    "color": "White"
+   }
+  ]
+ },
+ "744": {
+  "nombre": "Bandolera AOP",
+  "placements": {
+   "back": {
+    "cm": [
+     15.0,
+     10.0
+    ],
+    "dpi": 150,
+    "px": [
+     886,
+     591
+    ]
+   },
+   "front": {
+    "cm": [
+     15.0,
+     10.0
+    ],
+    "dpi": 150,
+    "px": [
+     886,
+     591
+    ]
+   },
+   "details": {
+    "cm": [
+     15.0,
+     10.0
+    ],
+    "dpi": 150,
+    "px": [
+     886,
+     591
+    ]
+   },
+   "inside_pocket": {
+    "cm": [
+     15.0,
+     10.0
+    ],
+    "dpi": 150,
+    "px": [
+     886,
+     591
+    ]
+   },
+   "pocket": {
+    "cm": [
+     15.0,
+     10.0
+    ],
+    "dpi": 150,
+    "px": [
+     886,
+     591
+    ]
+   },
+   "label_inside": {
+    "cm": [
+     2.5,
+     1.0
+    ],
+    "dpi": 150,
+    "px": [
+     148,
+     59
+    ]
+   },
+   "label_outside": {
+    "cm": [
+     2.0,
+     2.0
+    ],
+    "dpi": 150,
+    "px": [
+     118,
+     118
+    ]
+   }
+  },
+  "variantes": [
+   {
+    "id": 19256,
+    "talla": "One size",
+    "color": "White"
+   }
+  ]
+ },
+ "200": {
+  "nombre": "Crop top AOP",
+  "placements": {
+   "default": {
+    "cm": [
+     41.0,
+     21.0
+    ],
+    "dpi": 150,
+    "px": [
+     2421,
+     1240
+    ]
+   },
+   "label_inside": {
+    "cm": [
+     2.0,
+     1.0
+    ],
+    "dpi": 300,
+    "px": [
+     236,
+     118
+    ]
+   }
+  },
+  "variantes": [
+   {
+    "id": 7815,
+    "talla": "L",
+    "color": "White"
+   },
+   {
+    "id": 7814,
+    "talla": "M",
+    "color": "White"
+   },
+   {
+    "id": 7813,
+    "talla": "S",
+    "color": "White"
+   },
+   {
+    "id": 7816,
+    "talla": "XL",
+    "color": "White"
+   },
+   {
+    "id": 7812,
+    "talla": "XS",
+    "color": "White"
+   }
+  ]
+ }
+}

@@ -81,3 +81,11 @@ android-sdk/ -e
 # Environment files
 *.env
 *.env.*
+store-assets/ads/out/jpg/
+store-assets/ads/src2/
+store-assets/ads/out/lote02/
+store-assets/ads/lotes/estado-*.json
+store-assets/ads/out/lote03/
+store-assets/ads/out/lote04/
+store-assets/ads/out/gorros/
+store-assets/ads/out/fichas/
