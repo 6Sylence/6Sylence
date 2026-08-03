@@ -22,14 +22,13 @@ Tienda: Street Royalty Hood (srhood.com) · Tarea programada "Mejora el branding
    - Esenciales SRHOOD, Completa el Look, Deporte & Gym (navy), Eco & Orgánico (oliva) (seal)
    - Menos de 40 €, Nuevos Colores (burdeos), All-Over Print, Drop Julio 2026 (navy) (band)
    CDN: https://cdn.shopify.com/s/files/1/1003/6874/4832/files/brand-cover-<handle>.jpg
-3. NOTA técnica: `collectionUpdate` con `image.src` procesa la imagen de forma
-   asíncrona — el alt cambia al momento pero la URL de la imagen tarda en
-   reflejarse. Verificar en corridas siguientes que las 12 portadas quedaron
-   aplicadas; si alguna no, re-lanzar collectionUpdate con la URL staged de Google
-   (el CDN propio de la tienda como src puede no re-procesarse).
+3. NOTA técnica: `collectionUpdate` con `image.src` reemplaza el CONTENIDO de la
+   imagen manteniendo el path/nombre de archivo antiguo en la URL (solo sube el
+   cache-buster `v=`). No es un fallo: verificado descargando las URLs — las
+   portadas nuevas (1600×1600) están en vivo. No re-lanzar mutaciones por ver el
+   nombre antiguo en la URL.
 
 ## Pendiente / siguientes corridas
-- Verificar aplicación efectiva de las 12 portadas (ver nota técnica).
 - Portadas restantes con foto cruda: colecciones cápsula (usan foto de producto,
   aceptable) y las PNG neón antiguas: Camisetas, Sudaderas, Pantalones, Gorras,
   Chaquetas, Oversized, Crown Capsule, Calzado, Accesorios, Bikinis, Bañadores —
