@@ -42,6 +42,20 @@ Tienda: Street Royalty Hood (srhood.com) · Tarea programada "Mejora el branding
 - collectionUpdate admite varios updates con alias en una mutación (lotes de 5-7;
   19 de golpe dio error temporal del Admin API).
 
+## Corrida 3 (mismo día): SEO de colecciones en voz de marca
+- Auditadas las 50 colecciones: 18 cápsulas/líneas no tenían NINGÚN SEO; ~14 sin
+  título; Gorras y Calzado H/M sin descripción. Rellenado todo: títulos ≤60 chars
+  con sufijo "| SRHOOD" y descripciones ≤155 chars en la voz de la casa.
+  Resultado: 49/50 con SEO completo (frontpage se deja — su meta es la de la
+  portada, ajuste de admin).
+- ⚠️ LECCIÓN IMPORTANTE: en `collectionUpdate`, el input `seo` REEMPLAZA el objeto
+  completo — enviar solo `title` borra la `description` existente (y viceversa).
+  Pasó en 18 colecciones y se restauró en la misma corrida con los valores de la
+  auditoría previa. SIEMPRE enviar ambos campos.
+- Los títulos SEO antiguos keyword-stuffed (Eco, Deporte, Nuevos Colores, AOP,
+  Completa el Look, Drop Julio) se dejaron como estaban: funcionales, y tocarlos
+  sin ambos campos era el riesgo anterior. Candidatos a normalizar en otra corrida.
+
 ## Pendiente / siguientes corridas
 - Sigue pendiente (requiere admin): idioma principal a Español; la meta descripción
   de la tienda sigue en inglés (no editable por API).
