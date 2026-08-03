@@ -28,10 +28,20 @@ Tienda: Street Royalty Hood (srhood.com) · Tarea programada "Mejora el branding
    portadas nuevas (1600×1600) están en vivo. No re-lanzar mutaciones por ver el
    nombre antiguo en la URL.
 
+## Corrida 2 (mismo día, a petición del usuario)
+- Añadidas 19 portadas más a `brand_covers.py` (tanda 2) y aplicadas: Ropa
+  Streetwear, Accesorios, Calzado & Sneakers, Oversized Club, Crown Capsule,
+  Camisetas, Sudaderas & Hoodies, Pantalones & Joggers, Chaquetas (navy),
+  Gorras & Gorros, Bolsas & Mochilas, Bañadores (navy), Bikinis (navy),
+  Zapatillas Altas / Bajas & Slip-On / Deportivas, Slides & Chanclas (navy),
+  Calzado Hombre, Calzado Mujer (arena). Con esto, TODAS las portadas neón
+  antiguas y fotos crudas de categoría quedan sustituidas; las cápsulas siguen
+  con foto de producto (decisión consciente: muestran el patrón).
+- Flujo simplificado verificado: stagedUploadsCreate con httpMethod PUT (una sola
+  URL firmada por archivo, curl -X PUT) es mucho más manejable que POST multipart.
+- collectionUpdate admite varios updates con alias en una mutación (lotes de 5-7;
+  19 de golpe dio error temporal del Admin API).
+
 ## Pendiente / siguientes corridas
-- Portadas restantes con foto cruda: colecciones cápsula (usan foto de producto,
-  aceptable) y las PNG neón antiguas: Camisetas, Sudaderas, Pantalones, Gorras,
-  Chaquetas, Oversized, Crown Capsule, Calzado, Accesorios, Bikinis, Bañadores —
-  candidatas a rehacer con `brand_covers.py` (añadir entradas a COVERS).
 - Sigue pendiente (requiere admin): idioma principal a Español; la meta descripción
   de la tienda sigue en inglés (no editable por API).
