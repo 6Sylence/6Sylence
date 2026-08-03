@@ -237,3 +237,9 @@ no enseñaba el estampado.
 Los mismos de la primera tanda, porque la base es la misma: hoodie 84,95 €,
 sudadera 74,95 €, pantalón 69,95 €, bandolera 44,95 €, crop top 39,95 €. Siguen
 siendo los mejores márgenes del catálogo, de +19,38 € a +40,01 €.
+
+### Estado final de la segunda tanda
+
+**216/216 variantes vinculadas y 376 ficheros de impresión en `ok`**, con las
+colocaciones completas en las cinco prendas. El catálogo de estampado integral pasa
+de 20 a **40 productos**: ocho cápsulas × cinco bases.
