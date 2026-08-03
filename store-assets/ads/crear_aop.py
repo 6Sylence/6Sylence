@@ -89,6 +89,32 @@ CAPSULAS = {
               "recoge en papel la figura que el agua le da. Nunca sale dos veces igual. "
               "Tinta sobre hueso, línea finísima, sin un solo color más. Lo más callado "
               "que ha hecho la casa, y por eso lo más difícil de ignorar."),
+    # ── Tercera tanda: las dos primeras cápsulas dibujadas con jerarquía de tres
+    # escalas y trazo de grosor variable. Y las dos primeras que salen en **dos
+    # colorways**, que es como trabaja de verdad una marca de moda: el mismo
+    # dibujo cambiado de paleta multiplica la colección sin repetir el trabajo.
+    "barroco": dict(
+        nombre="Barroco", sub="Cartela Real", tag="barroco-real", color="Negro y oro",
+        intro="Una cartela de damasco entera: el cuerpo ojival de la granada con sus "
+              "escamas, dos hojas de acanto dentadas envolviéndolo y la corona en la "
+              "cima. Está dibujado a tres escalas —la cartela, la palmeta de relleno y "
+              "una trama diagonal de fondo que solo se ve de cerca— para que la prenda "
+              "funcione igual a un metro que en la mano."),
+    "barroco-vino": dict(
+        nombre="Barroco Vino", sub="Cartela Real", tag="barroco-real",
+        color="Burdeos y oro",
+        intro="La misma cartela de damasco, en burdeos profundo con el oro encima y las "
+              "coronas en crema. El negro es el uniforme de la casa; el vino es para "
+              "cuando el uniforme se queda corto."),
+    "piton": dict(
+        nombre="Pitón", sub="Piel Real", tag="piton-real", color="Oro y oliva",
+        intro="Escamas que se solapan como tejas, cada una con su canto de luz, y encima "
+              "las manchas de silla que dibuja la piel de un pitón. Dos escalas en una: "
+              "de cerca se cuentan las escamas, de lejos se leen las manchas."),
+    "piton-hueso": dict(
+        nombre="Pitón Hueso", sub="Piel Real", tag="piton-real", color="Hueso y topo",
+        intro="La misma piel, decolorada. Escama sobre escama en hueso y topo, sin una "
+              "gota de color. Es la versión que se lleva de día y con vaquero claro."),
 }
 
 PRENDAS = {

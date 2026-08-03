@@ -68,7 +68,8 @@ PRENDAS = {
     "crop":      (200, ["default"], "200-2421x1240", "39.95"),
 }
 CAPSULAS = ["brocado", "malaquita", "meandro", "camo",
-            "tartan", "azulejo", "eslabon", "suminagashi"]
+            "tartan", "azulejo", "eslabon", "suminagashi",
+            "barroco", "barroco-vino", "piton", "piton-hueso"]
 
 
 def api(metodo, ruta, cuerpo=None, reintentos=6):
@@ -113,7 +114,16 @@ def clasificar(nombre):
     prenda = ("hoodie" if "hoodie" in n else "sudadera" if "sudadera" in n else
               "pantalon" if "pantal" in n else "bandolera" if "bandolera" in n else
               "crop" if "crop" in n else None)
-    capsula = next((c for c in CAPSULAS if c in n), None)
+    # Los colorways obligan a dos cuidados, y saltárselos manda el diseño
+    # equivocado a fabricar sin avisar de nada:
+    #   · el título separa con espacio («Barroco Vino») y la clave con guion
+    #     («barroco-vino»), así que hay que normalizar antes de comparar;
+    #   · «barroco» es prefijo de «barroco-vino», así que se prueban las claves
+    #     **de más larga a más corta** y gana la más específica. Al revés, todos
+    #     los Barroco Vino se habrían fabricado con el fichero del Barroco negro.
+    n_guion = n.replace(" ", "-")
+    capsula = next((c for c in sorted(CAPSULAS, key=len, reverse=True)
+                    if c in n_guion), None)
     if not prenda or not capsula:
         return None
     return prenda, capsula

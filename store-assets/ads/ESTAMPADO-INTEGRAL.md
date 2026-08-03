@@ -243,3 +243,52 @@ siendo los mejores márgenes del catálogo, de +19,38 € a +40,01 €.
 **216/216 variantes vinculadas y 376 ficheros de impresión en `ok`**, con las
 colocaciones completas en las cinco prendas. El catálogo de estampado integral pasa
 de 20 a **40 productos**: ocho cápsulas × cinco bases.
+
+---
+
+## Tercera tanda: dos cápsulas dibujadas de otra manera (03/08)
+
+Veinte fichas más. El catálogo integral pasa de 40 a **60 productos**: doce cápsulas
+× cinco bases.
+
+Lo que cambia aquí no es el motivo, es **cómo está dibujado**. Las ocho primeras
+cápsulas compartían dos limitaciones de oficio:
+
+1. **Una sola escala.** Un patrón que repite el mismo motivo por toda la tela se
+   convierte en color plano a un metro de distancia. Un estampado de firma tiene
+   jerarquía: motivo dominante, relleno secundario y fondo con textura.
+2. **Trazo de grosor constante.** Una línea de ancho fijo se lee como cable. El
+   dibujo a mano engorda donde el pincel apoya y adelgaza donde levanta.
+
+| Cápsula | Colorways | Qué prueba |
+|---|---|---|
+| **Barroco — Cartela Real** | oro sobre negro · oro sobre burdeos | Tres escalas: cartela, palmeta de relleno y trama diagonal de fondo. Todo con trazo de grosor variable |
+| **Pitón — Piel Real** | oro y oliva · hueso y topo | Dos escalas y volumen real: escamas que se solapan como tejas, con canto de luz |
+
+**Y estrena los colorways**, que es como trabaja de verdad una marca: el mismo
+dibujo cambiado de paleta multiplica la colección sin repetir el trabajo de diseño.
+
+### Tres errores de dibujo que costó ver
+
+- **La espina de pescado.** El primer barroco dibujaba las hojas con trazo cónico
+  —ancho al principio, punta al final—. Eso es un tallo, no una hoja: una hoja es
+  panzuda. Con `trazo_perfilado()`, que describe el grosor punto a punto, y el
+  perfil `sin(πt)^0,62`, la lámina aparece. Y hacen falta **dientes**: una lámina
+  lisa de ese tamaño se lee como un plátano.
+- **El plástico de burbujas.** Las escamas del pitón salían redondas y con un
+  brillo en el centro. Agrandarlas dentro de su propia celda no solapa nada: las
+  **recorta**, y la costura subió de 9,6 a 11,45. Un solape de verdad exige evaluar
+  tres celdas candidatas —la propia y las filas de arriba y abajo— y quedarse con la
+  que toca. Con eso desaparece el canto duro de cada fila y la costura baja a 0,80.
+- **Los colorways son un riesgo de fabricación.** «barroco» es prefijo de
+  «barroco-vino», y `clasificar()` buscaba subcadenas: todos los Barroco Vino se
+  habrían fabricado con el fichero del Barroco negro, **sin ningún error visible**.
+  Ahora se normaliza el separador y se prueba de clave más larga a más corta.
+
+### Una observación honesta sobre el pitón
+
+A escala de prenda entera —hoodie, sudadera, pantalón— las manchas de silla se leen
+más como **camuflaje escamado** que como piel de serpiente, y la tienda ya tiene una
+cápsula Camo. En bandolera y crop top sí se lee como pitón, porque el panel es
+pequeño y cae dentro de una sola mancha. Se corrige agrandando el repetido solo para
+esta cápsula; queda anotado, no hecho.
