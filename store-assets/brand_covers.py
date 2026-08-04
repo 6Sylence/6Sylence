@@ -245,6 +245,11 @@ COVERS = {
     "zapatillas-deportivas":(cover_band, dict(title="DEPORTIVAS", subtitle="PARA ENTRENAR O PARA LA CALLE")),
     "slides-chanclas":      (cover_band, dict(title="SLIDES & CHANCLAS", subtitle="VERANO ROYALTY",
                                               bg=(NAVY_HI, NAVY))),
+    # ---- tanda 3 (2026-08-04): cápsulas nuevas sin portada
+    "capsula-piton-piel-real":   (cover_band, dict(title="CÁPSULA PITÓN", subtitle="PIEL REAL",
+                                              bg=(OLIVA_HI, OLIVA), accent=CREMA, accent_hi=CREMA)),
+    "capsula-barroco-cartela-real": (cover_band, dict(title="CÁPSULA BARROCO", subtitle="CARTELA REAL",
+                                              bg=((110, 36, 50), BURDEOS))),
 }
 
 if __name__ == "__main__":

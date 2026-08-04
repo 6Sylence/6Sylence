@@ -98,6 +98,26 @@ Tienda: Street Royalty Hood (srhood.com) · Tarea programada "Mejora el branding
   decidir activar-vs-borrar por cápsulas curadas para no publicar duplicados
   (mismo criterio que la auditoría del 15-jul).
 
+## Corrida 7 (2026-08-04): menú auditado + hueco de colecciones nuevas cerrado
+- Auditoría del menú principal: estructura correcta (Novedades+cápsulas, Hombre,
+  Mujer, Accesorios, Colecciones, Menos de 40 €); TODOS los enlaces resuelven
+  (Forja y Bandanas existían, solo eran posteriores a mi listado de 50).
+- HALLAZGO: el catálogo sigue creciendo — había 18 colecciones nuevas SIN SEO
+  (Observatorio, Vidriera, Neón, Guilloché, Plumaje, Kintsugi, Frecuencia,
+  Baraja, Laurel, Camo Real, Eslabón, Tartán, Forja, Brocado, Malaquita,
+  Meandro, Marquetería y la contenedora "Cápsulas SRHOOD — Series Limitadas"
+  con 250 productos) y 2 sin portada (Pitón, Barroco). Todo cerrado: SEO en
+  voz de casa + portadas band (Pitón oliva, Barroco burdeos) verificadas en CDN.
+- LECCIÓN para corridas futuras: `collections(first:50)` pagina — comprobar
+  SIEMPRE pageInfo/ordenar por ID desc para pillar colecciones recién creadas.
+  Las corridas de contenido deben ser incrementales: revisar qué se creó desde
+  la última pasada (las cápsulas nuevas nacen sin SEO ni portada de marca).
+- Recomendación de menú (no aplicada — menuUpdate reemplaza el árbol entero y
+  no compensa el riesgo en autónomo): apuntar el item padre "Colecciones"
+  (hoy → royalty-classics) a capsulas-srhood-series-limitadas, y refrescar el
+  submenú de Novedades con las cápsulas más recientes (Marquetería, Malaquita,
+  Pitón, Barroco).
+
 ## Pendiente / siguientes corridas
 - Sigue pendiente (requiere admin): idioma principal a Español; la meta descripción
   de la tienda sigue en inglés (no editable por API).
