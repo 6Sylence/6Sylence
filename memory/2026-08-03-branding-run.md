@@ -81,6 +81,23 @@ Tienda: Street Royalty Hood (srhood.com) · Tarea programada "Mejora el branding
 - Herramientas: build_seo.py (generador de variables) y el flujo por lotes quedan
   descritos aquí; los batch*.json eran temporales del scratchpad de la sesión.
 
+## Corrida 6: naming consistente en productos EN VIVO + auditoría de drafts
+- Renombrados los 61 activos con prefijo antiguo "Street Royalty | " (línea de
+  baño con estampados: bañadores, bikinis, board shorts, mesh shorts) → formato
+  actual "Nombre — Variante". El handle/URL no cambia al renombrar.
+- Normalizados los 13 títulos SEO >60 chars heredados → "Nombre — Color | SRHOOD".
+- Con esto el naming de TODO lo visible al cliente es consistente.
+- AUDITORÍA DE DRAFTS (705, creció desde 653): 404 con "Street Royalty | ",
+  42 con "SRHOOD | ", 259 sin prefijo. Casi todos creados en julio.
+  Preparado `store-assets/draft_renames.jsonl` (446 renombres, 0 títulos
+  duplicados tras limpiar prefijo y sufijo "— Street Royalty") listo para
+  aplicar en lotes de 25 productUpdate {id,title} — title es campo de nivel
+  superior, NO toca el objeto seo.
+- RECOMENDACIÓN drafts (decisión de admin/usuario): los drafts no son visibles;
+  aplicar draft_renames.jsonl justo antes de cualquier activación por lotes, y
+  decidir activar-vs-borrar por cápsulas curadas para no publicar duplicados
+  (mismo criterio que la auditoría del 15-jul).
+
 ## Pendiente / siguientes corridas
 - Sigue pendiente (requiere admin): idioma principal a Español; la meta descripción
   de la tienda sigue en inglés (no editable por API).
