@@ -28,6 +28,8 @@ Ejecuta siempre desde `amea_agent/` con `python -m src.main`, porque los módulo
 
 ## Configuración (`.env`)
 
+Copia la plantilla: `cp env.example .env` (el `.gitignore` del repositorio excluye `.env`).
+
 | Variable          | Por defecto              |
 |-------------------|--------------------------|
 | `OLLAMA_BASE_URL` | `http://localhost:11434` |
